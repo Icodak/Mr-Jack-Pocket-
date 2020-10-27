@@ -1,0 +1,48 @@
+
+import java.awt.Image;
+
+public class ActionToken {
+	private boolean jackturn;
+	private int[] actionType = new int[2];
+	private boolean isSelected;
+	private Image image ;
+	
+	
+	public ActionToken(boolean jackturn, int[] actionType, boolean isSelected, Image image) {
+		super();
+		this.jackturn = jackturn;
+		this.actionType = actionType;
+		this.isSelected = isSelected;
+		this.image = image;
+	}
+	
+	
+	
+	public boolean isJackturn() {
+		return jackturn;
+	}
+	public void setJackturn(boolean jackturn) {
+		this.jackturn = jackturn;
+	}
+	public int[] getActionType() {
+		return actionType;
+	}
+	public void setActionType(int[] actionType) {
+		this.actionType = actionType;
+	}
+	public boolean isSelected() {
+		return isSelected;
+	}
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+	
+	
+}
