@@ -1,0 +1,47 @@
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Color;
+import javax.swing.JButton;
+
+public class Graphical extends JFrame {
+
+		private static final long serialVersionUID = 1L;
+		
+		
+
+		
+		public void startInterface() {
+		JFrame cadre = new javax.swing.JFrame("Mr.Jackpocket");
+		
+		JPanel panneau = new JPanel();	
+		JPanel panneautwo = new JPanel();
+		JButton bouton = new JButton("JOUER !");
+		
+		int hauteur =250;
+		int largeur = 250;	
+		bouton.setPreferredSize(new Dimension(500, 250));
+		panneautwo.setPreferredSize(new Dimension(500, 500));
+		panneau.setPreferredSize(new Dimension(hauteur, largeur));
+		
+		panneautwo.setBackground(Color.WHITE);	
+		panneau.setBackground(Color.WHITE);	
+		
+		cadre.setContentPane(panneau);	
+		panneau.add(panneautwo);
+		panneautwo.add(bouton);
+		panneautwo.setVisible(true);
+		panneau.setVisible(true);
+	
+		
+		cadre.setLocation(200, 200);
+		cadre.pack();
+		cadre.setVisible(true);
+		cadre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		panneau.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+		panneau.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+		
+	  
+		}
+	}
