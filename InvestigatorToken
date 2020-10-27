@@ -1,0 +1,35 @@
+import java.awt.Image;
+
+
+public class InvestigatorToken {
+	private String name;
+	private int[] coord= new int[2];
+	private Image image ;
+	
+	public InvestigatorToken(String name, int[] coord, Image image) {
+		super();
+		this.name = name;
+		this.coord = coord;
+		this.image = image;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int[] getCoord() {
+		return coord;
+	}
+	public void setCoord(int[] coord) {
+		this.coord = coord;
+	}
+	public Image getImage() {
+		return image;
+	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
+}
