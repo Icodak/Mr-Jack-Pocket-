@@ -1,0 +1,35 @@
+public class Player {
+	private String playerName;
+	private boolean isJack;
+	private int hourglass;
+	
+	
+	
+	public Player(String playerName, boolean isJack, int hourglass) {
+		super();
+		this.playerName = playerName;
+		this.isJack = isJack;
+		this.hourglass = hourglass;
+	}
+	
+	public String getPlayerName() {
+		return playerName;
+	}
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+	public boolean isJack() {
+		return isJack;
+	}
+	public void setJack(boolean isJack) {
+		this.isJack = isJack;
+	}
+	public int getHourglass() {
+		return hourglass;
+	}
+	public void setHourglass(int hourglass) {
+		this.hourglass = hourglass;
+	}
+	
+	
+}
