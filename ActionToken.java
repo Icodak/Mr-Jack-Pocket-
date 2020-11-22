@@ -1,11 +1,11 @@
-public class ActionToken {
+public abstract class ActionToken {
 	private boolean isRecto;
-
-
 	
-	public ActionToken(boolean isRecto) {
-		super();
-		this.isRecto = isRecto;
+	public void playAction(){	
+	}
+	
+	public void flip() {
+		isRecto = !isRecto;
 	}
 
 	public boolean isRecto() {
@@ -15,10 +15,4 @@ public class ActionToken {
 	public void setRecto(boolean isRecto) {
 		this.isRecto = isRecto;
 	}
-	
-	public void play(Players player) {
-		
-	}
-	
-	
 }
