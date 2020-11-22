@@ -1,21 +1,16 @@
 
-public class Cell<T> {
+public abstract class Cell {
 	
-	private T cell;
 	
-	public Cell(T cell) {
-		this.setCell((T) cell);
-		
+	public Cell() {
 	}
 
-	public T getCell() {
-		return cell;
+	public Cell getCell() {
+		// TODO Auto-generated method stub
+		return this;
 	}
 
-	public void setCell(T cell2) {
-		this.cell = cell2;
-	}
 	
-	
-
 }
+
+

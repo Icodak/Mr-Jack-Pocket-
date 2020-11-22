@@ -1,7 +1,7 @@
 
 import java.util.ArrayList;
 
-public class DetectiveToken {
+public class DetectiveToken extends Cell{
 	
 	private ArrayList<DetectiveName> detectiveList = new ArrayList<DetectiveName>();
 	
@@ -30,6 +30,13 @@ public class DetectiveToken {
 		
 
 	}
+	
+	
+	public String toString(){
+		return detectiveList.toString();
+	}
+
+	
 
 
 

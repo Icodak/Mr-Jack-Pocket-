@@ -1,11 +1,11 @@
 
 
-public class District {
+public class District extends Cell{
 	private AlibiName character;
 	private Orientation orientation = Orientation.EAST;
 	private boolean[] walls;
 	private boolean isRecto = true;
-	private CellType type;
+	private DistrictType type;
 	
 	
 	public boolean[] getWalls() {
@@ -26,15 +26,15 @@ public class District {
 				
 	}
 	
-	public CellType getType() {
+	public DistrictType getType() {
 		return type;
 	}
 
-	public void setType(CellType type) {
+	public void setType(DistrictType type) {
 		this.type = type;
 	}
 
-	public District(AlibiName character,CellType type) {
+	public District(AlibiName character,DistrictType type) {
 		this.setCharacter(character);
 		this.type = type;		
 	}

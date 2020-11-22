@@ -1,19 +1,19 @@
 
-public enum CellType {
+public enum DistrictType {
 
-	CROSS(false,false,false,false),
+	CROSS_SHAPE(false,false,false,false),
 	T_SHAPE(false,false,true,false),
-	LINE(false,true,false,true),
+	LINE_SHAPE(false,true,false,true),
 	L_SHAPE(false,false,true,true),
-	CUL_DE_SAC(true,false,true,true),
-	BLOCK(true,true,true,true);
+	CUL_DE_SAC_SHAPE(true,false,true,true),
+	BLOCK_SHAPE(true,true,true,true);
 	
 	public final boolean e;
 	public final boolean n;
 	public final boolean w;
 	public final boolean s;
 	
-	CellType(boolean e,boolean n, boolean w, boolean s){
+	DistrictType(boolean e,boolean n, boolean w, boolean s){
 		this.e = e;
 		this.n = n;
 		this.w = w;

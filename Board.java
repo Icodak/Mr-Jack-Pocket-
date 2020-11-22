@@ -13,18 +13,27 @@ public class Board {
 	public Cell[][] getBoard() {
 		return board;
 	}
-
+	
 	public void setBoard(Cell[][] board) {
 		this.board = board;
 	}
+	
+	public Cell getCell(List<Integer> coord) {
+		return board[coord.get(1)][coord.get(0)];
+	}
+	
+	public void setCell(Cell cell,List<Integer> coord) {
+		board[coord.get(1)][coord.get(0)] = cell;
+	}
 
-	@SuppressWarnings("unchecked")
+
+
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {
 		if (board[coord1.get(0)][coord1.get(1)].getCell() instanceof District
 				&& board[coord2.get(0)][coord2.get(1)].getCell() instanceof District) {
-			Cell<District> cellTemp = (Cell<District>) board[coord1.get(0)][coord1.get(1)].getCell();
-			board[coord1.get(0)][coord1.get(1)].setCell(board[coord2.get(0)][coord2.get(1)].getCell());
-			board[coord2.get(0)][coord2.get(1)].setCell(cellTemp);
+			Cell cellTemp = board[coord1.get(0)][coord1.get(1)].getCell();
+			setCell(board[coord2.get(0)][coord2.get(1)].getCell(), Arrays.asList(coord1.get(0),coord1.get(1)));
+			setCell(cellTemp, Arrays.asList(coord2.get(0),coord2.get(1)));
 		}
 	}
 
