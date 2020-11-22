@@ -1,4 +1,3 @@
-package fr.arsenesoulie.jackpocket;
 
 public class Cell<T> {
 	

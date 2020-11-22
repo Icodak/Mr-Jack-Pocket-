@@ -1,4 +1,3 @@
-package fr.arsenesoulie.jackpocket;
 
 public enum Orientation {
 	

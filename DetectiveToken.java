@@ -1,4 +1,3 @@
-package fr.arsenesoulie.jackpocket;
 
 import java.util.ArrayList;
 
