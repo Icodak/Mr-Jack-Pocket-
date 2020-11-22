@@ -36,6 +36,15 @@ public class Board {
 			setCell(cellTemp, Arrays.asList(coord2.get(0),coord2.get(1)));
 		}
 	}
+	
+	public void rotate(Orientation orientation, List<Integer> coords) {
+		Cell cell = getCell(coords);
+		if (cell.getCell() instanceof District) {
+			((District) getCell(coords).getCell()).setOrientation(orientation);
+		}
+
+	}
+	
 
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
 		List<Integer> coords = new ArrayList<>();
