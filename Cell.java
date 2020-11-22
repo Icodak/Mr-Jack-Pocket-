@@ -22,7 +22,7 @@ public class Cell {
 	}
 	
 	public String getDetectiveToString() {
-		return (detective[0]+""+detective[1]+""+detective[2]);
+		return (detective[0].getName()+""+detective[1].getName()+""+detective[2].getName());
 	}
 	
 	

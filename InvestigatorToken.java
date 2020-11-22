@@ -15,11 +15,11 @@ public class InvestigatorToken {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public static String[] listDetectiveConstructor(String name,String nameTwo,String nameThree){
-		String[] detectiveListe= {
-				name,
-				nameTwo,
-				nameThree,			
+	public static InvestigatorToken[] listDetectiveConstructor(String name,String nameTwo,String nameThree){
+		InvestigatorToken[] detectiveListe= {
+				new InvestigatorToken(name),
+				new InvestigatorToken(nameTwo),
+				new InvestigatorToken(nameThree),
 		};
 		return detectiveListe;
 	}

@@ -9,7 +9,7 @@ public class Game {
 	public InvestigatorToken[] investigators= new InvestigatorToken[3];
 	public Card[] InvestigatorCards= new Card[8];
 	public Card[] jackCard;
-	public Card[] deck =new Card[8];
+	public Card[] deck =new Card[9];
 	public  TimeToken[] time =new TimeToken[8];
 	public  ActionToken[] action = new  ActionToken[4];
 	
@@ -19,8 +19,11 @@ public class Game {
 	}
 	
 	public void gameInitialisation() {
-		tileInitialisation();
-		
+		Card[] liste =deckCreator();
+		for (int j=0;j<9;j++) {
+			System.out.println(liste[j].getCharacter()+"   "+liste[j].getHourglass());
+		}
+	randomIntGenerator();
 	}
 	
 	
@@ -38,14 +41,13 @@ public class Game {
 	}
 	
 	public 	int[] randomIntGenerator() {
-		int[] liste= {0,1,2,3,4,5,6,7,8,9};
+		int[] liste= {0,1,2,3,4,5,6,7,8};
 		Random random = new Random();
 		for(int i=0;i<9;i++) {		
 			int Aleatoire=random.nextInt(9);
-			int Aleatoiretwo=random.nextInt(9);
-			int swp=liste[Aleatoire];
-			liste[Aleatoire]=liste[Aleatoiretwo];
-			liste[Aleatoiretwo]=swp;			
+			int swp=liste[i];
+			liste[i]=liste[Aleatoire];
+			liste[Aleatoire]=swp;
 		}		
 		return liste;
 	}
@@ -71,40 +73,64 @@ public class Game {
 		String[] listeName=randomstringGenerator();
 		int indice=0;
 		InvestigatorToken[] array= {
-				new InvestigatorToken(""),
-				new InvestigatorToken(""),
-				new InvestigatorToken(""),
+				new InvestigatorToken("      "),
+				new InvestigatorToken("      "),
+				new InvestigatorToken("      "),
 		};
 		Cell[][] arraytwo= new Cell[5][5];
 		
-		for (int i=0;i<4;i++) {
-			for (int j=0;j<4;j++) {
+		for (int i=0;i<5;i++) {
+			for (int j=0;j<5;j++) {
 				arraytwo[i][j]=new Cell(array, new Tile( randombooleanGenerate(), false, false,""));
-				indice++;
 			}
 		}
 		
-		for (int i=1;i<3;i++) {
-			for (int j=1;j<3;j++) {
-				arraytwo[i][j]=new Cell(array, new Tile( randombooleanGenerate(), false, false,listeName[indice]));
+		for (int p=1;p<4;p++) {
+			for (int f=1;f<4;f++) {
+				arraytwo[p][f]=new Cell(array, new Tile( randombooleanGenerate(), false, false,listeName[indice]));
 				indice++;
 			}
 		}
+		arraytwo[1][0]=new Cell(InvestigatorToken.listDetectiveConstructor(detectiveName[1], "", ""), new Tile( randombooleanGenerate(), false, false,""));
+		arraytwo[1][4]=new Cell(InvestigatorToken.listDetectiveConstructor(detectiveName[0]+"  ","",""), new Tile( randombooleanGenerate(), false, false,""));
+		arraytwo[4][2]=new Cell(InvestigatorToken.listDetectiveConstructor(detectiveName[2]+"  ", "",""), new Tile( randombooleanGenerate(), false, false,""));
 		
 		board.setBoard(arraytwo);		
 		return board;
 	}
 	
 	
+	
+	
 	public void printBoard(Cell[][] board){
+		System.out.println("");
 		for(int i=0;i<5;i++) {
 		for(int j=0;j<5;j++) {
-			System.out.print(board[i][j].getDetectiveToString()+""+board[i][j].getDiscrict());
+			if(i==0 || i==4 ||j==0||j==4) {
+				System.out.print(board[i][j].getDetectiveToString()+"\t");
+			}
+			else {
+				System.out.print(board[i][j].getDiscrict().getCharacter()+"\t");
+			}
 		}
 		System.out.println("");
+		System.out.println("");
+		}	
+    }
+	
+	public Card[] deckCreator() {
+		int[] timePoint= {0,0,1,1,1,1,1,1,2};;
+		String[] liste=randomstringGenerator();
+		for(int i=0;i<9;i++) {
+			deck[i] = new Card(liste[i], false, timePoint[i], true);
 		}
+		return deck;
 	}
 	
 	
 	
+	
+	
+
+
 }
