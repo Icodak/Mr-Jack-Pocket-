@@ -1,31 +1,22 @@
-public class Cell {
-	private InvestigatorToken[] detective ;
-	private Tile discrict;
+package fr.arsenesoulie.jackpocket;
+
+public class Cell<T> {
+	
+	private T cell;
+	
+	public Cell(T cell) {
+		this.setCell((T) cell);
 		
-	
-	public Cell(InvestigatorToken[] investigatorToken, Tile discrict) {
-		this.detective = investigatorToken;
-		this.discrict = discrict;
 	}
-	
-	public InvestigatorToken[] getDetective() {
-		return detective;
+
+	public T getCell() {
+		return cell;
 	}
-	public void setDetective(InvestigatorToken[] detective) {
-		this.detective = detective;
-	}
-	public Tile getDiscrict() {
-		return discrict;
-	}
-	public void setDiscrict(Tile discrict) {
-		this.discrict = discrict;
-	}
-	
-	public String getDetectiveToString() {
-		return (detective[0].getName()+""+detective[1].getName()+""+detective[2].getName());
+
+	public void setCell(T cell2) {
+		this.cell = cell2;
 	}
 	
 	
-	
-	
+
 }
