@@ -1,16 +1,10 @@
+import java.util.ArrayList;
 
-public class Mrjack extends Players{
-	private Card jackCard;
-	
-		public Mrjack(Card[] alibiCard, TimeToken[] turnToken,Card jackCard) {
-		super(alibiCard, turnToken);
-		this.jackCard=jackCard;
+public class Mrjack extends Player {
+
+	public Mrjack(ArrayList<Card> alibiDeck, TimeToken[] turnToken) {
+		super(alibiDeck, turnToken);
 		// TODO Auto-generated constructor stub
 	}
-
-	
-		
-	
-	
 
 }

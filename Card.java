@@ -1,47 +1,28 @@
 
 
 public class Card {
-	private String character;
-	private boolean isFlipped;
+	private AlibiName character;
 	private int hourglass;
-	private boolean inDeck;
+
 	
-	
-	
-	
-	public Card(String character, boolean isFlipped, int hourglass, boolean inDeck) {
-		super();
+	public Card(AlibiName character, int hourglass) {
 		this.character = character;
-		this.isFlipped = isFlipped;
 		this.hourglass = hourglass;
-		this.inDeck = inDeck;
 	}
 	
-	public String getCharacter() {
+	public AlibiName getCharacter() {
 		return character;
 	}
-	public void setCharacter(String character) {
+	public void setCharacter(AlibiName character) {
 		this.character = character;
 	}
-	public boolean isFlipped() {
-		return isFlipped;
-	}
-	public void setFlipped(boolean isFlipped) {
-		this.isFlipped = isFlipped;
-	}
+
 	public int getHourglass() {
 		return hourglass;
 	}
 	public void setHourglass(int hourglass) {
 		this.hourglass = hourglass;
 	}
-	public boolean isInDeck() {
-		return inDeck;
-	}
-	public void setInDeck(boolean inDeck) {
-		this.inDeck = inDeck;
-	}
-	
 	
 	
 }
