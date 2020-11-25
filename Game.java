@@ -38,7 +38,7 @@ public class Game {
 	}
 	
 
-	public static Board generateGameBoard() {
+	public static Cell[][] generateGameBoard() {
 		
 		DetectiveToken a1 = new DetectiveToken();
 		DetectiveToken a2 = new DetectiveToken();
@@ -86,10 +86,10 @@ public class Game {
 		Cell[] line4 = new Cell[] {d1,d2,d3,d4,d5};
 		Cell[] line5 = new Cell[] {e1,e2,e3,e4,e5};
 		
-		Cell[][] board = new Cell[][] {line1,line2,line3,line4,line5};
+		Cell[][] cellBoard = new Cell[][] {line1,line2,line3,line4,line5};
 		
-		Board plateau = new Board(board);
-		return plateau;
+		Board plateau = new Board(cellBoard);
+		return cellBoard;
 	}
 	
 

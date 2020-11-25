@@ -19,7 +19,6 @@ public enum DistrictType {
 		this.w = w;
 		this.s = s;
 	}
-	
 	public boolean[] getCellWalls() {
 		return new boolean[] {e,n,w,s};
 	}

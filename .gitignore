@@ -17,3 +17,7 @@
 /ActionToken.class
 /DistrictType.class
 /Player.class
+/SaveLoad.class
+/SaveLoad$JackPocketGame.class
+/JackPocketGame.class
+/Deck.class

@@ -24,5 +24,9 @@ public class Card {
 		this.hourglass = hourglass;
 	}
 	
+	public String toString() {
+		return character.name();
+		}
+	
 	
 }

@@ -4,8 +4,22 @@ public class District extends Cell{
 	private AlibiName character;
 	private Orientation orientation = Orientation.EAST;
 	private boolean[] walls;
+	public Orientation getOrientation() {
+		return orientation;
+	}
+
+
+	public void setWalls(boolean[] walls) {
+		this.walls = walls;
+	}
+
 	private boolean isRecto = true;
 	private DistrictType type;
+	
+	public District(AlibiName character,DistrictType type) {
+		this.setCharacter(character);
+		this.type = type;		
+	}
 	
 	
 	public boolean[] getWalls() {
@@ -34,11 +48,7 @@ public class District extends Cell{
 		this.type = type;
 	}
 
-	public District(AlibiName character,DistrictType type) {
-		this.setCharacter(character);
-		this.type = type;		
-	}
-	
+
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
@@ -60,10 +70,8 @@ public class District extends Cell{
 	}
 	
 	public String toString() {
-		boolean[] cellStyle = getWalls();
-		String cellString = "0    " + cellStyle[1] + "    0" + "\n" +
-				            cellStyle[2] +  " " +  character.toString().substring(0,3) +  " "  + cellStyle[0] + "\n" +
-				            "0    " + cellStyle[3] + "    0";
+
+		String cellString = "Character : " + character.toString() +  ", DistricyType : "  + type.toString();
 		return cellString;
 		
 	}

@@ -4,43 +4,44 @@ import java.util.List;
 
 public class Board {
 
-	Cell[][] board;
+	Cell[][] cellBoard;
 
-	Board(Cell[][] board) {
-		this.setBoard(board);
+	Board(Cell[][] cellBoard) {
+		this.cellBoard = cellBoard;
 	}
 
 	public Cell[][] getBoard() {
-		return board;
+		return cellBoard;
 	}
 	
-	public void setBoard(Cell[][] board) {
-		this.board = board;
+	public void setBoard(Cell[][] cellBoard) {
+		this.cellBoard = cellBoard;
 	}
 	
+
 	public Cell getCell(List<Integer> coord) {
-		return board[coord.get(1)][coord.get(0)];
+		return cellBoard[coord.get(1)][coord.get(0)];
 	}
 	
 	public void setCell(Cell cell,List<Integer> coord) {
-		board[coord.get(1)][coord.get(0)] = cell;
+		cellBoard[coord.get(1)][coord.get(0)] = cell;
 	}
 
 
 
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {
-		if (board[coord1.get(0)][coord1.get(1)].getCell() instanceof District
-				&& board[coord2.get(0)][coord2.get(1)].getCell() instanceof District) {
-			Cell cellTemp = board[coord1.get(0)][coord1.get(1)].getCell();
-			setCell(board[coord2.get(0)][coord2.get(1)].getCell(), Arrays.asList(coord1.get(0),coord1.get(1)));
+		if (cellBoard[coord1.get(0)][coord1.get(1)] instanceof District
+				&& cellBoard[coord2.get(0)][coord2.get(1)] instanceof District) {
+			Cell cellTemp = cellBoard[coord1.get(0)][coord1.get(1)];
+			setCell(cellBoard[coord2.get(0)][coord2.get(1)], Arrays.asList(coord1.get(0),coord1.get(1)));
 			setCell(cellTemp, Arrays.asList(coord2.get(0),coord2.get(1)));
 		}
 	}
 	
 	public void rotate(Orientation orientation, List<Integer> coords) {
 		Cell cell = getCell(coords);
-		if (cell.getCell() instanceof District) {
-			((District) getCell(coords).getCell()).setOrientation(orientation);
+		if (cell instanceof District) {
+			((District) getCell(coords)).setOrientation(orientation);
 		}
 
 	}
@@ -48,19 +49,19 @@ public class Board {
 
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
 		List<Integer> coords = new ArrayList<>();
-		for (int y = 0; y < board.length; y++) {
-			for (int x = 0; x < board[y].length; x++) {
+		for (int y = 0; y < cellBoard.length; y++) {
+			for (int x = 0; x < cellBoard[y].length; x++) {
 				coords = Arrays.asList(x, y);
 
-				if (board[x][y].getCell() instanceof DetectiveToken) {
+				if (cellBoard[x][y] instanceof DetectiveToken) {
 					// removes token from current position
-					if (((DetectiveToken) board[x][y].getCell()).getDetectiveList().contains(detectiveName)) {
-						((DetectiveToken) board[x][y].getCell()).removeDetective(detectiveName);
+					if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().contains(detectiveName)) {
+						((DetectiveToken) cellBoard[x][y]).removeDetective(detectiveName);
 						// finds new detectiveToken position
 						for (int move = 0; move < cellCount; move++) {
-							coords = slideAround(coords, Arrays.asList(board[y].length - 1, board.length - 1));
+							coords = slideAround(coords, Arrays.asList(cellBoard[y].length - 1, cellBoard.length - 1));
 						}
-						((DetectiveToken) board[coords.get(0)][coords.get(1)].getCell()).addDetective(detectiveName);
+						((DetectiveToken) cellBoard[coords.get(0)][coords.get(1)]).addDetective(detectiveName);
 					}
 				}
 			}
@@ -80,6 +81,18 @@ public class Board {
 		}
 
 		return coords;
+	}
+	
+	
+	public String toString() {
+		String sBoard = "";
+		for (int y = 0; y < cellBoard.length; y++) {
+			for (int x = 0; x < cellBoard[y].length; x++) {
+				sBoard += cellBoard[x][y].toString() + ",";
+				}
+			}
+		return sBoard;
+		
 	}
 
 }
