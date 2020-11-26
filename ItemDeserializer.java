@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collector.Characteristics;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,6 +32,7 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() },
 				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() } };
 
+		// Board
 		Board board = new Board(EmptyCellListe);
 
 		for (int y = 0; y < node.get("board").size(); y++) {
@@ -70,8 +72,21 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 
 			}
 		}
+
+		// Deck
+		ArrayList<Card> cardDeck = new ArrayList<>();
+		for (int i = 0; i < node.get("Card").size(); i++) {
+			Card card = new Card();
+			card.setCharacter(AlibiName.valueOf(node.get("Card").get(i).get(1).get("character").asText()));
+			card.setHourglass(node.get("Card").get(i).get(1).get("hourglass").asInt());
+			cardDeck.add(card);
+
+		}
+
 		JackPocketGame game = new JackPocketGame();
 		game.setBoard(board);
-		return new JackPocketGame();
+		game.setCardDeck(cardDeck);
+		System.out.println(cardDeck);
+		return game;
 	}
 }

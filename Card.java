@@ -8,6 +8,10 @@ public class Card {
 		this.hourglass = hourglass;
 	}
 
+	public Card() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public AlibiName getCharacter() {
 		return character;
 	}
