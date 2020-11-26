@@ -1,3 +1,6 @@
+package board.district;
+import board.Cell;
+import items.AlibiName;
 
 public class District extends Cell {
 	private AlibiName character;

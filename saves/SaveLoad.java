@@ -1,3 +1,4 @@
+package saves;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -5,9 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+
+import program.JackPocketGame;
 
 public class SaveLoad {
 
@@ -25,6 +29,36 @@ public class SaveLoad {
 
 	private static Gson gson = new Gson();
 
+	@SuppressWarnings("deprecation")
+	public static void Save(JackPocketGame jackPocketGame, String jack_file_location) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enableDefaultTyping();
+		try {
+			String jsonDataString = mapper.writeValueAsString(jackPocketGame.getBoard()) + ",\"Card\":" + mapper.writeValueAsString(jackPocketGame.getCardDeck());
+			setJack_file_location(jack_file_location);
+			JackWriteToFile(jsonDataString);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/*public static void Load(String jack_file_location) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enableDefaultTyping();
+		try {
+			String jsonDataString = mapper.writeValueAsString(jackPocketGame.getBoard()) + ",\"Card\":" + mapper.writeValueAsString(jackPocketGame.getCardDeck());
+			setJack_file_location(jack_file_location);
+			JackWriteToFile(jsonDataString);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}*/
+	
+	
 	// Save to file Utility
 	public static void JackWriteToFile(String myData) {
 		File JackFile = new File(Jack_file_location);
@@ -70,8 +104,6 @@ public class SaveLoad {
 			JsonReader myReader = new JsonReader(isReader);
 			JackPocketGame jackPocketGame = gson.fromJson(myReader, JackPocketGame.class);
 
-			log("board: " + jackPocketGame.getBoard());
-			log("cardDeck: " + jackPocketGame.getCardDeck());
 			return jackPocketGame;
 
 		} catch (Exception e) {

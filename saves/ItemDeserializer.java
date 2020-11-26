@@ -1,3 +1,5 @@
+package saves;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,6 +9,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+
+import board.Board;
+import board.Cell;
+import board.detective.DetectiveName;
+import board.detective.DetectiveToken;
+import board.district.District;
+import board.district.DistrictType;
+import board.district.Orientation;
+import items.AlibiName;
+import items.Card;
+import program.JackPocketGame;
 
 @SuppressWarnings("serial")
 public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
@@ -24,12 +37,7 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 			throws IOException, JsonProcessingException {
 		JsonNode node = jp.getCodec().readTree(jp);
 
-		Cell[][] EmptyCellListe = new Cell[][] {
-				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() },
-				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() },
-				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() },
-				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() },
-				new Cell[] { new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell(), new EmptyCell() } };
+		Cell[][] EmptyCellListe = new Cell[node.get("board").get(0).size()][node.get("board").size()];
 
 		// Board
 		Board board = new Board(EmptyCellListe);
@@ -85,7 +93,6 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 		JackPocketGame game = new JackPocketGame();
 		game.setBoard(board);
 		game.setCardDeck(cardDeck);
-		System.out.println(cardDeck);
 		return game;
 	}
 }

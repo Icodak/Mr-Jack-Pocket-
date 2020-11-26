@@ -1,13 +1,19 @@
+package board;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import board.detective.DetectiveName;
+import board.detective.DetectiveToken;
+import board.district.District;
+import board.district.Orientation;
 
 
 public class Board {
 
 	Cell[][] cellBoard;
 
-	Board(Cell[][] cellBoard) {
+	public Board(Cell[][] cellBoard) {
 		this.cellBoard = cellBoard;
 	}
 

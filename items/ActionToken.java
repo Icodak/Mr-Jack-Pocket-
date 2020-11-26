@@ -1,13 +1,20 @@
+package items;
 import java.util.List;
+
+import board.Board;
+import board.detective.DetectiveName;
+import board.district.Orientation;
+import players.Player;
+import program.JackPocketGame;
 
 public class ActionToken {
 
 	Board board;
-	Game game;
+	JackPocketGame jackPocketGame;
 
-	ActionToken(Board board, Game game) {
+	ActionToken(Board board, JackPocketGame jackPocketGame) {
 		this.board = board;
-		this.game = game;
+		this.jackPocketGame = jackPocketGame;
 	}
 
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
@@ -15,9 +22,9 @@ public class ActionToken {
 	}
 
 	public void drawCard(Player player) {
-		if (game.getCardDeck().size() > 0) {
-			player.addAlibiCard(game.getCardDeck().get(0));
-			game.getCardDeck().remove(0);
+		if (jackPocketGame.getCardDeck().size() > 0) {
+			player.addAlibiCard(jackPocketGame.getCardDeck().get(0));
+			jackPocketGame.getCardDeck().remove(0);
 		}
 
 	}

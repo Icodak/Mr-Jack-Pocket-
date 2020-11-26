@@ -1,5 +1,8 @@
+package board.detective;
 
 import java.util.ArrayList;
+
+import board.Cell;
 
 public class DetectiveToken extends Cell {
 

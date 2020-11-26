@@ -1,4 +1,4 @@
-
+package items;
 public class Card {
 	private AlibiName character;
 	private int hourglass;

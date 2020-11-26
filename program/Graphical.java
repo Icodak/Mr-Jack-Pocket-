@@ -1,3 +1,4 @@
+package program;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;

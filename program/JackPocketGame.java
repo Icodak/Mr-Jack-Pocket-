@@ -1,6 +1,11 @@
+package program;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import board.Board;
+import items.Card;
+import saves.ItemDeserializer;
 
 @JsonDeserialize(using = ItemDeserializer.class)
 public class JackPocketGame {
@@ -11,8 +16,8 @@ public class JackPocketGame {
 		return board;
 	}
 
-	public void setBoard(Board board2) {
-		this.board = board2;
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 	public ArrayList<Card> getCardDeck() {
