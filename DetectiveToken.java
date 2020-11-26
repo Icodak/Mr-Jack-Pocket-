@@ -32,7 +32,6 @@ public class DetectiveToken extends Cell{
 	}
 	
 
-
 	public String toString(){
 		return detectiveList.toString();
 	}

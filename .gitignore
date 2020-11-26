@@ -21,3 +21,6 @@
 /SaveLoad$JackPocketGame.class
 /JackPocketGame.class
 /Deck.class
+/JackDeserializer.class
+/ItemDeserializer.class
+/EmptyCell.class

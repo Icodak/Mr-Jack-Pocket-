@@ -13,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 public abstract class Cell {
 
+	Cell(){
+		
+	}
 
 }
 

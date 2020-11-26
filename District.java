@@ -1,53 +1,53 @@
 
-
-public class District extends Cell{
+public class District extends Cell {
 	private AlibiName character;
 	private Orientation orientation = Orientation.EAST;
 	private boolean[] walls;
+	private DistrictType districtType;
+	private boolean isRecto = true;
+	
+
 	public Orientation getOrientation() {
 		return orientation;
 	}
-
 
 	public void setWalls(boolean[] walls) {
 		this.walls = walls;
 	}
 
-	private boolean isRecto = true;
-	private DistrictType type;
-	
-	public District(AlibiName character,DistrictType type) {
+
+
+
+	public District(AlibiName character, DistrictType districtType) {
 		this.setCharacter(character);
-		this.type = type;		
+		this.districtType = districtType;
 	}
-	
-	
+
 	public boolean[] getWalls() {
-		
-		walls = type.getCellWalls();
-		
+
+		walls = districtType.getCellWalls();
+
 		switch (this.orientation) {
 		case EAST:
-			return new boolean[]{walls[0],walls[1],walls[2],walls[3]};
+			return new boolean[] { walls[0], walls[1], walls[2], walls[3] };
 		case NORTH:
-			return new boolean[]{walls[3],walls[0],walls[1],walls[2]};
+			return new boolean[] { walls[3], walls[0], walls[1], walls[2] };
 		case WEST:
-			return new boolean[]{walls[2],walls[3],walls[0],walls[1]};
+			return new boolean[] { walls[2], walls[3], walls[0], walls[1] };
 		case SOUTH:
-			return new boolean[]{walls[1],walls[2],walls[3],walls[0]};
+			return new boolean[] { walls[1], walls[2], walls[3], walls[0] };
 		}
 		return null;
-				
+
 	}
-	
+
 	public DistrictType getType() {
-		return type;
+		return districtType;
 	}
 
-	public void setType(DistrictType type) {
-		this.type = type;
+	public void setType(DistrictType districtType) {
+		this.districtType = districtType;
 	}
-
 
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
@@ -68,13 +68,12 @@ public class District extends Cell{
 	public void setCharacter(AlibiName character) {
 		this.character = character;
 	}
-	
+
 	public String toString() {
 
-		String cellString = "Character : " + character.toString() +  ", DistricyType : "  + type.toString();
+		String cellString = "character : " + character.toString() + ", districtType : " + districtType.toString();
 		return cellString;
-		
+
 	}
 
-	
 }

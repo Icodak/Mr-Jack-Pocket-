@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.beans.binding.SetBinding;
+
 public class Board {
 
 	Cell[][] cellBoard;
@@ -26,7 +28,6 @@ public class Board {
 	public void setCell(Cell cell,List<Integer> coord) {
 		cellBoard[coord.get(1)][coord.get(0)] = cell;
 	}
-
 
 
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {

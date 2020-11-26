@@ -38,7 +38,7 @@ public class Game {
 	}
 	
 
-	public static Cell[][] generateGameBoard() {
+	public static Board generateGameBoard() {
 		
 		DetectiveToken a1 = new DetectiveToken();
 		DetectiveToken a2 = new DetectiveToken();
@@ -47,7 +47,7 @@ public class Game {
 		DetectiveToken a5 = new DetectiveToken();
 		
 		DetectiveToken b1 = new DetectiveToken();
-		District b2 = new District(AlibiName.INSPECTOR_LESTRADE, DistrictType.T_SHAPE);
+		District b2 = new District(AlibiName.INSPECTOR_LESTRADE, DistrictType.L_SHAPE);
 		District b3 = new District(AlibiName.JEREMY_BERT, DistrictType.T_SHAPE);
 		District b4 = new District(AlibiName.JOHN_PIZER, DistrictType.T_SHAPE);
 		DetectiveToken b5 = new DetectiveToken();
@@ -89,7 +89,7 @@ public class Game {
 		Cell[][] cellBoard = new Cell[][] {line1,line2,line3,line4,line5};
 		
 		Board plateau = new Board(cellBoard);
-		return cellBoard;
+		return plateau;
 	}
 	
 
