@@ -1,8 +1,5 @@
 
 public enum DetectiveName {
-	WATSON,
-	SHERLOCK,
-	TOBBY;
-	
+	WATSON, SHERLOCK, TOBBY;
 
 }

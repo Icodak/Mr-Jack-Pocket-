@@ -57,7 +57,7 @@ public class SaveLoad {
 		}
 	}
 
-	// Read From File 
+	// Read From File
 	public static JackPocketGame JackReadFromFile() {
 		File JackFile = new File(Jack_file_location);
 		if (!JackFile.exists())
@@ -79,8 +79,8 @@ public class SaveLoad {
 		}
 
 		log("\nData loaded successfully from file " + Jack_file_location);
-	
-	return null;
+
+		return null;
 	}
 
 	private static void log(String string) {

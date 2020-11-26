@@ -5,7 +5,6 @@ public class District extends Cell {
 	private boolean[] walls;
 	private DistrictType districtType;
 	private boolean isRecto = true;
-	
 
 	public Orientation getOrientation() {
 		return orientation;
@@ -14,9 +13,6 @@ public class District extends Cell {
 	public void setWalls(boolean[] walls) {
 		this.walls = walls;
 	}
-
-
-
 
 	public District(AlibiName character, DistrictType districtType) {
 		this.setCharacter(character);

@@ -15,30 +15,28 @@ public class Board {
 	public Cell[][] getBoard() {
 		return cellBoard;
 	}
-	
+
 	public void setBoard(Cell[][] cellBoard) {
 		this.cellBoard = cellBoard;
 	}
-	
 
 	public Cell getCell(List<Integer> coord) {
 		return cellBoard[coord.get(1)][coord.get(0)];
 	}
-	
-	public void setCell(Cell cell,List<Integer> coord) {
+
+	public void setCell(Cell cell, List<Integer> coord) {
 		cellBoard[coord.get(1)][coord.get(0)] = cell;
 	}
-
 
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {
 		if (cellBoard[coord1.get(0)][coord1.get(1)] instanceof District
 				&& cellBoard[coord2.get(0)][coord2.get(1)] instanceof District) {
 			Cell cellTemp = cellBoard[coord1.get(0)][coord1.get(1)];
-			setCell(cellBoard[coord2.get(0)][coord2.get(1)], Arrays.asList(coord1.get(0),coord1.get(1)));
-			setCell(cellTemp, Arrays.asList(coord2.get(0),coord2.get(1)));
+			setCell(cellBoard[coord2.get(0)][coord2.get(1)], Arrays.asList(coord1.get(0), coord1.get(1)));
+			setCell(cellTemp, Arrays.asList(coord2.get(0), coord2.get(1)));
 		}
 	}
-	
+
 	public void rotate(Orientation orientation, List<Integer> coords) {
 		Cell cell = getCell(coords);
 		if (cell instanceof District) {
@@ -46,7 +44,6 @@ public class Board {
 		}
 
 	}
-	
 
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
 		List<Integer> coords = new ArrayList<>();
@@ -83,17 +80,16 @@ public class Board {
 
 		return coords;
 	}
-	
-	
+
 	public String toString() {
 		String sBoard = "";
 		for (int y = 0; y < cellBoard.length; y++) {
 			for (int x = 0; x < cellBoard[y].length; x++) {
 				sBoard += cellBoard[x][y].toString() + ",";
-				}
 			}
+		}
 		return sBoard;
-		
+
 	}
 
 }

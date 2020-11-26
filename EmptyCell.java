@@ -1,11 +1,10 @@
 
-public class EmptyCell extends Cell{
+public class EmptyCell extends Cell {
 
-	EmptyCell(){
-		
+	EmptyCell() {
+
 	}
-	
-	
+
 	public String toString() {
 		return "Empty";
 	}
