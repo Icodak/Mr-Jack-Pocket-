@@ -8,6 +8,7 @@ import board.detective.DetectiveName;
 import board.detective.DetectiveToken;
 import board.district.District;
 import board.district.Orientation;
+import items.AlibiName;
 
 public class Board {
 
@@ -48,6 +49,87 @@ public class Board {
 			((District) getCell(coords)).setOrientation(orientation);
 		}
 
+	}
+
+	public ArrayList<AlibiName> visibleCharacters() {
+		ArrayList<AlibiName> characterList = new ArrayList<>();
+		boolean wallNext;
+		int xsize = cellBoard[0].length;
+		int ysize = cellBoard.length;
+
+		for (int y = 0; y < ysize; y++) {
+			for (int x = 0; x < xsize; x++) {
+				List<Integer> coords = new ArrayList<>();
+				coords = Arrays.asList(x, y);
+				if (cellBoard[x][y] instanceof DetectiveToken) {
+					System.out.println("coords" + x + "," + y);
+					if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().size() > 0) {
+
+						// Horizontal analysis
+						// left to right
+						if (coords.get(0) == 0) {
+							wallNext = ((District) getCell(Arrays.asList(y, 1))).getWalls()[2];
+							for (int i = 1; i < xsize - 1; i++) {
+								if (!wallNext) {
+									characterList.add(((District) getCell(Arrays.asList(y, i))).getCharacter());
+									if (getCell(Arrays.asList(i + 1, y)) instanceof District) {
+										wallNext = (((District) getCell(Arrays.asList(y, i))).getWalls()[0]
+												|| ((District) getCell(Arrays.asList(y, i + 1))).getWalls()[2]);
+									}
+								}
+							}
+						}
+
+						// right tp left
+						if (coords.get(0) == xsize - 1) {
+							wallNext = ((District) getCell(Arrays.asList(y, xsize - 2))).getWalls()[0];
+							for (int i = 1; i < xsize - 1; i++) {
+								if (!wallNext) {
+									characterList
+											.add(((District) getCell(Arrays.asList(y, xsize - i - 1))).getCharacter());
+									if (getCell(Arrays.asList(y, xsize - i - 2)) instanceof District) {
+										wallNext = (((District) getCell(Arrays.asList(y, xsize - i - 1))).getWalls()[2]
+												|| ((District) getCell(Arrays.asList(y, xsize - i - 2))).getWalls()[0]);
+									}
+								}
+							}
+						}
+
+						// Vertical analysis
+						// top bottom
+						if (coords.get(1) == 0) {
+							wallNext = ((District) getCell(Arrays.asList(1, x))).getWalls()[1];
+							for (int i = 1; i < ysize - 1; i++) {
+								if (!wallNext) {
+									characterList.add(((District) getCell(Arrays.asList(i, x))).getCharacter());
+									if (getCell(Arrays.asList(i + 1, x)) instanceof District) {
+										wallNext = (((District) getCell(Arrays.asList(i, x))).getWalls()[3]
+												|| ((District) getCell(Arrays.asList(i + 1, x))).getWalls()[1]);
+									}
+								}
+							}
+						}
+
+						// bottom top
+						if (coords.get(1) == ysize - 1) {
+							wallNext = ((District) getCell(Arrays.asList(ysize - 2, x))).getWalls()[3];
+							for (int i = 1; i < ysize - 1; i++) {
+								if (!wallNext) {
+									characterList
+											.add(((District) getCell(Arrays.asList(ysize - i - 1, x))).getCharacter());
+									if (getCell(Arrays.asList(ysize - i - 2, x)) instanceof District) {
+										wallNext = (((District) getCell(Arrays.asList(ysize - i - 1, x))).getWalls()[1]
+												|| ((District) getCell(Arrays.asList(ysize - i - 2, x))).getWalls()[3]);
+									}
+								}
+							}
+						}
+
+					}
+				}
+			}
+		}
+		return characterList;
 	}
 
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
