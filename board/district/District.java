@@ -1,12 +1,13 @@
 package board.district;
+
 import board.Cell;
 import items.AlibiName;
 
 public class District extends Cell {
-	private AlibiName character;
+	private AlibiName character = AlibiName.INSPECTOR_LESTRADE;
 	private Orientation orientation = Orientation.EAST;
 	private boolean[] walls;
-	private DistrictType districtType;
+	private DistrictType districtType = DistrictType.T_SHAPE;
 	private boolean isRecto = true;
 
 	public Orientation getOrientation() {
@@ -17,9 +18,7 @@ public class District extends Cell {
 		this.walls = walls;
 	}
 
-	public District(AlibiName character, DistrictType districtType) {
-		this.setCharacter(character);
-		this.districtType = districtType;
+	public District() {
 	}
 
 	public boolean[] getWalls() {
@@ -40,11 +39,11 @@ public class District extends Cell {
 
 	}
 
-	public DistrictType getType() {
+	public DistrictType getDistrictType() {
 		return districtType;
 	}
 
-	public void setType(DistrictType districtType) {
+	public void setDistrictType(DistrictType districtType) {
 		this.districtType = districtType;
 	}
 

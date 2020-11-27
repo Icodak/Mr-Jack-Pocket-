@@ -37,41 +37,47 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 			throws IOException, JsonProcessingException {
 		JsonNode node = jp.getCodec().readTree(jp);
 
-		Cell[][] EmptyCellListe = new Cell[node.get("board").get(0).size()][node.get("board").size()];
+		Cell[][] EmptyCellListe = new Cell[node.get("board").get("board").get(0).size()][node.get("board").get("board")
+				.size()];
 
 		// Board
 		Board board = new Board(EmptyCellListe);
 
-		for (int y = 0; y < node.get("board").size(); y++) {
-			for (int x = 0; x < node.get("board").get(0).size(); x++) {
+		for (int y = 0; y < node.get("board").get("board").size(); y++) {
+			for (int x = 0; x < node.get("board").get("board").get(0).size(); x++) {
 				// Generate DetectiveToken Cell
-				if (node.get("board").get(y).get(x).get("type").asText().equals("DetectiveToken")) {
+				if (node.get("board").get("board").get(y).get(x).get("type").asText().equals("DetectiveToken")) {
 					DetectiveToken detectiveToken = new DetectiveToken();
-					if (node.get("board").get(y).get(x).get("detectiveList").size() > 0) {
-						String stringName = node.get("board").get(y).get(x).get("detectiveList").get(0).asText();
-						DetectiveName name = DetectiveName.valueOf(stringName);
-						detectiveToken.addDetective(name);
+					if (node.get("board").get("board").get(y).get(x).get("detectiveList").size() > 0) {
+
+						for (int i = 0; i < node.get("board").get("board").get(y).get(x).get("detectiveList")
+								.size(); i++) {
+							String stringName = node.get("board").get("board").get(y).get(x).get("detectiveList").get(i)
+									.asText();
+							DetectiveName name = DetectiveName.valueOf(stringName);
+							detectiveToken.addDetective(name);
+						}
 					}
 					board.setCell(detectiveToken, Arrays.asList(x, y));
 
 				}
 				// Generate District Cell
-				if (node.get("board").get(y).get(x).get("type").asText().equals("District")) {
-					District district = new District(null, null);
+				if (node.get("board").get("board").get(y).get(x).get("type").asText().equals("District")) {
+					District district = new District();
 					// Character
-					String stringName = node.get("board").get(y).get(x).get("character").asText();
+					String stringName = node.get("board").get("board").get(y).get(x).get("character").asText();
 					AlibiName name = AlibiName.valueOf(stringName);
 					district.setCharacter(name);
 					// Shape
-					String stringShape = node.get("board").get(y).get(x).get("districtType").asText();
+					String stringShape = node.get("board").get("board").get(y).get(x).get("districtType").asText();
 					DistrictType shape = DistrictType.valueOf(stringShape);
-					district.setType(shape);
+					district.setDistrictType(shape);
 					// Orientation
-					String stringOrientation = node.get("board").get(y).get(x).get("orientation").asText();
+					String stringOrientation = node.get("board").get("board").get(y).get(x).get("orientation").asText();
 					Orientation orientation = Orientation.valueOf(stringOrientation);
 					district.setOrientation(orientation);
 					// recto
-					boolean isRecto = node.get("board").get(y).get(x).get("recto").asBoolean();
+					boolean isRecto = node.get("board").get("board").get(y).get(x).get("recto").asBoolean();
 					district.setRecto(isRecto);
 
 					board.setCell(district, Arrays.asList(x, y));
@@ -82,10 +88,10 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 
 		// Deck
 		ArrayList<Card> cardDeck = new ArrayList<>();
-		for (int i = 0; i < node.get("Card").size(); i++) {
+		for (int i = 0; i < node.get("cardDeck").size(); i++) {
 			Card card = new Card();
-			card.setCharacter(AlibiName.valueOf(node.get("Card").get(i).get(1).get("character").asText()));
-			card.setHourglass(node.get("Card").get(i).get(1).get("hourglass").asInt());
+			card.setCharacter(AlibiName.valueOf(node.get("cardDeck").get(i).get("character").asText()));
+			card.setHourglass(node.get("cardDeck").get(i).get("hourglass").asInt());
 			cardDeck.add(card);
 
 		}

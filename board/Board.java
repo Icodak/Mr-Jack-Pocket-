@@ -1,4 +1,5 @@
 package board;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +8,6 @@ import board.detective.DetectiveName;
 import board.detective.DetectiveToken;
 import board.district.District;
 import board.district.Orientation;
-
 
 public class Board {
 
@@ -63,6 +63,11 @@ public class Board {
 						// finds new detectiveToken position
 						for (int move = 0; move < cellCount; move++) {
 							coords = slideAround(coords, Arrays.asList(cellBoard[y].length - 1, cellBoard.length - 1));
+							// if diagonal
+							if (coords.get(0) == coords.get(1)) {
+								coords = slideAround(coords,
+										Arrays.asList(cellBoard[y].length - 1, cellBoard.length - 1));
+							}
 						}
 						((DetectiveToken) cellBoard[coords.get(0)][coords.get(1)]).addDetective(detectiveName);
 					}

@@ -1,15 +1,12 @@
 package saves;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import program.JackPocketGame;
 
@@ -27,16 +24,21 @@ public class SaveLoad {
 		Jack_file_location = jack_file_location;
 	}
 
-	private static Gson gson = new Gson();
 
 	@SuppressWarnings("deprecation")
 	public static void Save(JackPocketGame jackPocketGame, String jack_file_location) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
 		try {
-			String jsonDataString = mapper.writeValueAsString(jackPocketGame.getBoard()) + ",\"Card\":" + mapper.writeValueAsString(jackPocketGame.getCardDeck());
+
+			String jsonDataString = mapper.writeValueAsString(jackPocketGame);
 			setJack_file_location(jack_file_location);
-			JackWriteToFile(jsonDataString);
+			try {
+				JackWriteToFile(jsonDataString);
+			} catch (IncorrectFileNameException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,23 +46,35 @@ public class SaveLoad {
 		
 	}
 	
-	/*public static void Load(String jack_file_location) throws JsonProcessingException {
+	@SuppressWarnings("deprecation")
+	public static JackPocketGame Load(String jack_file_location){
+		setJack_file_location(jack_file_location);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
-		try {
-			String jsonDataString = mapper.writeValueAsString(jackPocketGame.getBoard()) + ",\"Card\":" + mapper.writeValueAsString(jackPocketGame.getCardDeck());
-			setJack_file_location(jack_file_location);
-			JackWriteToFile(jsonDataString);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			SimpleModule module = new SimpleModule();
+			module.addDeserializer(JackPocketGame.class, new ItemDeserializer());
+			mapper.registerModule(module);
+
+			File jackFile = JackReadFromFile();
+			
+				try {
+					JackPocketGame jackGame = mapper.readValue(jackFile,JackPocketGame.class);
+					log("File successfully loaded at : " + jack_file_location);
+					return jackGame;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			
+			return null;
 		
-	}*/
+	}
 	
 	
 	// Save to file Utility
-	public static void JackWriteToFile(String myData) {
+	public static void JackWriteToFile(String myData) throws IncorrectFileNameException {
 		File JackFile = new File(Jack_file_location);
 		if (!JackFile.exists()) {
 			try {
@@ -73,6 +87,9 @@ public class SaveLoad {
 				log("Excepton Occured: " + e.toString());
 
 			}
+		} else {
+			throw new IncorrectFileNameException("File already exists at : " + Jack_file_location);
+			
 		}
 
 		try {
@@ -82,29 +99,24 @@ public class SaveLoad {
 
 			// Writes text to a character-output stream
 			BufferedWriter bufferWriter = new BufferedWriter(JackWriter);
-			bufferWriter.write(myData.toString());
+			bufferWriter.write(myData);
 			bufferWriter.close();
 
-			log("Data saved at file location: " + Jack_file_location + " Data: " + myData + "\n");
+			log("Data saved at file location: " + Jack_file_location);
 		} catch (IOException e) {
 			log("Could not save data : " + e.toString());
 		}
 	}
 
 	// Read From File
-	public static JackPocketGame JackReadFromFile() {
+	public static File JackReadFromFile() {
 		File JackFile = new File(Jack_file_location);
 		if (!JackFile.exists())
 			log("File doesn't exist");
 
-		InputStreamReader isReader;
 		try {
-			isReader = new InputStreamReader(new FileInputStream(JackFile), "UTF-8");
+			return JackFile;
 
-			JsonReader myReader = new JsonReader(isReader);
-			JackPocketGame jackPocketGame = gson.fromJson(myReader, JackPocketGame.class);
-
-			return jackPocketGame;
 
 		} catch (Exception e) {
 			log("error load cache from file " + e.toString());
