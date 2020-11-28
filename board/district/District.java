@@ -69,7 +69,7 @@ public class District extends Cell {
 
 	public String toString() {
 
-		String cellString = "character : " + character.toString() + ", districtType : " + districtType.toString();
+		String cellString = "character : " + character.toString() + ", districtType : " + districtType.toString() + ", Orientation : " + orientation.toString();
 		return cellString;
 
 	}

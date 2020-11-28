@@ -62,7 +62,6 @@ public class Board {
 				List<Integer> coords = new ArrayList<>();
 				coords = Arrays.asList(x, y);
 				if (cellBoard[x][y] instanceof DetectiveToken) {
-					System.out.println("coords" + x + "," + y);
 					if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().size() > 0) {
 
 						// Horizontal analysis

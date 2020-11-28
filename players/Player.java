@@ -5,13 +5,10 @@ import items.Card;
 import items.TimeToken;
 
 public class Player {
-	private ArrayList<Card> alibiDeck;
-	private TimeToken[] turnToken;
+	private ArrayList<Card> alibiDeck = new ArrayList<>();
+	private TimeToken[] turnToken = new TimeToken[8];
 
-	public Player(ArrayList<Card> alibiDeck, TimeToken[] turnToken) {
-		super();
-		this.alibiDeck = alibiDeck;
-		this.turnToken = turnToken;
+	public Player() {
 	}
 
 	public ArrayList<Card> getAlibiDeck() {
