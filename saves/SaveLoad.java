@@ -1,4 +1,5 @@
 package saves;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -24,7 +25,7 @@ public class SaveLoad {
 		Jack_file_location = jack_file_location;
 	}
 
-
+	// Save using serialisation methods
 	@SuppressWarnings("deprecation")
 	public static void Save(JackPocketGame jackPocketGame, String jack_file_location) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -36,46 +37,42 @@ public class SaveLoad {
 			try {
 				JackWriteToFile(jsonDataString);
 			} catch (IncorrectFileNameException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
+	// Load using custom deserialisation methods
 	@SuppressWarnings("deprecation")
-	public static JackPocketGame Load(String jack_file_location){
+	public static JackPocketGame Load(String jack_file_location) {
 		setJack_file_location(jack_file_location);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
-			
-			SimpleModule module = new SimpleModule();
-			module.addDeserializer(JackPocketGame.class, new ItemDeserializer());
-			mapper.registerModule(module);
 
-			File jackFile = JackReadFromFile();
-			
-				try {
-					JackPocketGame jackGame = mapper.readValue(jackFile,JackPocketGame.class);
-					log("File successfully loaded at : " + jack_file_location);
-					return jackGame;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			
-			return null;
-		
+		SimpleModule module = new SimpleModule();
+		module.addDeserializer(JackPocketGame.class, new ItemDeserializer());
+		mapper.registerModule(module);
+
+		File jackFile = JackReadFromFile();
+
+		try {
+			JackPocketGame jackGame = mapper.readValue(jackFile, JackPocketGame.class);
+			log("File successfully loaded at : " + jack_file_location);
+			return jackGame;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
-	
-	
-	// Save to file Utility
+
+	// Write to file
 	public static void JackWriteToFile(String myData) throws IncorrectFileNameException {
 		File JackFile = new File(Jack_file_location);
+		// try to build new file
 		if (!JackFile.exists()) {
 			try {
 				File directory = new File(JackFile.getParent());
@@ -89,15 +86,13 @@ public class SaveLoad {
 			}
 		} else {
 			throw new IncorrectFileNameException("File already exists at : " + Jack_file_location);
-			
+
 		}
 
+		// try to write to file
 		try {
-			// Convenience class for writing character files
 			FileWriter JackWriter;
 			JackWriter = new FileWriter(JackFile.getAbsoluteFile(), true);
-
-			// Writes text to a character-output stream
 			BufferedWriter bufferWriter = new BufferedWriter(JackWriter);
 			bufferWriter.write(myData);
 			bufferWriter.close();
@@ -116,14 +111,10 @@ public class SaveLoad {
 
 		try {
 			return JackFile;
-
-
 		} catch (Exception e) {
 			log("error load cache from file " + e.toString());
 		}
-
 		log("\nData loaded successfully from file " + Jack_file_location);
-
 		return null;
 	}
 

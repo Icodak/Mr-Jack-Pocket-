@@ -22,7 +22,7 @@ public class District extends Cell {
 	}
 
 	public boolean[] getWalls() {
-
+		//gets walls depending on the orientation dans type of the district
 		walls = districtType.getCellWalls();
 
 		switch (this.orientation) {
