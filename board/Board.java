@@ -36,12 +36,9 @@ public class Board {
 
 	//Swaps two district cells at the given coordinates
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {
-		if (cellBoard[coord1.get(0)][coord1.get(1)] instanceof District
-				&& cellBoard[coord2.get(0)][coord2.get(1)] instanceof District) {
-			Cell cellTemp = cellBoard[coord1.get(0)][coord1.get(1)];
-			setCell(cellBoard[coord2.get(0)][coord2.get(1)], Arrays.asList(coord1.get(0), coord1.get(1)));
-			setCell(cellTemp, Arrays.asList(coord2.get(0), coord2.get(1)));
-		}
+			Cell cellTemp = getCell(coord1);
+			setCell(getCell(coord2), coord1);
+			setCell(cellTemp, coord2);;
 	}
 
 	//Rotates the district cell to a new orientation at the given coordinates

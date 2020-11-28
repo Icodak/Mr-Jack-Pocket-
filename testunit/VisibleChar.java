@@ -1,12 +1,7 @@
 package testunit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
-import board.detective.DetectiveName;
-import items.ActionToken;
-import items.Actions;
 import program.JackPocketGame;
 import saves.SaveLoad;
 

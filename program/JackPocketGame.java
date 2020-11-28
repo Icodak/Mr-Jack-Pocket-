@@ -1,15 +1,12 @@
 package program;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import board.Board;
 import board.detective.DetectiveName;
-import board.district.District;
 import board.district.Orientation;
 import items.ActionToken;
 import items.Actions;
@@ -18,22 +15,19 @@ import players.Player;
 import saves.ItemDeserializer;
 
 @JsonDeserialize(using = ItemDeserializer.class)
-public class JackPocketGame {
+public class JackPocketGame extends Game {
 	private Board board;
 	private ArrayList<Card> cardDeck;
-	private Player currentPlayer;
+InputListener listener = new InputListener();
 
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
+
+	public Player getPlayer1() {
+		return getPlayer1();
 	}
 
-	// TODO create real players
-	//
-	//
-	@SuppressWarnings("unused")
-	private Player player1;
-	@SuppressWarnings("unused")
-	private Player player2;
+	public Player getPlayer2() {
+		return getPlayer2();
+	}
 
 	public Board getBoard() {
 		return board;
@@ -50,12 +44,15 @@ public class JackPocketGame {
 	public void setCardDeck(ArrayList<Card> cardDeck) {
 		this.cardDeck = cardDeck;
 	}
+	
+	public void close() {
+		listener.close();
+	}
 
 	// Action methods
 	public void playAction(ActionToken actionToken) {
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
-		int moveCount;
 		// Get the current action of the token
 		if (actionToken.isRecto()) {
 			actionToBePlayed = actionToken.getAction1();
@@ -67,73 +64,47 @@ public class JackPocketGame {
 		// Methods
 		switch (actionToBePlayed) {
 		case MOVE_DETECTIVE:
-			Scanner sc1 = new Scanner(System.in);
-			System.out.println("Déplacer de combien de cases ?");
-			moveCount = sc1.nextInt();
-			moveDetectiveToken(actionDetective, moveCount, Actions.MOVE_DETECTIVE.getLimitMove());
+			System.out.println("Number of steps to move");
+			moveDetectiveToken(actionDetective, Math.min(Math.max(1, listener.getInputInt()), 2));
 			break;
-		case MOVE_JOCKER:
-			// Alike MOVE_DETECTIVE but let's the player have the choice of who to move
-			Scanner sc2 = new Scanner(System.in);
-			System.out.println("Déplacer de combien de cases ?");
-			moveCount = sc2.nextInt();
-			System.out.println("Quel détective à déplacer ?");
-			String stringDetective = sc2.next();
-			for (DetectiveName c : DetectiveName.values()) {
-				if (c.name().equals(stringDetective.toUpperCase())) {
-					DetectiveName detectiveName = DetectiveName.valueOf((stringDetective.toUpperCase()));
-					moveDetectiveToken(detectiveName, moveCount, Actions.MOVE_JOCKER.getLimitMove());
-					System.out.println("Moved " + stringDetective.toUpperCase());
-				}
-			}
 
+		case MOVE_JOKER:
+			// Alike MOVE_DETECTIVE but let the player have the choice of who to move
+			System.out.println("Number of steps to move");
+			int moveCount = 1;
+			if (getCurrentPlayer().isJack()) {
+				moveCount = Math.min(Math.max(0, listener.getInputInt()), 1);
+			}
+			System.out.println("Detective to move");
+			DetectiveName detectiveName = listener.getInputDetective();
+			moveDetectiveToken(detectiveName, moveCount);
+			System.out.println("Moved " + detectiveName);
 			break;
 		case DRAW_CARD:
-			drawCard(this.currentPlayer);
+			drawCard(this.getCurrentPlayer());
 			break;
+
 		case ROTATE_DISTRICT:
-			Scanner sc3 = new Scanner(System.in);
-			System.out.println("Case à tourner?\nx:");
-			int coordr1 = sc3.nextInt();
-			System.out.println("y:");
-			int coordr2 = sc3.nextInt();
-			System.out.println("Nouvelle Orientation:");
-			String stringOrientation = sc3.next();
-			for (Orientation c : Orientation.values()) {
-				if (c.name().equals(stringOrientation.toUpperCase())) {
-					Orientation orientation = Orientation.valueOf((stringOrientation.toUpperCase()));
-					rotate(orientation, Arrays.asList(coordr1, coordr2));
-				}
-			}
-
-			if (!((District) board.getCell(Arrays.asList(coordr1, coordr2))).getOrientation().toString()
-					.equals(stringOrientation.toUpperCase())) {
-
-				System.out.println("Invalid rotation");
-				break;
-			}
-
+			System.out.println("District to rotate");
+			List<Integer> coords = listener.getInputCoord();
+			System.out.println("New orientation");
+			Orientation orientation = listener.getInputOrientation();
+			rotate(orientation, coords);
 			break;
+
 		case SWAP_DISTRICT:
-			Scanner sc4 = new Scanner(System.in);
-			System.out.println("Case d'origine?\nx:");
-			int coord11 = sc4.nextInt();
-			System.out.println("\ny:");
-			int coord12 = sc4.nextInt();
-			System.out.println("Case d'arrivée?");
-			int coord21 = sc4.nextInt();
-			System.out.println("\ny:");
-			int coord22 = sc4.nextInt();
-			swap(Arrays.asList(coord11, coord12), Arrays.asList(coord21, coord22));
+			System.out.println("First district");
+			List<Integer> coord1 = listener.getInputCoord();
+			System.out.println("Second district");
+			List<Integer> coord2 = listener.getInputCoord();
+			swap(coord1, coord2);
 			break;
 
 		}
 		actionToken.setRecto(!actionToken.isRecto());
-
 	}
 
-	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount, int limit) {
-		cellCount = Math.min(cellCount, limit);
+	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
 		board.moveDetectiveToken(detectiveName, cellCount);
 	}
 
@@ -141,7 +112,6 @@ public class JackPocketGame {
 		if (cardDeck.size() > 0) {
 			player.getAlibiDeck().add(cardDeck.get(0));
 			cardDeck.remove(0);
-
 		}
 
 	}

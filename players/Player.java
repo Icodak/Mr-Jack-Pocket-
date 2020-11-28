@@ -7,9 +7,15 @@ import items.TimeToken;
 public class Player {
 	private ArrayList<Card> alibiDeck = new ArrayList<>();
 	private TimeToken[] turnToken = new TimeToken[8];
+	private boolean isJack = false;
 
 	public Player() {
 	}
+	
+	public boolean isJack() {
+		return isJack;
+	}
+
 
 	public ArrayList<Card> getAlibiDeck() {
 		return alibiDeck;
