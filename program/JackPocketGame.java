@@ -18,7 +18,7 @@ import saves.ItemDeserializer;
 public class JackPocketGame extends Game {
 	private Board board;
 	private ArrayList<Card> cardDeck;
-InputListener listener = new InputListener();
+	InputListener listener = new InputListener();
 
 
 	public Player getPlayer1() {
@@ -70,9 +70,9 @@ InputListener listener = new InputListener();
 
 		case MOVE_JOKER:
 			// Alike MOVE_DETECTIVE but let the player have the choice of who to move
-			System.out.println("Number of steps to move");
 			int moveCount = 1;
 			if (getCurrentPlayer().isJack()) {
+				System.out.println("Number of steps to move");
 				moveCount = Math.min(Math.max(0, listener.getInputInt()), 1);
 			}
 			System.out.println("Detective to move");
@@ -80,6 +80,7 @@ InputListener listener = new InputListener();
 			moveDetectiveToken(detectiveName, moveCount);
 			System.out.println("Moved " + detectiveName);
 			break;
+			
 		case DRAW_CARD:
 			drawCard(this.getCurrentPlayer());
 			break;
@@ -125,6 +126,6 @@ InputListener listener = new InputListener();
 	}
 
 	public String toString() {
-		return board + "\n" + cardDeck;
+		return board.toString() ;
 	}
 }

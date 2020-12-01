@@ -6,10 +6,15 @@ import items.TimeToken;
 
 public class Player {
 	private ArrayList<Card> alibiDeck = new ArrayList<>();
-	private TimeToken[] turnToken = new TimeToken[8];
+	private ArrayList<TimeToken> turnToken = new ArrayList<>();
 	private boolean isJack = false;
 
-	public Player() {
+	public void setJack(boolean isJack) {
+		this.isJack = isJack;
+	}
+
+	public Player(boolean isJack) {
+		setJack(isJack);
 	}
 	
 	public boolean isJack() {
@@ -33,11 +38,11 @@ public class Player {
 		alibiDeck.remove(card);
 	}
 
-	public TimeToken[] getTurnToken() {
+	public ArrayList<TimeToken> getTurnToken() {
 		return turnToken;
 	}
 
-	public void setTurnToken(TimeToken[] turnToken) {
+	public void setTurnToken(ArrayList<TimeToken> turnToken) {
 		this.turnToken = turnToken;
 	}
 

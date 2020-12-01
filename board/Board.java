@@ -34,14 +34,15 @@ public class Board {
 		cellBoard[coord.get(1)][coord.get(0)] = cell;
 	}
 
-	//Swaps two district cells at the given coordinates
+	// Swaps two district cells at the given coordinates
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {
-			Cell cellTemp = getCell(coord1);
-			setCell(getCell(coord2), coord1);
-			setCell(cellTemp, coord2);;
+		Cell cellTemp = getCell(coord1);
+		setCell(getCell(coord2), coord1);
+		setCell(cellTemp, coord2);
+		;
 	}
 
-	//Rotates the district cell to a new orientation at the given coordinates
+	// Rotates the district cell to a new orientation at the given coordinates
 	public void rotate(Orientation orientation, List<Integer> coords) {
 		Cell cell = getCell(coords);
 		if (cell instanceof District) {
@@ -50,22 +51,23 @@ public class Board {
 
 	}
 
-	//Returns an array of alibinames of onboard characters from the detective view
-	//while no wall is faced a detective can see every character on its row & column
+	// Returns an array of alibinames of onboard characters from the detective view
+	// while no wall is faced a detective can see every character on its row &
+	// column
 	public ArrayList<AlibiName> visibleCharacters() {
 		ArrayList<AlibiName> characterList = new ArrayList<>();
 		boolean wallNext;
 		int xsize = cellBoard[0].length;
 		int ysize = cellBoard.length;
 
-		//Check for detectives
+		// Check for detectives
 		for (int y = 0; y < ysize; y++) {
 			for (int x = 0; x < xsize; x++) {
 				List<Integer> coords = new ArrayList<>();
 				coords = Arrays.asList(x, y);
 				if (cellBoard[x][y] instanceof DetectiveToken) {
-					
-					//Foreach detective, do an analysis
+
+					// Foreach detective, do an analysis
 					if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().size() > 0) {
 
 						// Horizontal analysis
@@ -127,7 +129,6 @@ public class Board {
 								}
 							}
 						}
-
 					}
 				}
 			}
@@ -135,35 +136,32 @@ public class Board {
 		return characterList;
 	}
 
-	//Moves a given detective of a number of cells
+	// Moves a given detective of a number of cells
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
 		List<Integer> coords = new ArrayList<>();
-		for (int y = 0; y < cellBoard.length; y++) {
-			for (int x = 0; x < cellBoard[y].length; x++) {
-				coords = Arrays.asList(x, y);
-
-				if (cellBoard[x][y] instanceof DetectiveToken) {
-					// removes token from current position
-					if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().contains(detectiveName)) {
-						((DetectiveToken) cellBoard[x][y]).removeDetective(detectiveName);
-						// finds new detectiveToken position
-						for (int move = 0; move < cellCount; move++) {
+		boolean found = false;
+		for (int move = 0; move < cellCount; move++) {
+			found = false;
+			for (int y = 0; y < cellBoard.length; y++) {
+				for (int x = 0; x < cellBoard[y].length; x++) {
+					coords = Arrays.asList(x, y);
+					if (cellBoard[x][y] instanceof DetectiveToken && found == false) {
+						// removes token from current position
+						if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().contains(detectiveName)) {
+							found = true;
+							((DetectiveToken) cellBoard[x][y]).removeDetective(detectiveName);
+							// finds new detectiveToken position
 							coords = slideAround(coords, Arrays.asList(cellBoard[y].length - 1, cellBoard.length - 1));
-							// if diagonal move to next space
-							if (coords.get(0) == coords.get(1)) {
-								coords = slideAround(coords,
-										Arrays.asList(cellBoard[y].length - 1, cellBoard.length - 1));
-							}
+							((DetectiveToken) cellBoard[coords.get(0)][coords.get(1)]).addDetective(detectiveName);
 						}
-						((DetectiveToken) cellBoard[coords.get(0)][coords.get(1)]).addDetective(detectiveName);
 					}
 				}
 			}
 		}
-
 	}
 
-	//Method used in moveDetectiveToken to determine how to move the detective depending on its current position
+	// Method used in moveDetectiveToken to determine how to move the detective
+	// depending on its current position
 	public static List<Integer> slideAround(List<Integer> coords, List<Integer> maxCoord) {
 		if (coords.get(1) == 0 && coords.get(0) > 0) {
 			coords.set(0, coords.get(0) - 1);
@@ -175,6 +173,10 @@ public class Board {
 			coords.set(1, coords.get(1) - 1);
 		}
 
+		if ((Math.floorMod(coords.get(0), maxCoord.get(0)) == 0)
+				&& (Math.floorMod(coords.get(1), maxCoord.get(1)) == 0)) {
+			coords = slideAround(coords, maxCoord);
+		}
 		return coords;
 	}
 
@@ -184,6 +186,7 @@ public class Board {
 			for (int x = 0; x < cellBoard[y].length; x++) {
 				sBoard += cellBoard[x][y].toString() + ",";
 			}
+			sBoard += "\n";
 		}
 		return sBoard;
 
