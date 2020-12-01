@@ -3,6 +3,7 @@ package program;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import board.Board;
@@ -18,15 +19,24 @@ import saves.ItemDeserializer;
 public class JackPocketGame extends Game {
 	private Board board;
 	private ArrayList<Card> cardDeck;
+	private ArrayList<ActionToken> actionTokenList = new ArrayList<>();
 	InputListener listener = new InputListener();
+	@JsonIgnore
+	private boolean beginWithWalls = true;
 
-
+	@JsonIgnore
 	public Player getPlayer1() {
 		return getPlayer1();
 	}
-
+	
+	@JsonIgnore
 	public Player getPlayer2() {
 		return getPlayer2();
+	}
+	
+	@JsonIgnore
+	public Player getCurrentPlayer() {
+		return getCurrentPlayer();
 	}
 
 	public Board getBoard() {
@@ -129,5 +139,21 @@ public class JackPocketGame extends Game {
 
 	public String toString() {
 		return board.toString() ;
+	}
+
+	public ArrayList<ActionToken> getActionTokenList() {
+		return actionTokenList;
+	}
+
+	public void setActionTokenList(ArrayList<ActionToken> actionTokenList) {
+		this.actionTokenList = actionTokenList;
+	}
+	@JsonIgnore
+	public boolean getBeginWithWalls() {
+		return beginWithWalls;
+	}
+	@JsonIgnore
+	public void setBeginWithWalls(boolean beginWithWalls) {
+		this.beginWithWalls = beginWithWalls;
 	}
 }

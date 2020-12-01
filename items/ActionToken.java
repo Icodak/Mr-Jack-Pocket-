@@ -69,7 +69,9 @@ public class ActionToken {
 		this.hasBeenPlayed = hasBeenPlayed;
 	}
 
-
+public String toString() {
+	return "1:" + action1.toString() + " 2:" + action2.toString();
+}
 
 
 }

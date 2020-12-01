@@ -8,13 +8,24 @@ public class Player {
 	private ArrayList<Card> alibiDeck = new ArrayList<>();
 	private ArrayList<TimeToken> turnToken = new ArrayList<>();
 	private boolean isJack = false;
+	private String name;
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public void setJack(boolean isJack) {
 		this.isJack = isJack;
 	}
 
-	public Player(boolean isJack) {
+	public Player(boolean isJack, String name) {
 		setJack(isJack);
+		setName(name);
 	}
 	
 	public boolean isJack() {

@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import board.detective.DetectiveName;
 import board.district.District;
+import board.district.DistrictType;
 import board.district.Orientation;
 import items.ActionToken;
 import items.Actions;
@@ -17,57 +19,39 @@ import saves.SaveLoad;
 
 public class Game {
 	@JsonIgnore
-	private Player player1;
+	private static Player player1 = null;
 	@JsonIgnore
-	private Player player2;
+	private static Player player2 = null;
 	@JsonIgnore
-	private static Player currentPlayer;
+	private static Player currentPlayer = null;
+	private static int turnCount = 0;
 
 	public static void setCurrentPlayer(Player currentPlayer) {
 		Game.currentPlayer = currentPlayer;
-	}
-
-	public Player getPlayer1() {
-		return player1;
-	}
-
-	public void setPlayer1(Player player1) {
-		this.player1 = player1;
-	}
-
-	public Player getPlayer2() {
-		return player2;
-	}
-
-	public void setPlayer2(Player player2) {
-		this.player2 = player2;
 	}
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
 
-	/*
-	 * public Game() { launchGame(); }
-	 */
-	public static void launchGame() {
+	public void switchPlayer() {
+		if (currentPlayer == player1) {
+			setCurrentPlayer(player2);
+		} else if (currentPlayer == player2) {
+			setCurrentPlayer(player1);
+		}
+	}
+
+	// public Game() throws JsonProcessingException { launchGame(); }
+
+	public static void launchGame() throws JsonProcessingException {
 		// Load classic game board and card set
 		String localFile = System.getProperty("user.dir") + "\\resources\\classicJack.json";
 		JackPocketGame jackGame = SaveLoad.Load(localFile);
-		Player playerDetective = new Player(false);
-		Player playerJack = new Player(true);
-		setCurrentPlayer(playerDetective);
+		player1 = new Player(false, "Detective");
+		player2 = new Player(true, "Jack");
+		setCurrentPlayer(player1);
 		Collections.shuffle(jackGame.getCardDeck());
-
-		ActionToken actionToken1 = new ActionToken(Actions.MOVE_DETECTIVE, Actions.DRAW_CARD);
-		ActionToken actionToken2 = new ActionToken(Actions.MOVE_DETECTIVE, Actions.MOVE_DETECTIVE);
-		ActionToken actionToken3 = new ActionToken(Actions.SWAP_DISTRICT, Actions.ROTATE_DISTRICT);
-		ActionToken actionToken4 = new ActionToken(Actions.MOVE_JOKER, Actions.ROTATE_DISTRICT);
-		actionToken1.setAction1Detective(DetectiveName.SHERLOCK);
-		actionToken2.setAction1Detective(DetectiveName.WATSON);
-		actionToken2.setAction2Detective(DetectiveName.TOBBY);
-		ArrayList<ActionToken> actionTokenList = new ArrayList<>(
-				Arrays.asList(actionToken1, actionToken2, actionToken3, actionToken4));
 
 		int sizex = jackGame.getBoard().getBoard().length;
 		int sizey = jackGame.getBoard().getBoard()[0].length;
@@ -86,12 +70,42 @@ public class Game {
 						.setOrientation(Orientation.randomOrientation());
 			}
 		}
-		jackGame.rotate(Orientation.EAST, Arrays.asList(1, 1));
-		jackGame.rotate(Orientation.WEST, Arrays.asList(1, 3));
-		jackGame.rotate(Orientation.NORTH, Arrays.asList(3, 2));
-		
+
+		// Makes the detectives face a wall at the beginning
+		// optionnal disable with :
+		// jackGame.setBeginWithWalls(false);
+		if (jackGame.getBeginWithWalls()) {
+			((District) jackGame.getBoard().getCell(Arrays.asList(1, 1))).setDistrictType(DistrictType.T_SHAPE);
+			((District) jackGame.getBoard().getCell(Arrays.asList(1, 3))).setDistrictType(DistrictType.T_SHAPE);
+			((District) jackGame.getBoard().getCell(Arrays.asList(3, 2))).setDistrictType(DistrictType.T_SHAPE);
+			jackGame.rotate(Orientation.EAST, Arrays.asList(1, 1));
+			jackGame.rotate(Orientation.WEST, Arrays.asList(1, 3));
+			jackGame.rotate(Orientation.NORTH, Arrays.asList(3, 2));
+		}
+
 		System.out.println("Génération de la partie terminé");
 		System.out.println(jackGame);
+		GameTurn();
+	}
+
+	public static void GameTurn() {
+		turnCount++;
+		System.out.println("It's " + currentPlayer.getName() + "'s turn to play");
+		ChooseAction();
+
+		// Make the actions avaliables again
+
+	}
+
+	public boolean[] hasReactedObjectives() {
+		return null;
+	}
+
+	public void handleEnd() {
+
+	}
+
+	public static void ChooseAction() {
 
 	}
 
