@@ -5,7 +5,7 @@
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["WATSON"]
+                    "detectiveList": ["TOBBY"]
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []
@@ -22,14 +22,14 @@
                 }, {
                     "type": "District",
                     "character": "INSPECTOR_LESTRADE",
-                    "orientation": "EAST",
-                    "walls": [false, false, true, false],
+                    "orientation": "WEST",
+                    "walls": [false, true, false, false],
                     "districtType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
                     "character": "JEREMY_BERT",
-                    "orientation": "EAST",
+                    "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
                     "recto": true
@@ -37,8 +37,8 @@
                     "type": "District",
                     "character": "JOHN_PIZER",
                     "orientation": "EAST",
-                    "walls": [false, false, true, false],
-                    "districtType": "T_SHAPE",
+                    "walls": [false, false, false, true],
+                    "districtType": "CROSS_SHAPE",
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
@@ -57,7 +57,7 @@
                 }, {
                     "type": "District",
                     "character": "JOSEPH_LANE",
-                    "orientation": "EAST",
+                    "orientation": "WEST",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
                     "recto": true
@@ -70,7 +70,7 @@
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["TOBBY"]
+                    "detectiveList": []
                 }
             ], [{
                     "type": "DetectiveToken",
@@ -78,14 +78,14 @@
                 }, {
                     "type": "District",
                     "character": "MISS_STENTHY",
-                    "orientation": "EAST",
+                    "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
                     "character": "SERGENT_GOODLEY",
-                    "orientation": "EAST",
+                    "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
                     "recto": true
@@ -98,20 +98,20 @@
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": []
+                    "detectiveList": ["WATSON"]
                 }
             ], [{
                     "type": "DetectiveToken",
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
                     "detectiveList": ["SHERLOCK"]
-                }, {
-                    "type": "DetectiveToken",
-                    "detectiveList": []
-                }, {
-                    "type": "DetectiveToken",
-                    "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []
@@ -145,6 +145,36 @@
         }, {
             "character": "MISS_STENTHY",
             "hourglass": 1
+        }
+    ],
+	"actionTokenList": [{
+            "action1": "MOVE_DETECTIVE",
+            "action2": "DRAW_CARD",
+            "hasBeenPlayed": false,
+            "action1Detective": "SHERLOCK",
+            "action2Detective": null,
+            "recto": true
+        }, {
+            "action1": "MOVE_DETECTIVE",
+            "action2": "MOVE_DETECTIVE",
+            "hasBeenPlayed": false,
+            "action1Detective": "WATSON",
+            "action2Detective": "TOBBY",
+            "recto": true
+        }, {
+            "action1": "SWAP_DISTRICT",
+            "action2": "ROTATE_DISTRICT",
+            "hasBeenPlayed": false,
+            "action1Detective": null,
+            "action2Detective": null,
+            "recto": true
+        }, {
+            "action1": "MOVE_JOKER",
+            "action2": "ROTATE_DISTRICT",
+            "hasBeenPlayed": false,
+            "action1Detective": null,
+            "action2Detective": null,
+            "recto": true
         }
     ]
 }
