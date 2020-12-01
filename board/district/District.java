@@ -8,7 +8,16 @@ public class District extends Cell {
 	private Orientation orientation = Orientation.EAST;
 	private boolean[] walls;
 	private DistrictType districtType = DistrictType.T_SHAPE;
+	private DistrictType districtBType = DistrictType.T_SHAPE;
 	private boolean isRecto = true;
+	
+	public DistrictType getDistrictBType() {
+		return districtBType;
+	}
+
+	public void setDistrictBType(DistrictType districtBType) {
+		this.districtBType = districtBType;
+	}
 
 	public Orientation getOrientation() {
 		return orientation;

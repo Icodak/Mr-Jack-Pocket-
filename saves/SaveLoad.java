@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import program.Game;
 import program.JackPocketGame;
 
 public class SaveLoad {
@@ -30,6 +31,7 @@ public class SaveLoad {
 	public static void Save(JackPocketGame jackPocketGame, String jack_file_location) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
+		
 		try {
 
 			String jsonDataString = mapper.writeValueAsString(jackPocketGame);

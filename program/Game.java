@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import board.detective.DetectiveName;
 import board.district.District;
 import board.district.Orientation;
@@ -14,8 +16,11 @@ import players.Player;
 import saves.SaveLoad;
 
 public class Game {
+	@JsonIgnore
 	private Player player1;
+	@JsonIgnore
 	private Player player2;
+	@JsonIgnore
 	private static Player currentPlayer;
 
 	public static void setCurrentPlayer(Player currentPlayer) {

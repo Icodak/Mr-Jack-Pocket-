@@ -61,6 +61,8 @@ public class JackPocketGame extends Game {
 			actionToBePlayed = actionToken.getAction2();
 			actionDetective = actionToken.getAction2Detective();
 		}
+		//Declare it as played
+		actionToken.setHasBeenPlayed(true);
 		// Methods
 		switch (actionToBePlayed) {
 		case MOVE_DETECTIVE:
