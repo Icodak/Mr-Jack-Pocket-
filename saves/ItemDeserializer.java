@@ -32,19 +32,21 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 		super(vc);
 	}
 
+	
+	//Deserialize json data from file to build a new JackPocketGame
 	@Override
 	public JackPocketGame deserialize(JsonParser jp, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
+		
 		JsonNode node = jp.getCodec().readTree(jp);
 
-		Cell[][] EmptyCellListe = new Cell[node.get("board").get("board").get(0).size()][node.get("board").get("board")
-				.size()];
-
 		// Board
+		Cell[][] EmptyCellListe = new Cell[node.get("board").get("board").get(0).size()][node.get("board").get("board").size()];
 		Board board = new Board(EmptyCellListe);
 
 		for (int y = 0; y < node.get("board").get("board").size(); y++) {
 			for (int x = 0; x < node.get("board").get("board").get(0).size(); x++) {
+				
 				// Generate DetectiveToken Cell
 				if (node.get("board").get("board").get(y).get(x).get("type").asText().equals("DetectiveToken")) {
 					DetectiveToken detectiveToken = new DetectiveToken();
@@ -59,9 +61,9 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 						}
 					}
 					board.setCell(detectiveToken, Arrays.asList(x, y));
-
 				}
 				// Generate District Cell
+
 				if (node.get("board").get("board").get(y).get(x).get("type").asText().equals("District")) {
 					District district = new District();
 					// Character
@@ -96,6 +98,7 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 
 		}
 
+		//Generate the full game
 		JackPocketGame game = new JackPocketGame();
 		game.setBoard(board);
 		game.setCardDeck(cardDeck);

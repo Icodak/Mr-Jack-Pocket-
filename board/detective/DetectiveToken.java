@@ -33,7 +33,7 @@ public class DetectiveToken extends Cell {
 	}
 
 	public String toString() {
-		return detectiveList.toString();
+		return (detectiveList.toString() + "         ").substring(0,8);
 	}
 
 }

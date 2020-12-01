@@ -8,7 +8,6 @@ import board.detective.DetectiveName;
 import board.district.District;
 import items.ActionToken;
 import items.Actions;
-import players.Player;
 import program.JackPocketGame;
 import saves.SaveLoad;
 
@@ -28,17 +27,8 @@ class TestActions {
 		System.out.println(((District) j2.getBoard().getCell(Arrays.asList(1,1))));
 		j2.playAction(act);
 		System.out.println(((District) j2.getBoard().getCell(Arrays.asList(1,1))));
-		
-		ActionToken act2 = new ActionToken(Actions.SWAP_DISTRICT, Actions.DRAW_CARD);
-		Player pl = new Player();
-		j2.setCurrentPlayer(pl);
 
-		System.out.println(j2.getCardDeck());
-		System.out.println(pl.getAlibiDeck());
-		act2.setRecto(false);
-		j2.playAction(act2);
-		System.out.println(j2.getCardDeck());
-		System.out.println(pl.getAlibiDeck());
+
 
 	}
 

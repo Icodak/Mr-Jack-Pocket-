@@ -2,3 +2,8 @@
 /Graphical.class
 /ItemDeserializer.class
 /JackPocketGame.class
+/Turns.class
+/TurnMecanic.class
+/Game.class
+/ImputListener.class
+/InputListener.class
