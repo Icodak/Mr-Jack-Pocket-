@@ -61,6 +61,19 @@ public class InputListener {
 
 	}
 	
+	public void showJack() {
+		System.out.println("Enter anything to reveal jack");
+		@SuppressWarnings("unused")
+		String stringReveal = sc.next();
+	}
+	
+	public void hideJack() {
+		System.out.println("Enter anything to hide jack");
+		@SuppressWarnings("unused")
+		String stringHide = sc.next();
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+	}
+	
 
 	public Orientation getInputOrientation() {
 

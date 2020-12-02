@@ -174,6 +174,12 @@ public class JackPocketGame extends Game {
 		this.beginWithWalls = beginWithWalls;
 	}
 	
+	public void displayJack() {
+		listener.showJack();
+		System.out.println(JackName.toString());
+		listener.hideJack();
+	}
+	
 
 	public ActionToken actionGetFromList() {
 		System.out.println(getCurrentPlayer().getName() + " it's your time to pick an action");
@@ -198,8 +204,16 @@ public class JackPocketGame extends Game {
 	}
 	
 	public Player hasReactedObjectives() {
+		/*TODO
+		*Flip tiles depending on the visibility of jack
+		*Calculate  jack's hourglass count
+		*calculate the number of unflipped tiles
+		*check if turn 8
+		*return the correct value
+		*????
+		*profit
+		*/
 		getBoard().visibleCharacters();
-		//TODO !!
 		
 		return null;
 	}

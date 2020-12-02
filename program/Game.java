@@ -87,7 +87,8 @@ public class Game {
 
 		System.out.println("Game creation finished !");
 		jackGame.setJackName(jackGame.getCardDeck().get(ThreadLocalRandom.current().nextInt(1, jackGame.getCardDeck().size() + 1)).getCharacter());
-		//TODO : Prompt to show jack
+		//Prompt to show jack
+		jackGame.displayJack();
 		System.out.println(jackGame);
 		GameTurn(jackGame);
 	}
@@ -101,6 +102,7 @@ public class Game {
 		jackGame.playAction(jackGame.actionGetFromList());
 		jackGame.switchPlayer();
 		jackGame.playAction(jackGame.actionGetFromList());
+		//TODO
 		//If end goal has been reached
 		/*
 		if (jackGame.hasReactedObjectives() != null) {
@@ -113,11 +115,6 @@ public class Game {
 
 	}
 
-
-
-	public static void handleEnd() {
-
-	}
 
 	@JsonIgnore
 	public Player getPlayer2() {
