@@ -11,6 +11,7 @@ import board.detective.DetectiveName;
 import board.district.Orientation;
 import items.ActionToken;
 import items.Actions;
+import items.AlibiName;
 import items.Card;
 import players.Player;
 import saves.ItemDeserializer;
@@ -22,21 +23,34 @@ public class JackPocketGame extends Game {
 	private ArrayList<ActionToken> actionTokenList = new ArrayList<>();
 	InputListener listener = new InputListener();
 	@JsonIgnore
+	private AlibiName JackName;
+	
+	@JsonIgnore
+	public AlibiName getJackName() {
+		return JackName;
+	}
+	
+	@JsonIgnore
+	public void setJackName(AlibiName jackName) {
+		JackName = jackName;
+	}
+
+	@JsonIgnore
 	private boolean beginWithWalls = true;
 
 	@JsonIgnore
 	public Player getPlayer1() {
-		return getPlayer1();
+		return super.getPlayer1();
 	}
-	
+
 	@JsonIgnore
 	public Player getPlayer2() {
-		return getPlayer2();
+		return super.getPlayer2();
 	}
-	
+
 	@JsonIgnore
 	public Player getCurrentPlayer() {
-		return getCurrentPlayer();
+		return super.getCurrentPlayer();
 	}
 
 	public Board getBoard() {
@@ -54,13 +68,14 @@ public class JackPocketGame extends Game {
 	public void setCardDeck(ArrayList<Card> cardDeck) {
 		this.cardDeck = cardDeck;
 	}
-	
+
 	public void close() {
 		listener.close();
 	}
 
 	// Action methods
 	public void playAction(ActionToken actionToken) {
+
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
 		// Get the current action of the token
@@ -71,7 +86,7 @@ public class JackPocketGame extends Game {
 			actionToBePlayed = actionToken.getAction2();
 			actionDetective = actionToken.getAction2Detective();
 		}
-		//Declare it as played
+		// Declare it as played
 		actionToken.setHasBeenPlayed(true);
 		// Methods
 		switch (actionToBePlayed) {
@@ -92,7 +107,7 @@ public class JackPocketGame extends Game {
 			moveDetectiveToken(detectiveName, moveCount);
 			System.out.println("Moved " + detectiveName);
 			break;
-			
+
 		case DRAW_CARD:
 			drawCard(this.getCurrentPlayer());
 			break;
@@ -138,7 +153,7 @@ public class JackPocketGame extends Game {
 	}
 
 	public String toString() {
-		return board.toString() ;
+		return board.toString();
 	}
 
 	public ArrayList<ActionToken> getActionTokenList() {
@@ -148,12 +163,47 @@ public class JackPocketGame extends Game {
 	public void setActionTokenList(ArrayList<ActionToken> actionTokenList) {
 		this.actionTokenList = actionTokenList;
 	}
+
 	@JsonIgnore
 	public boolean getBeginWithWalls() {
 		return beginWithWalls;
 	}
+
 	@JsonIgnore
 	public void setBeginWithWalls(boolean beginWithWalls) {
 		this.beginWithWalls = beginWithWalls;
 	}
+	
+
+	public ActionToken actionGetFromList() {
+		System.out.println(getCurrentPlayer().getName() + " it's your time to pick an action");
+		System.out.println(actionTokenList);
+		Actions actionName = null;
+		boolean isValid = false;
+		while (!isValid) {
+			actionName = listener.getAction();
+			for (ActionToken actionToken : actionTokenList) {
+				if (actionName != null) {
+					if ((!actionToken.hasBeenPlayed()) && ((actionToken.isRecto()
+							&& (actionToken.getAction1().toString().equals(actionName.toString())))
+							|| (!actionToken.isRecto()
+									&& (actionToken.getAction2().toString().equals(actionName.toString()))))) {
+						isValid = true;
+						return actionToken;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public Player hasReactedObjectives() {
+		getBoard().visibleCharacters();
+		//TODO !!
+		
+		return null;
+	}
+	
+	
+	
 }

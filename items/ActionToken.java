@@ -27,9 +27,6 @@ public class ActionToken {
 		this.action2Detective = action2Detective;
 	}
 
-	public boolean isHasBeenPlayed() {
-		return hasBeenPlayed;
-	}
 
 	public ActionToken(Actions action1, Actions action2) {
 		this.action1 = action1;
@@ -70,7 +67,14 @@ public class ActionToken {
 	}
 
 public String toString() {
-	return "1:" + action1.toString() + " 2:" + action2.toString();
+	if (!hasBeenPlayed) {
+	if (isRecto) {
+		return action1.toString() + ", ";
+	} else {
+		return action2.toString() + ", ";
+	}
+	}
+	return "Used, ";
 }
 
 

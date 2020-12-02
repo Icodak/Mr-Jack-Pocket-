@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+
 import board.detective.DetectiveName;
 import board.district.Orientation;
+import items.Actions;
 
 public class InputListener {
 
@@ -35,6 +37,26 @@ public class InputListener {
 		} else {
 			System.out.println("invalid name defaulted to SHERLOCK");
 			return DetectiveName.SHERLOCK;
+		}
+
+	}
+	
+	public Actions getAction() {
+
+		System.out.println("Input an action name:");
+		String stringAction = sc.next();
+		boolean isValidInput = false;
+		for (Actions c : Actions.values()) {
+			if (c.name().equals(stringAction.toUpperCase())) {
+				isValidInput = true;
+			}
+		}
+		if (isValidInput) {
+			System.out.println("ok!");
+			return Actions.valueOf((stringAction.toUpperCase()));
+		} else {
+			System.out.println("invalid name type again");
+			return null;
 		}
 
 	}

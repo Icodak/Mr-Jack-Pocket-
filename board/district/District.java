@@ -77,8 +77,13 @@ public class District extends Cell {
 	}
 
 	public String toString() {
-
-		String cellString = character.toString().substring(0,6) + "." + orientation.toString().substring(0,1);
+		String cellString;
+		if (isRecto) {
+			cellString = character.toString().substring(0,6);
+		} else {
+			cellString = "000000";
+		}
+		cellString += "." + orientation.toString().substring(0,1);
 		return cellString;
 
 	}

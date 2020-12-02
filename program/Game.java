@@ -1,6 +1,5 @@
 package program;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,12 +7,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import board.detective.DetectiveName;
 import board.district.District;
 import board.district.DistrictType;
 import board.district.Orientation;
-import items.ActionToken;
-import items.Actions;
 import players.Player;
 import saves.SaveLoad;
 
@@ -24,7 +20,13 @@ public class Game {
 	private static Player player2 = null;
 	@JsonIgnore
 	private static Player currentPlayer = null;
+	@JsonIgnore
 	private static int turnCount = 0;
+
+	@JsonIgnore
+	public static int getTurnCount() {
+		return turnCount;
+	}
 
 	public static void setCurrentPlayer(Player currentPlayer) {
 		Game.currentPlayer = currentPlayer;
@@ -83,30 +85,49 @@ public class Game {
 			jackGame.rotate(Orientation.NORTH, Arrays.asList(3, 2));
 		}
 
-		System.out.println("Génération de la partie terminé");
+		System.out.println("Game creation finished !");
+		jackGame.setJackName(jackGame.getCardDeck().get(ThreadLocalRandom.current().nextInt(1, jackGame.getCardDeck().size() + 1)).getCharacter());
+		//TODO : Prompt to show jack
 		System.out.println(jackGame);
-		GameTurn();
+		GameTurn(jackGame);
 	}
 
-	public static void GameTurn() {
+	public static void GameTurn(JackPocketGame jackGame) {
 		turnCount++;
 		System.out.println("It's " + currentPlayer.getName() + "'s turn to play");
-		ChooseAction();
-
-		// Make the actions avaliables again
+		jackGame.playAction(jackGame.actionGetFromList());
+		jackGame.switchPlayer();
+		jackGame.playAction(jackGame.actionGetFromList());
+		jackGame.playAction(jackGame.actionGetFromList());
+		jackGame.switchPlayer();
+		jackGame.playAction(jackGame.actionGetFromList());
+		//If end goal has been reached
+		/*
+		if (jackGame.hasReactedObjectives() != null) {
+		
+		} 
+		//Else continue the game
+		else {
+			GameTurn(jackGame);
+		}*/
 
 	}
 
-	public boolean[] hasReactedObjectives() {
-		return null;
-	}
 
-	public void handleEnd() {
+
+	public static void handleEnd() {
 
 	}
 
-	public static void ChooseAction() {
-
+	@JsonIgnore
+	public Player getPlayer2() {
+		return player2;
 	}
+
+	@JsonIgnore
+	public Player getPlayer1() {
+		return player1;
+	}
+
 
 }
