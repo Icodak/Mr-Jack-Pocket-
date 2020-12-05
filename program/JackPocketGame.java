@@ -24,12 +24,12 @@ public class JackPocketGame extends Game {
 	InputListener listener = new InputListener();
 	@JsonIgnore
 	private AlibiName JackName;
-	
+
 	@JsonIgnore
 	public AlibiName getJackName() {
 		return JackName;
 	}
-	
+
 	@JsonIgnore
 	public void setJackName(AlibiName jackName) {
 		JackName = jackName;
@@ -75,7 +75,6 @@ public class JackPocketGame extends Game {
 
 	// Action methods
 	public void playAction(ActionToken actionToken) {
-
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
 		// Get the current action of the token
@@ -137,8 +136,15 @@ public class JackPocketGame extends Game {
 	}
 
 	public void drawCard(Player player) {
+
 		if (cardDeck.size() > 0) {
-			player.getAlibiDeck().add(cardDeck.get(0));
+			player.addAlibiCard(cardDeck.get(0));
+			// Flip if detective
+			if (player == getPlayer1()) {
+				board.flipDistrict(cardDeck.get(0).getCharacter());
+			} else if (player == getPlayer2()) {
+				player.setHourglass(player.getHourglass() + cardDeck.get(0).getHourglass());
+			}
 			cardDeck.remove(0);
 		}
 
@@ -173,13 +179,12 @@ public class JackPocketGame extends Game {
 	public void setBeginWithWalls(boolean beginWithWalls) {
 		this.beginWithWalls = beginWithWalls;
 	}
-	
+
 	public void displayJack() {
 		listener.showJack();
 		System.out.println(JackName.toString());
 		listener.hideJack();
 	}
-	
 
 	public ActionToken actionGetFromList() {
 		System.out.println(getCurrentPlayer().getName() + " it's your time to pick an action");
@@ -202,22 +207,48 @@ public class JackPocketGame extends Game {
 		}
 		return null;
 	}
-	
+
 	public Player hasReactedObjectives() {
-		/*TODO
-		*Flip tiles depending on the visibility of jack
-		*Calculate  jack's hourglass count
-		*calculate the number of unflipped tiles
-		*check if turn 8
-		*return the correct value
-		*????
-		*profit
-		*/
-		getBoard().visibleCharacters();
-		
-		return null;
+		ArrayList<AlibiName> visibleList = getBoard().visibleCharacters();
+		boolean isJackVisible = false;
+		Player winner = null;
+		for (AlibiName visibleAlibi : visibleList) {
+			if (visibleAlibi.toString().equals(JackName.toString())) {
+				isJackVisible = true;
+			}
+		}
+		// Flips districts & returns the number of unflipped districts
+		int districtsLeft = getBoard().flipDistrict(isJackVisible, visibleList);
+
+		// If jack is invisible
+		if (!isJackVisible) {
+			getPlayer2().setHourglass(getPlayer2().getHourglass() + 1);
+		}
+
+		/*
+		 * TODO interdit de repivoter un quartier deja pivote
+		 */
+
+		// if Jack has 6 or more hourglasses
+		System.out.println("Jack has " + getPlayer2().getHourglass() + " hourglasses");
+		if (getPlayer2().getHourglass() >= 6) {
+			System.out.println("WIN BY 6+ HOURGLASS");
+			winner = getPlayer2();
+		}
+
+		// if 1 district left & jack visible
+		if ((districtsLeft == 1) && isJackVisible) {
+			System.out.println("WIN BY 1 DISTRICT LEFT");
+			winner = getPlayer1();
+		}
+
+		// Turn 8 special win conditions
+		if ((getTurnCount() == 8) && (districtsLeft == 1) && !isJackVisible) {
+			System.out.println("WIN BY TURN 8");
+			winner = getPlayer2();
+		}
+
+		return winner;
 	}
-	
-	
-	
+
 }

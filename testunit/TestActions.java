@@ -1,13 +1,7 @@
 package testunit;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.Test;
 
-import board.detective.DetectiveName;
-import board.district.District;
-import items.ActionToken;
-import items.Actions;
 import program.JackPocketGame;
 import saves.SaveLoad;
 
@@ -17,11 +11,48 @@ class TestActions {
 	void test() {
 		
 		
-
-		ActionToken act = new ActionToken(Actions.MOVE_DETECTIVE, Actions.ROTATE_DISTRICT);
-		ActionToken act2 = new ActionToken(Actions.MOVE_DETECTIVE, Actions.ROTATE_DISTRICT);
-System.out.println(act.getAction1() == act2.getAction1());
-
+		JackPocketGame j2 = SaveLoad.Load(System.getProperty("user.dir") + "\\resources\\classicJack.json");
+		System.out.println(j2);
+		
+		System.out.println(j2.getActionTokenList().get(0).getAction1().toString());
+		System.out.println(j2.getActionTokenList().get(0).getAction1Detective());
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		j2.playAction(j2.getActionTokenList().get(0));
+		j2.getActionTokenList().get(0).setRecto(true);
+		System.out.println(j2);
+		
 	}
 
 }

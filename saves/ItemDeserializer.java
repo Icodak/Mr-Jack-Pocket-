@@ -108,8 +108,8 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 			ActionToken actionToken = new ActionToken(action1,action2);
 			String stringDetective1 = node.get("actionTokenList").get(i).get("action1Detective").asText();
 			String stringDetective2 = node.get("actionTokenList").get(i).get("action2Detective").asText();
-			if (stringDetective1.equals(null)) {actionToken.setAction1Detective(DetectiveName.valueOf(stringDetective1));}
-			if (stringDetective2.equals(null)) {actionToken.setAction1Detective(DetectiveName.valueOf(stringDetective2));}
+			if (!(stringDetective1.equals("null"))) {actionToken.setAction1Detective(DetectiveName.valueOf(stringDetective1));}
+			if (!(stringDetective2.equals("null"))) {actionToken.setAction1Detective(DetectiveName.valueOf(stringDetective2));}
 			actionTokenList.add(actionToken);
 
 		}

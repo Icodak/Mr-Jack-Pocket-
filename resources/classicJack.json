@@ -22,9 +22,10 @@
                 }, {
                     "type": "District",
                     "character": "INSPECTOR_LESTRADE",
-                    "orientation": "WEST",
-                    "walls": [false, true, false, false],
+                    "orientation": "SOUTH",
+                    "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
@@ -32,13 +33,15 @@
                     "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
                     "character": "JOHN_PIZER",
                     "orientation": "EAST",
-                    "walls": [false, false, false, true],
-                    "districtType": "CROSS_SHAPE",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
@@ -53,24 +56,27 @@
                     "orientation": "EAST",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
                     "character": "JOSEPH_LANE",
-                    "orientation": "WEST",
+                    "orientation": "NORTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
                     "character": "MADAME",
-                    "orientation": "EAST",
+                    "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["WATSON"]
+                    "detectiveList": ["SHERLOCK"]
                 }
             ], [{
                     "type": "DetectiveToken",
@@ -81,6 +87,7 @@
                     "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
@@ -88,6 +95,7 @@
                     "orientation": "SOUTH",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "District",
@@ -95,6 +103,7 @@
                     "orientation": "EAST",
                     "walls": [false, false, true, false],
                     "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
@@ -105,7 +114,7 @@
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["SHERLOCK"]
+                    "detectiveList": ["WATSON"]
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []

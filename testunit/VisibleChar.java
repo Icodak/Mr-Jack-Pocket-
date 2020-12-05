@@ -9,7 +9,7 @@ class VisibleChar {
 
 	@Test
 	void test() {
-		JackPocketGame j2 = SaveLoad.Load("F:\\Documents\\inge-1\\mr JackPocket\\classicJack.json");
+		JackPocketGame j2 = SaveLoad.Load(System.getProperty("user.dir") + "\\resources\\testToDown.json");
 		System.out.println(j2.getBoard());
 		System.out.println(j2.getBoard().visibleCharacters());
 

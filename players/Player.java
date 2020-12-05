@@ -1,15 +1,23 @@
 package players;
+
 import java.util.ArrayList;
 
 import items.Card;
-import items.TimeToken;
 
 public class Player {
 	private ArrayList<Card> alibiDeck = new ArrayList<>();
-	private ArrayList<TimeToken> turnToken = new ArrayList<>();
+	private int hourglass;
+
+	public int getHourglass() {
+		return hourglass;
+	}
+
+	public void setHourglass(int hourglass) {
+		this.hourglass = hourglass;
+	}
+
 	private boolean isJack = false;
 	private String name;
-	
 
 	public String getName() {
 		return name;
@@ -27,11 +35,10 @@ public class Player {
 		setJack(isJack);
 		setName(name);
 	}
-	
+
 	public boolean isJack() {
 		return isJack;
 	}
-
 
 	public ArrayList<Card> getAlibiDeck() {
 		return alibiDeck;
@@ -42,6 +49,7 @@ public class Player {
 	}
 
 	public void addAlibiCard(Card card) {
+		System.out.println("Card added : " + card);
 		alibiDeck.add(card);
 	}
 
@@ -49,12 +57,8 @@ public class Player {
 		alibiDeck.remove(card);
 	}
 
-	public ArrayList<TimeToken> getTurnToken() {
-		return turnToken;
-	}
-
-	public void setTurnToken(ArrayList<TimeToken> turnToken) {
-		this.turnToken = turnToken;
+	public String toString() {
+		return getName();
 	}
 
 }

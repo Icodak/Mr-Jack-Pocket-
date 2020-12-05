@@ -10,7 +10,7 @@ public class ActionToken {
 	boolean hasBeenPlayed = false;
 	DetectiveName action1Detective = null;
 	DetectiveName action2Detective = null;
-	
+
 	public DetectiveName getAction1Detective() {
 		return action1Detective;
 	}
@@ -27,13 +27,12 @@ public class ActionToken {
 		this.action2Detective = action2Detective;
 	}
 
-
 	public ActionToken(Actions action1, Actions action2) {
 		this.action1 = action1;
 		this.action2 = action2;
 
 	}
-	
+
 	public Actions getAction1() {
 		return action1;
 	}
@@ -66,16 +65,15 @@ public class ActionToken {
 		this.hasBeenPlayed = hasBeenPlayed;
 	}
 
-public String toString() {
-	if (!hasBeenPlayed) {
-	if (isRecto) {
-		return action1.toString() + ", ";
-	} else {
-		return action2.toString() + ", ";
+	public String toString() {
+		if (!hasBeenPlayed) {
+			if (isRecto) {
+				return action1.toString();
+			} else {
+				return action2.toString();
+			}
+		}
+		return "Used, ";
 	}
-	}
-	return "Used, ";
-}
-
 
 }

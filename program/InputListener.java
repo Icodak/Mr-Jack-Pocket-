@@ -110,7 +110,6 @@ public class InputListener {
 	}
 
 	public List<Integer> getInputCoord() {
-
 		System.out.println("Input coordinates");
 		System.out.print("For X value ");
 		int intx = Math.min(Math.max(1, getInputInt()), 3);

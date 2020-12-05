@@ -10,6 +10,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import board.district.District;
 import board.district.DistrictType;
 import board.district.Orientation;
+import items.ActionToken;
+import items.Card;
 import players.Player;
 import saves.SaveLoad;
 
@@ -86,35 +88,59 @@ public class Game {
 		}
 
 		System.out.println("Game creation finished !");
-		jackGame.setJackName(jackGame.getCardDeck().get(ThreadLocalRandom.current().nextInt(1, jackGame.getCardDeck().size() + 1)).getCharacter());
-		//Prompt to show jack
+		// set JackCharacter
+		jackGame.setJackName(jackGame.getCardDeck()
+				.get(ThreadLocalRandom.current().nextInt(0, jackGame.getCardDeck().size())).getCharacter());
+		// pop Jack from deck
+		for (Card card : jackGame.getCardDeck()) {
+			if (card.getCharacter() == jackGame.getJackName()) {
+				jackGame.getCardDeck().remove(card);
+				break;
+			}
+		}
+		// Prompt to show jack
 		jackGame.displayJack();
-		System.out.println(jackGame);
 		GameTurn(jackGame);
 	}
 
+	// Handles game turns, either repeats or displays who won
 	public static void GameTurn(JackPocketGame jackGame) {
 		turnCount++;
+		// Flip actiontokens (even turn) or randomize them (odd turn)
+		for (ActionToken actionToken : jackGame.getActionTokenList()) {
+			// even
+			if (Math.floorMod(turnCount, 2) != 0) {
+				actionToken.setRecto(ThreadLocalRandom.current().nextBoolean());
+			}
+		}
+
 		System.out.println("It's " + currentPlayer.getName() + "'s turn to play");
+		System.out.println(jackGame);
 		jackGame.playAction(jackGame.actionGetFromList());
 		jackGame.switchPlayer();
+		System.out.println(jackGame);
 		jackGame.playAction(jackGame.actionGetFromList());
+		System.out.println(jackGame);
 		jackGame.playAction(jackGame.actionGetFromList());
 		jackGame.switchPlayer();
+		System.out.println(jackGame);
 		jackGame.playAction(jackGame.actionGetFromList());
-		//TODO
-		//If end goal has been reached
-		/*
-		if (jackGame.hasReactedObjectives() != null) {
-		
-		} 
-		//Else continue the game
+
+		// Make the actiontolens reusables
+		for (ActionToken actionToken : jackGame.getActionTokenList()) {
+			actionToken.setHasBeenPlayed(false);
+		}
+
+		Player winningPlayer = jackGame.hasReactedObjectives();
+		// If end goal has been reached
+		if (winningPlayer != null) {
+			System.out.println(winningPlayer + " wins, congratulations !!");
+		}
+		// Else continue the game
 		else {
 			GameTurn(jackGame);
-		}*/
-
+		}
 	}
-
 
 	@JsonIgnore
 	public Player getPlayer2() {
@@ -125,6 +151,5 @@ public class Game {
 	public Player getPlayer1() {
 		return player1;
 	}
-
 
 }
