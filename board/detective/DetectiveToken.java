@@ -1,21 +1,19 @@
 package board.detective;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import board.Cell;
 
 public class DetectiveToken extends Cell {
 
-	private ArrayList<DetectiveName> detectiveList = new ArrayList<DetectiveName>();
+	private List<DetectiveName> detectiveList = new ArrayList<>();
 
-	public DetectiveToken() {
-	}
-
-	public ArrayList<DetectiveName> getDetectiveList() {
+	public List<DetectiveName> getDetectiveList() {
 		return detectiveList;
 	}
 
-	public void setDetectiveList(ArrayList<DetectiveName> detectiveList) {
+	public void setDetectiveList(List<DetectiveName> detectiveList) {
 		this.detectiveList = detectiveList;
 	}
 

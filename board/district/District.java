@@ -27,8 +27,6 @@ public class District extends Cell {
 		this.walls = walls;
 	}
 
-	public District() {
-	}
 
 	public boolean[] getWalls() {
 		//gets walls depending on the orientation dans type of the district
@@ -44,7 +42,7 @@ public class District extends Cell {
 		case SOUTH:
 			return new boolean[] { walls[1], walls[2], walls[3], walls[0] };
 		}
-		return null;
+		return new boolean[0];
 
 	}
 

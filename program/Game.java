@@ -51,7 +51,7 @@ public class Game {
 	public static void launchGame() throws JsonProcessingException {
 		// Load classic game board and card set
 		String localFile = System.getProperty("user.dir") + "\\resources\\classicJack.json";
-		JackPocketGame jackGame = SaveLoad.Load(localFile);
+		JackPocketGame jackGame = SaveLoad.load(localFile);
 		player1 = new Player(false, "Detective");
 		player2 = new Player(true, "Jack");
 		setCurrentPlayer(player1);
@@ -100,11 +100,11 @@ public class Game {
 		}
 		// Prompt to show jack
 		jackGame.displayJack();
-		GameTurn(jackGame);
+		gameTurn(jackGame);
 	}
 
 	// Handles game turns, either repeats or displays who won
-	public static void GameTurn(JackPocketGame jackGame) {
+	public static void gameTurn(JackPocketGame jackGame) {
 		turnCount++;
 		// Flip actiontokens (even turn) or randomize them (odd turn)
 		for (ActionToken actionToken : jackGame.getActionTokenList()) {
@@ -138,7 +138,7 @@ public class Game {
 		}
 		// Else continue the game
 		else {
-			GameTurn(jackGame);
+			gameTurn(jackGame);
 		}
 	}
 

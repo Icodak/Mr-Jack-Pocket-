@@ -11,7 +11,7 @@ class TestActions {
 	void test() {
 		
 		
-		JackPocketGame j2 = SaveLoad.Load(System.getProperty("user.dir") + "\\resources\\classicJack.json");
+		JackPocketGame j2 = SaveLoad.load(System.getProperty("user.dir") + "\\resources\\classicJack.json");
 		System.out.println(j2);
 		
 		System.out.println(j2.getActionTokenList().get(0).getAction1().toString());

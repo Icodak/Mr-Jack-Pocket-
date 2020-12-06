@@ -19,35 +19,38 @@ import saves.ItemDeserializer;
 @JsonDeserialize(using = ItemDeserializer.class)
 public class JackPocketGame extends Game {
 	private Board board;
-	private ArrayList<Card> cardDeck;
-	private ArrayList<ActionToken> actionTokenList = new ArrayList<>();
+	private List<Card> cardDeck;
+	private List<ActionToken> actionTokenList = new ArrayList<>();
 	InputListener listener = new InputListener();
 	@JsonIgnore
-	private AlibiName JackName;
+	private AlibiName jackName;
 
 	@JsonIgnore
 	public AlibiName getJackName() {
-		return JackName;
+		return jackName;
 	}
 
 	@JsonIgnore
 	public void setJackName(AlibiName jackName) {
-		JackName = jackName;
+		this.jackName = jackName;
 	}
 
 	@JsonIgnore
 	private boolean beginWithWalls = true;
 
+	@Override
 	@JsonIgnore
 	public Player getPlayer1() {
 		return super.getPlayer1();
 	}
 
+	@Override
 	@JsonIgnore
 	public Player getPlayer2() {
 		return super.getPlayer2();
 	}
 
+	@Override
 	@JsonIgnore
 	public Player getCurrentPlayer() {
 		return super.getCurrentPlayer();
@@ -61,11 +64,11 @@ public class JackPocketGame extends Game {
 		this.board = board;
 	}
 
-	public ArrayList<Card> getCardDeck() {
+	public List<Card> getCardDeck() {
 		return cardDeck;
 	}
 
-	public void setCardDeck(ArrayList<Card> cardDeck) {
+	public void setCardDeck(List<Card> cardDeck) {
 		this.cardDeck = cardDeck;
 	}
 
@@ -137,7 +140,7 @@ public class JackPocketGame extends Game {
 
 	public void drawCard(Player player) {
 
-		if (cardDeck.size() > 0) {
+		if (!cardDeck.isEmpty()) {
 			player.addAlibiCard(cardDeck.get(0));
 			// Flip if detective
 			if (player == getPlayer1()) {
@@ -162,11 +165,11 @@ public class JackPocketGame extends Game {
 		return board.toString();
 	}
 
-	public ArrayList<ActionToken> getActionTokenList() {
+	public List<ActionToken> getActionTokenList() {
 		return actionTokenList;
 	}
 
-	public void setActionTokenList(ArrayList<ActionToken> actionTokenList) {
+	public void setActionTokenList(List<ActionToken> actionTokenList) {
 		this.actionTokenList = actionTokenList;
 	}
 
@@ -182,7 +185,7 @@ public class JackPocketGame extends Game {
 
 	public void displayJack() {
 		listener.showJack();
-		System.out.println(JackName.toString());
+		System.out.println(jackName.toString());
 		listener.hideJack();
 	}
 
@@ -209,11 +212,11 @@ public class JackPocketGame extends Game {
 	}
 
 	public Player hasReactedObjectives() {
-		ArrayList<AlibiName> visibleList = getBoard().visibleCharacters();
+		List<AlibiName> visibleList = getBoard().visibleCharacters();
 		boolean isJackVisible = false;
 		Player winner = null;
 		for (AlibiName visibleAlibi : visibleList) {
-			if (visibleAlibi.toString().equals(JackName.toString())) {
+			if (visibleAlibi.toString().equals(jackName.toString())) {
 				isJackVisible = true;
 			}
 		}

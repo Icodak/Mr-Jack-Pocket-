@@ -1,11 +1,12 @@
 package players;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import items.Card;
 
 public class Player {
-	private ArrayList<Card> alibiDeck = new ArrayList<>();
+	private List<Card> alibiDeck = new ArrayList<>();
 	private int hourglass;
 
 	public int getHourglass() {
@@ -40,11 +41,11 @@ public class Player {
 		return isJack;
 	}
 
-	public ArrayList<Card> getAlibiDeck() {
+	public List<Card> getAlibiDeck() {
 		return alibiDeck;
 	}
 
-	public void setAlibiDeck(ArrayList<Card> alibiDeck) {
+	public void setAlibiDeck(List<Card> alibiDeck) {
 		this.alibiDeck = alibiDeck;
 	}
 

@@ -39,7 +39,7 @@ public class Board {
 		Cell cellTemp = getCell(coord1);
 		setCell(getCell(coord2), coord1);
 		setCell(cellTemp, coord2);
-		;
+		
 	}
 
 	// Rotates the district cell to a new orientation at the given coordinates
@@ -55,19 +55,17 @@ public class Board {
 	// while no wall is faced a detective can see every character on its row &
 	// column
 
-	public ArrayList<AlibiName> visibleCharacters() {
+	public List<AlibiName> visibleCharacters() {
 		ArrayList<AlibiName> characterList = new ArrayList<>();
 		boolean wallNext;
 
 		// Check for detectives
 		for (int h = 0; h < cellBoard.length; h++) {
 			for (int l = 0; l < cellBoard[0].length; l++) {
-				List<Integer> coords = new ArrayList<>();
-				coords = Arrays.asList(h, l);
-				if (cellBoard[h][l] instanceof DetectiveToken) {
+				List<Integer> coords = Arrays.asList(h, l);
+				if ((cellBoard[h][l] instanceof DetectiveToken) && (!((DetectiveToken) cellBoard[h][l]).getDetectiveList().isEmpty())) {
 
 					// Foreach detective, do an analysis
-					if (((DetectiveToken) cellBoard[h][l]).getDetectiveList().size() > 0) {
 						// Horizontal analysis
 						// left to right
 						if (coords.get(1) == 0) {
@@ -150,12 +148,11 @@ public class Board {
 						}
 					}
 				}
-			}
 		}
 		return characterList;
 	}
 
-	public int flipDistrict(boolean isJackVisible, ArrayList<AlibiName> visibleList) {
+	public int flipDistrict(boolean isJackVisible, List<AlibiName> visibleList) {
 		int districtsLeft = 0;
 		boolean isVisibleDistrict = false;
 		for (int h = 1; h < cellBoard.length - 1; h++) {
@@ -193,23 +190,20 @@ public class Board {
 
 	// Moves a given detective of a number of cells
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
-		List<Integer> coords = new ArrayList<>();
 		boolean found = false;
 		for (int move = 0; move < cellCount; move++) {
 			found = false;
 			for (int h = 0; h < cellBoard.length; h++) {
 				for (int l = 0; l < cellBoard[h].length; l++) {
-					coords = Arrays.asList(h, l);
-					if (cellBoard[h][l] instanceof DetectiveToken && found == false) {
+					List<Integer> coords = Arrays.asList(h, l);
+					if ((cellBoard[h][l] instanceof DetectiveToken && !found) && (((DetectiveToken) cellBoard[h][l]).getDetectiveList().contains(detectiveName))) {
 						// removes token from current position
-						if (((DetectiveToken) cellBoard[h][l]).getDetectiveList().contains(detectiveName)) {
 							found = true;
 							((DetectiveToken) cellBoard[h][l]).removeDetective(detectiveName);
 							// finds new detectiveToken position
 							coords = slideAround(coords, Arrays.asList(cellBoard.length - 1, cellBoard[h].length - 1));
 							((DetectiveToken) getCell(coords)).addDetective(detectiveName);
 						}
-					}
 				}
 			}
 		}
@@ -219,7 +213,7 @@ public class Board {
 	// depending on its current position
 	public static List<Integer> slideAround(List<Integer> coords, List<Integer> maxCoord) {
 		// left to right
-		if (coords.get(0) == maxCoord.get(0) && coords.get(1) < maxCoord.get(1)) {
+		if (coords.get(0).equals(maxCoord.get(0)) && coords.get(1) < maxCoord.get(1)) {
 			coords = Arrays.asList(coords.get(0), coords.get(1) + 1);
 		}
 		// right to left
@@ -231,7 +225,7 @@ public class Board {
 			coords = Arrays.asList(coords.get(0) + 1, coords.get(1));
 		}
 		// down to up
-		else if (coords.get(1) == maxCoord.get(1) && coords.get(0) > 0) {
+		else if (coords.get(1).equals(maxCoord.get(1)) && coords.get(0) > 0) {
 			coords = Arrays.asList(coords.get(0) - 1, coords.get(1));
 		}
 
