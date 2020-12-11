@@ -1,3 +1,5 @@
+package graphics;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,10 +32,10 @@ public class Menu  {
 		JMenuItem saveGame= new JMenuItem ("save my game");
 		setting.add(others);
 		others.add(saveGame);
-		others.setIcon(new ImageIcon("C:\\Isep\\ingénieur1\\projet_info\\interface tets\\image3\\save_as.png"));
+		others.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_SAVE_AS.png"));
 		JMenu resolutionSize = new JMenu( "window size" );	
 		JFileChooser fc = new JFileChooser ();
-		resolutionSize.setIcon(new ImageIcon("C:\\Isep\\ingénieur1\\projet_info\\interface tets\\image3\\jacksizeicon.png"));
+		resolutionSize.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_SIZE.png"));
 		for(int n =0; n<resolution.length;n++) {
 		items[n]= new JmenuItemsSize();
 		items[n].setText(resolution[n]);
@@ -55,8 +57,13 @@ public class Menu  {
 	    });}
 	    saveGame.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		/*
+	    		 * 
+	    		 * TODO : EDIT SAVES
+	    		 * 
 	    		SaveFile save = new SaveFile();
 	    		save.savingFile(frame,fc);
+	    		*/
 	    		}
 
 	    });    

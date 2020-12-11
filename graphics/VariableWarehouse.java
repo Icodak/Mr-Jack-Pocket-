@@ -1,3 +1,4 @@
+package graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -29,10 +30,10 @@ public class VariableWarehouse {
 	public int[][] resolutionTable={{1900,1080},{1680,1050},{1600,1024},{1280,720},{1024,758},{800,600}};
 	
 	//CHEMIN DES IMAGES
-	public String[] ActionToken = {"\\image3\\alibi-card.png","\\image3\\Jeton1-Face1.png","\\image3\\Jeton1-Face2.png","\\image3\\Jeton2-Face1.png","\\image3\\Jeton2-Face2.png","\\image3\\Jeton3-Face1.png","\\image3\\Jeton3-Face2.png","\\image3\\Jeton4-Face1.png","\\image3\\Jeton4-Face2.png"};
-	public String[] TimeToken= {"\\image3\\timeinspector.png","\\image3\\timejack.png","\\image3\\timeinspector.png","\\image3\\timejack.png","\\image3\\timeinspector.png","\\image3\\timejack.png","\\image3\\timeinspector.png","\\image3\\timejack.png","\\image3\\timeinspector.png","\\image3\\timejack.png"};
-	public String[] District= {"\\image3\\InspLestrade-recto.png","\\image3\\JeremyBert-recto.png","\\image3\\JohnPizer-recto.png","\\image3\\johnSmith-recto.png","\\image3\\JosephLane-recto.png","\\image3\\Madame-recto.png","\\image3\\MissStealthy-recto.png","\\image3\\SgtGoodley-recto.png","\\image3\\WilliamGull-recto.png","\\image3\\JosephLane-verso.png","\\image3\\common-verso.png",};
-	public String[] AlibiCard= {"\\image3\\InspLestrade-alibi.png","\\image3\\JeremyBert-alibi.png","\\image3\\JohnPizer-alibi.png","\\image3\\JohnSmith-alibi.png","\\image3\\JosephLane-alibi.png","\\image3\\Madame-alibi.png","\\image3\\MissStealthy-alibi.png","\\image3\\SgtGoodley-alibi.png","\\image3\\WilliamGull-alibi.png"};
-	public String[] Detective= {"\\image3\\Sherlock.png","\\image3\\Tobi.png","\\image3\\Watson.png"};
+	public String[] ActionToken = {"\\images\\alibicards\\ALIBI_CARD.png","\\images\\tokens\\TOKEN_SWAP.png","\\images\\tokens\\TOKEN_ROTATE.png","\\images\\tokens\\TOKEN_TOBBY.png","\\images\\tokens\\TOKEN_WATSON.png","\\images\\tokens\\TOKEN_SHERLOCK.png","\\images\\tokens\\TOKEN_CARD.png","\\images\\tokens\\TOKEN_JOKER.png","\\images\\tokens\\TOKEN_ROTATION.png"};
+	public String[] TimeToken= {"\\images\\tokens\\TIME_DETECTIVE_1.png","\\images\\tokens\\TIME_JACK_2.png","\\images\\tokens\\TIME_DETECTIVE_3.png","\\images\\tokens\\TIME_JACK_4.png","\\images\\tokens\\TIME_DETECTIVE_5.png","\\images\\tokens\\TIME_JACK_6.png","\\images\\tokens\\TIME_DETECTIVE_7.png","\\images\\tokens\\TIME_JACK_8.png"};
+	public String[] District= {"\\images\\districts\\0_INSP_LESTRADE.png","\\images\\districts\\0_JEREMY_BERT.png","\\images\\districts\\0_JOHN_PIZER.png","\\images\\districts\\0_JOHN_SMITH.png","\\images\\districts\\0_JOSEPH_LANE.png","\\images\\districts\\0_MADAME.png","\\images\\districts\\0_MISS_STEALTHY.png","\\images\\districts\\0_SGT_GOODLEY.png","\\images\\districts\\0_WILLIAM_GULL.png","\\images\\districts\\DISTRICT_CROSS_SHAPE.png","\\images\\districts\\DISTRICT_T_SHAPE.png",};
+	public String[] AlibiCard= {"\\images\\alibicards\\ALIBI_INSP_LESTRADE.png","\\images\\alibicards\\ALIBI_JEREMY_BERT.png","\\images\\alibicards\\ALIBI_JOHN_PIZER.png","\\images\\alibicards\\ALIBI_JOHN_SMITH.png","\\images\\alibicards\\ALIBI_JOSEPH_LANE.png","\\images\\alibicards\\ALIBI_MADAME.png","\\images\\alibicards\\ALIBI_MISS_STEALTHY.png","\\images\\alibicards\\ALIBI_SGT_GOODLEY.png","\\images\\alibicards\\ALIBI_WILLIAM_GULL.png"};
+	public String[] Detective= {"\\images\\tokens\\DETECTIVE_SHERLOCK.png","\\images\\tokens\\DETECTIVE_TOBBY.png","\\images\\tokens\\DETECTIVE_WATSON.png"};
 	
 }

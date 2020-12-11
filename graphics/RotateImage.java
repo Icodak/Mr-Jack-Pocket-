@@ -1,8 +1,8 @@
-import javax.swing.ImageIcon;
+package graphics;
 
 public class RotateImage {
 	
-	static ImageIcon rotateImage() {	
+	//static ImageIcon rotateImage() {	
 	
-	}
+	//}
 }

@@ -1,3 +1,4 @@
+package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
@@ -22,10 +23,10 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		//main window divided in 4 parts(up,left,center,right)
 		frame = new JFrame();
 		frame.setTitle("Mrjackpocket");
-		frame.setIconImage(new ImageIcon("C:\\Isep\\ingénieur1\\projet_info\\interface tets\\image3\\icon_Mrjack.png").getImage());	
+		frame.setIconImage(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_LOGO.png").getImage());	
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		
 		//Menu bar
@@ -172,7 +173,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	
 	
 	private ImageIcon  imageSize(String path,int xSize, int ySize,NewJLabel label) {			
-		ImageIcon icon = new ImageIcon(new ImageIcon("C:\\Isep\\ingénieur1\\projet_info\\interface tets\\"+path).getImage().getScaledInstance(xSize, ySize, Image.SCALE_DEFAULT));
+		ImageIcon icon = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources"+path).getImage().getScaledInstance(xSize, ySize, Image.SCALE_DEFAULT));
 		label.setPath(path);
 		return icon;
 	}	

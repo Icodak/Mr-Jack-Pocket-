@@ -1,3 +1,6 @@
+package graphics;
+
+
 import javax.swing.JMenuItem;
 
 public class JmenuItemsSize extends JMenuItem {
