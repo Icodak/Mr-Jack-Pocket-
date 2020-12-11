@@ -15,6 +15,15 @@
 /Players.class
 /TimeToken.class
 /ActionToken.class
+/JmenuItemsSize.class
+/VariableWarehouse.class
+/RotateImage.class
+/NewJLabel.class
+/NewGraphicalWindow.class
+/MouseListener.class
+/Menu$1.class
+/Menu$2.class
+/Menu.class
 /DistrictType.class
 /Player.class
 /SaveLoad.class
@@ -23,4 +32,3 @@
 /Deck.class
 /JackDeserializer.class
 /ItemDeserializer.class
-/EmptyCell.class
