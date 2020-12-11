@@ -17,6 +17,8 @@ import board.detective.DetectiveToken;
 import board.district.District;
 import board.district.DistrictType;
 import board.district.Orientation;
+import items.ActionToken;
+import items.Actions;
 import items.AlibiName;
 import items.Card;
 import program.JackPocketGame;
@@ -97,11 +99,26 @@ public class ItemDeserializer extends StdDeserializer<JackPocketGame> {
 			cardDeck.add(card);
 
 		}
+		
+		// actionTokens
+		ArrayList<ActionToken> actionTokenList = new ArrayList<>();
+		for (int i = 0; i < node.get("actionTokenList").size(); i++) {
+			Actions action1 = Actions.valueOf(node.get("actionTokenList").get(i).get("action1").asText());
+			Actions action2 = Actions.valueOf(node.get("actionTokenList").get(i).get("action2").asText());
+			ActionToken actionToken = new ActionToken(action1,action2);
+			String stringDetective1 = node.get("actionTokenList").get(i).get("action1Detective").asText();
+			String stringDetective2 = node.get("actionTokenList").get(i).get("action2Detective").asText();
+			if (!(stringDetective1.equals("null"))) {actionToken.setAction1Detective(DetectiveName.valueOf(stringDetective1));}
+			if (!(stringDetective2.equals("null"))) {actionToken.setAction1Detective(DetectiveName.valueOf(stringDetective2));}
+			actionTokenList.add(actionToken);
+
+		}
 
 		//Generate the full game
 		JackPocketGame game = new JackPocketGame();
 		game.setBoard(board);
 		game.setCardDeck(cardDeck);
+		game.setActionTokenList(actionTokenList);
 		return game;
 	}
 }

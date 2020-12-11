@@ -5,7 +5,7 @@
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["TOBBY"]
+                    "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []
@@ -45,7 +45,7 @@
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": []
+                    "detectiveList": ["TOBBY"]
                 }
             ], [{
                     "type": "DetectiveToken",
@@ -107,14 +107,14 @@
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": []
+                    "detectiveList": ["WATSON"]
                 }
             ], [{
                     "type": "DetectiveToken",
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["WATSON"]
+                    "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []

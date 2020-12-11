@@ -5,7 +5,7 @@
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["TOBBY"]
+                    "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []
@@ -18,7 +18,7 @@
                 }
             ], [{
                     "type": "DetectiveToken",
-                    "detectiveList": []
+                    "detectiveList": ["TOBBY"]
                 }, {
                     "type": "District",
                     "character": "INSPECTOR_LESTRADE",
@@ -49,7 +49,7 @@
                 }
             ], [{
                     "type": "DetectiveToken",
-                    "detectiveList": []
+                    "detectiveList": ["SHERLOCK"]
                 }, {
                     "type": "District",
                     "character": "JOHN_SMITH",
@@ -76,11 +76,11 @@
                     "recto": true
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["SHERLOCK"]
+                    "detectiveList": []
                 }
             ], [{
                     "type": "DetectiveToken",
-                    "detectiveList": []
+                    "detectiveList": ["WATSON"]
                 }, {
                     "type": "District",
                     "character": "MISS_STENTHY",
@@ -114,7 +114,7 @@
                     "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
-                    "detectiveList": ["WATSON"]
+                    "detectiveList": []
                 }, {
                     "type": "DetectiveToken",
                     "detectiveList": []
