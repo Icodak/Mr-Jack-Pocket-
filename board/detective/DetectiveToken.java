@@ -8,7 +8,8 @@ import board.Cell;
 public class DetectiveToken extends Cell {
 
 	private List<DetectiveName> detectiveList = new ArrayList<>();
-
+//TODO : add detective position and change mode method
+	
 	public void addDetective(DetectiveName detectiveName) {
 		if (!(detectiveList.contains(detectiveName))) {
 			detectiveList.add(detectiveName);
