@@ -1,4 +1,5 @@
 package board;
+
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
@@ -6,6 +7,7 @@ import board.detective.DetectiveToken;
 import board.district.District;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 //Serialise info
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({ @Type(value = District.class, name = "District"),

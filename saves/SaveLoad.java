@@ -12,28 +12,19 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import program.JackPocketGame;
 
 public class SaveLoad {
-	
+	private static String jackFileLocation;
+
+	// Constructor
 	private SaveLoad() {
 		throw new IllegalStateException("Utility class");
 	}
 
-	// Save Load methods to create and modify a game
-	private static String jackFileLocation;
-
-	public static String getjackFileLocation() {
-		return jackFileLocation;
-	}
-
-	public static void setjackFileLocation(String jackFileLoc) {
-		jackFileLocation = jackFileLoc;
-	}
-
-	// Save using serialisation methods
 	@SuppressWarnings("deprecation")
 	public static void save(JackPocketGame jackPocketGame, String jackFileLocation) throws JsonProcessingException {
+		// Save using serialisation methods
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
-		
+
 		try {
 
 			String jsonDataString = mapper.writeValueAsString(jackPocketGame);
@@ -49,9 +40,9 @@ public class SaveLoad {
 
 	}
 
-	// Load using custom deserialisation methods
 	@SuppressWarnings("deprecation")
 	public static JackPocketGame load(String jackFileLocation) {
+		// Load using custom deserialisation methods
 		setjackFileLocation(jackFileLocation);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
@@ -72,8 +63,8 @@ public class SaveLoad {
 		return null;
 	}
 
-	// Write to file
 	public static void jackWriteToFile(String myData) throws IncorrectFileNameException {
+		// Write to file
 		File jackFile = new File(jackFileLocation);
 		// try to build new file
 		if (!jackFile.exists()) {
@@ -91,7 +82,6 @@ public class SaveLoad {
 		} else {
 			throw new IncorrectFileNameException("File already exists at : " + jackFileLocation);
 		}
-
 		// try to write to file
 		try {
 			FileWriter jackWriter;
@@ -106,8 +96,8 @@ public class SaveLoad {
 		}
 	}
 
-	// Read From File
 	public static File jackReadFromFile() {
+		// Read From File
 		File jackFile = new File(jackFileLocation);
 		if (!jackFile.exists())
 			log("File doesn't exist");
@@ -121,6 +111,17 @@ public class SaveLoad {
 		return null;
 	}
 
+
+	// Getters and Setters
+	public static String getjackFileLocation() {
+		return jackFileLocation;
+	}
+
+	public static void setjackFileLocation(String jackFileLoc) {
+		jackFileLocation = jackFileLoc;
+	}
+	
+	//Console out log
 	private static void log(String string) {
 		System.out.println(string);
 	}

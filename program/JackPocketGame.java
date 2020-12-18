@@ -3,10 +3,11 @@ package program;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import board.Board;
+import board.Cell;
 import board.detective.DetectiveName;
 import board.district.Orientation;
 import items.ActionToken;
@@ -16,71 +17,22 @@ import items.Card;
 import players.Player;
 import saves.ItemDeserializer;
 
+@JsonIgnoreProperties(value = { "jackName", "beginWithWalls", "board" })
 @JsonDeserialize(using = ItemDeserializer.class)
 public class JackPocketGame extends Game {
+	InputListener listener = new InputListener();
 	private Board board;
 	private List<Card> cardDeck;
 	private List<ActionToken> actionTokenList = new ArrayList<>();
-	InputListener listener = new InputListener();
-	@JsonIgnore
 	private AlibiName jackName;
-
-	@JsonIgnore
-	public AlibiName getJackName() {
-		return jackName;
-	}
-
-	@JsonIgnore
-	public void setJackName(AlibiName jackName) {
-		this.jackName = jackName;
-	}
-
-	@JsonIgnore
+	private static Cell rotatedDistrict = null;
 	private boolean beginWithWalls = true;
 
-	@Override
-	@JsonIgnore
-	public Player getPlayer1() {
-		return super.getPlayer1();
-	}
-
-	@Override
-	@JsonIgnore
-	public Player getPlayer2() {
-		return super.getPlayer2();
-	}
-
-	@Override
-	@JsonIgnore
-	public Player getCurrentPlayer() {
-		return super.getCurrentPlayer();
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
-	public List<Card> getCardDeck() {
-		return cardDeck;
-	}
-
-	public void setCardDeck(List<Card> cardDeck) {
-		this.cardDeck = cardDeck;
-	}
-
-	public void close() {
-		listener.close();
-	}
-
-	// Action methods
 	public void playAction(ActionToken actionToken) {
+		// Action methods
+		// Get the current action of the token
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
-		// Get the current action of the token
 		if (actionToken.isRecto()) {
 			actionToBePlayed = actionToken.getAction1();
 			actionDetective = actionToken.getAction1Detective();
@@ -88,8 +40,8 @@ public class JackPocketGame extends Game {
 			actionToBePlayed = actionToken.getAction2();
 			actionDetective = actionToken.getAction2Detective();
 		}
-		// Declare it as played
 		actionToken.setHasBeenPlayed(true);
+
 		// Methods
 		switch (actionToBePlayed) {
 		case MOVE_DETECTIVE:
@@ -98,7 +50,6 @@ public class JackPocketGame extends Game {
 			break;
 
 		case MOVE_JOKER:
-			// Alike MOVE_DETECTIVE but let the player have the choice of who to move
 			int moveCount = 1;
 			if (getCurrentPlayer().isJack()) {
 				System.out.println("Number of steps to move");
@@ -139,7 +90,7 @@ public class JackPocketGame extends Game {
 	}
 
 	public void drawCard(Player player) {
-
+		//Adds a card from the jackGame cardDeck to the player's cardDack
 		if (!cardDeck.isEmpty()) {
 			player.addAlibiCard(cardDeck.get(0));
 			// Flip if detective
@@ -153,16 +104,107 @@ public class JackPocketGame extends Game {
 
 	}
 
+	public void rotate(Orientation orientation, List<Integer> coords) {
+		//Rotates the cell
+		if ((board.getCell(coords) != JackPocketGame.getRotatedDistrict())) {
+			board.rotate(orientation, coords);
+		} else {
+			System.out.println("Cannot rotate already rotated cell in same turn");
+			System.out.println("District to rotate");
+			coords = listener.getInputCoord();
+			System.out.println("New orientation");
+			orientation = listener.getInputOrientation();
+			rotate(orientation, coords);
+		}
+	}
+
 	public void swap(List<Integer> coord1, List<Integer> coord2) {
+		// Swaps cells
 		board.swapCells(coord1, coord2);
 	}
 
-	public void rotate(Orientation orientation, List<Integer> coords) {
-		board.rotate(orientation, coords);
+	public void displayJack() {
+		listener.showJack();
+		System.out.println(jackName.toString());
+		listener.hideJack();
 	}
 
-	public String toString() {
-		return board.toString();
+	public ActionToken actionGetFromList() {
+		// Picks an action from the remaining list
+		System.out.println(getCurrentPlayer().getName() + " it's your time to pick an action");
+		System.out.println(actionTokenList);
+
+		Actions actionName = listener.getAction();
+		for (ActionToken actionToken : actionTokenList) {
+			if ((!actionToken.hasBeenPlayed())
+					&& ((actionToken.isRecto() && (actionToken.getAction1().toString().equals(actionName.toString())))
+							|| (!actionToken.isRecto()
+									&& (actionToken.getAction2().toString().equals(actionName.toString()))))) {
+				return actionToken;
+			} else {
+				System.out.println("Invalid action name");
+				actionGetFromList();
+			}
+		}
+		return null;
+	}
+
+	public Player hasReactedObjectives() {
+		// Returns the player if any has reached an objective, else returns null
+		List<AlibiName> visibleList = getBoard().visibleCharacters();
+		boolean isJackVisible = false;
+		Player winner = null;
+		for (AlibiName visibleAlibi : visibleList) {
+			if (visibleAlibi.toString().equals(jackName.toString())) {
+				isJackVisible = true;
+			}
+		}
+
+		int districtsLeft = getBoard().flipDistrict(isJackVisible, visibleList); // Flips districts & returns the number
+																					// of unflipped districts
+		if (!isJackVisible) { // If jack is invisible
+			getPlayer2().setHourglass(getPlayer2().getHourglass() + 1);
+		}
+
+		System.out.println("Jack has " + getPlayer2().getHourglass() + " hourglasses"); // if Jack has 6 or more
+																						// hourglasses
+		if (getPlayer2().getHourglass() >= 6) {
+			System.out.println("WIN BY 6+ HOURGLASS");
+			winner = getPlayer2();
+		}
+
+		if ((districtsLeft == 1) && isJackVisible) { // if 1 district left & jack visible
+			System.out.println("WIN BY 1 DISTRICT LEFT");
+			winner = getPlayer1();
+		}
+
+		if ((getTurnCount() == 8) && (districtsLeft == 1) && !isJackVisible) { // Turn 8 special win conditions
+			System.out.println("WIN BY TURN 8");
+			winner = getPlayer2();
+		}
+		return winner;
+	}
+
+	public void close() {
+		// Close the listener
+		listener.close();
+	}
+
+	// Getters and Setters
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public List<Card> getCardDeck() {
+		return cardDeck;
+	}
+
+	public void setCardDeck(List<Card> cardDeck) {
+		this.cardDeck = cardDeck;
 	}
 
 	public List<ActionToken> getActionTokenList() {
@@ -173,85 +215,33 @@ public class JackPocketGame extends Game {
 		this.actionTokenList = actionTokenList;
 	}
 
-	@JsonIgnore
+	public AlibiName getJackName() {
+		return jackName;
+	}
+
+	public void setJackName(AlibiName jackName) {
+		this.jackName = jackName;
+	}
+
+	public static Cell getRotatedDistrict() {
+		return rotatedDistrict;
+	}
+
+	public static void setRotatedDistrict(Cell cell) {
+		JackPocketGame.rotatedDistrict = cell;
+	}
+
 	public boolean getBeginWithWalls() {
 		return beginWithWalls;
 	}
 
-	@JsonIgnore
 	public void setBeginWithWalls(boolean beginWithWalls) {
 		this.beginWithWalls = beginWithWalls;
 	}
 
-	public void displayJack() {
-		listener.showJack();
-		System.out.println(jackName.toString());
-		listener.hideJack();
-	}
-
-	public ActionToken actionGetFromList() {
-		System.out.println(getCurrentPlayer().getName() + " it's your time to pick an action");
-		System.out.println(actionTokenList);
-		Actions actionName = null;
-		boolean isValid = false;
-		while (!isValid) {
-			actionName = listener.getAction();
-			for (ActionToken actionToken : actionTokenList) {
-				if (actionName != null) {
-					if ((!actionToken.hasBeenPlayed()) && ((actionToken.isRecto()
-							&& (actionToken.getAction1().toString().equals(actionName.toString())))
-							|| (!actionToken.isRecto()
-									&& (actionToken.getAction2().toString().equals(actionName.toString()))))) {
-						isValid = true;
-						return actionToken;
-					}
-				}
-			}
-		}
-		return null;
-	}
-
-	public Player hasReactedObjectives() {
-		List<AlibiName> visibleList = getBoard().visibleCharacters();
-		boolean isJackVisible = false;
-		Player winner = null;
-		for (AlibiName visibleAlibi : visibleList) {
-			if (visibleAlibi.toString().equals(jackName.toString())) {
-				isJackVisible = true;
-			}
-		}
-		// Flips districts & returns the number of unflipped districts
-		int districtsLeft = getBoard().flipDistrict(isJackVisible, visibleList);
-
-		// If jack is invisible
-		if (!isJackVisible) {
-			getPlayer2().setHourglass(getPlayer2().getHourglass() + 1);
-		}
-
-		/*
-		 * TODO interdit de repivoter un quartier deja pivote
-		 */
-
-		// if Jack has 6 or more hourglasses
-		System.out.println("Jack has " + getPlayer2().getHourglass() + " hourglasses");
-		if (getPlayer2().getHourglass() >= 6) {
-			System.out.println("WIN BY 6+ HOURGLASS");
-			winner = getPlayer2();
-		}
-
-		// if 1 district left & jack visible
-		if ((districtsLeft == 1) && isJackVisible) {
-			System.out.println("WIN BY 1 DISTRICT LEFT");
-			winner = getPlayer1();
-		}
-
-		// Turn 8 special win conditions
-		if ((getTurnCount() == 8) && (districtsLeft == 1) && !isJackVisible) {
-			System.out.println("WIN BY TURN 8");
-			winner = getPlayer2();
-		}
-
-		return winner;
+	// Console toString
+	public String toString() {
+		return board.toString();
 	}
 
 }

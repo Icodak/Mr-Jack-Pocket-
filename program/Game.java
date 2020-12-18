@@ -25,40 +25,21 @@ public class Game {
 	@JsonIgnore
 	private static int turnCount = 0;
 
-	@JsonIgnore
-	public static int getTurnCount() {
-		return turnCount;
-	}
-
-	public static void setCurrentPlayer(Player currentPlayer) {
-		Game.currentPlayer = currentPlayer;
-	}
-
-	public Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-
-	public void switchPlayer() {
-		if (currentPlayer == player1) {
-			setCurrentPlayer(player2);
-		} else if (currentPlayer == player2) {
-			setCurrentPlayer(player1);
-		}
-	}
 
 	// public Game() throws JsonProcessingException { launchGame(); }
 
 	public static void launchGame() throws JsonProcessingException {
+
 		// Load classic game board and card set
-		String localFile = System.getProperty("user.dir") + "\\resources\\classicJack.json";
+		String localFile = System.getProperty("user.dir") + "\\resources\\saved_games\\classicJack.json";
 		JackPocketGame jackGame = SaveLoad.load(localFile);
 		player1 = new Player(false, "Detective");
 		player2 = new Player(true, "Jack");
 		setCurrentPlayer(player1);
 		Collections.shuffle(jackGame.getCardDeck());
-
 		int sizex = jackGame.getBoard().getBoard().length;
 		int sizey = jackGame.getBoard().getBoard()[0].length;
+
 		// Randomize board
 		for (int r = 1; r < 18; r++) {
 			jackGame.swap(
@@ -67,7 +48,8 @@ public class Game {
 					Arrays.asList(ThreadLocalRandom.current().nextInt(1, sizex - 1),
 							ThreadLocalRandom.current().nextInt(1, sizey - 1)));
 		}
-		// randomize orientation
+
+		// Randomize orientation
 		for (int y = 1; y < sizey - 1; y++) {
 			for (int x = 1; x < sizex - 1; x++) {
 				((District) jackGame.getBoard().getCell(Arrays.asList(x, y)))
@@ -76,44 +58,50 @@ public class Game {
 		}
 
 		// Makes the detectives face a wall at the beginning
-		// optionnal disable with :
-		// jackGame.setBeginWithWalls(false);
+		// optionnal disable with : method setBeginWithWalls to false
 		if (jackGame.getBeginWithWalls()) {
 			((District) jackGame.getBoard().getCell(Arrays.asList(1, 1))).setDistrictType(DistrictType.T_SHAPE);
 			((District) jackGame.getBoard().getCell(Arrays.asList(1, 3))).setDistrictType(DistrictType.T_SHAPE);
 			((District) jackGame.getBoard().getCell(Arrays.asList(3, 2))).setDistrictType(DistrictType.T_SHAPE);
-			jackGame.rotate(Orientation.EAST, Arrays.asList(1, 1));
-			jackGame.rotate(Orientation.WEST, Arrays.asList(1, 3));
-			jackGame.rotate(Orientation.NORTH, Arrays.asList(3, 2));
+			jackGame.getBoard().rotate(Orientation.EAST, Arrays.asList(1, 1));
+			jackGame.getBoard().rotate(Orientation.WEST, Arrays.asList(1, 3));
+			jackGame.getBoard().rotate(Orientation.NORTH, Arrays.asList(3, 2));
 		}
 
-		System.out.println("Game creation finished !");
-		// set JackCharacter
+		// Set JackCharacter
 		jackGame.setJackName(jackGame.getCardDeck()
 				.get(ThreadLocalRandom.current().nextInt(0, jackGame.getCardDeck().size())).getCharacter());
-		// pop Jack from deck
+
+		// Pop Jack from deck
 		for (Card card : jackGame.getCardDeck()) {
 			if (card.getCharacter() == jackGame.getJackName()) {
 				jackGame.getCardDeck().remove(card);
 				break;
 			}
 		}
+
+		System.out.println("Game creation finished !");
 		// Prompt to show jack
 		jackGame.displayJack();
 		gameTurn(jackGame);
 	}
 
-	// Handles game turns, either repeats or displays who won
 	public static void gameTurn(JackPocketGame jackGame) {
-		turnCount++;
-		// Flip actiontokens (even turn) or randomize them (odd turn)
-		for (ActionToken actionToken : jackGame.getActionTokenList()) {
-			// even
-			if (Math.floorMod(turnCount, 2) != 0) {
+		// Handles game turns, either repeats or displays who won
+
+		turnCount++; // New turn
+		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Make the actiontokens reusables
+			actionToken.setHasBeenPlayed(false);
+		}
+		JackPocketGame.setRotatedDistrict(null); // Enable rotation
+		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Flip actiontokens (even turn) or randomize
+																		// them (odd turn)
+			if (Math.floorMod(turnCount, 2) != 0) { // even
 				actionToken.setRecto(ThreadLocalRandom.current().nextBoolean());
 			}
 		}
 
+		// Turn Actions
 		System.out.println("It's " + currentPlayer.getName() + "'s turn to play");
 		System.out.println(jackGame);
 		jackGame.playAction(jackGame.actionGetFromList());
@@ -126,13 +114,9 @@ public class Game {
 		System.out.println(jackGame);
 		jackGame.playAction(jackGame.actionGetFromList());
 
-		// Make the actiontolens reusables
-		for (ActionToken actionToken : jackGame.getActionTokenList()) {
-			actionToken.setHasBeenPlayed(false);
-		}
-
+		// Check if end goal has been reached
 		Player winningPlayer = jackGame.hasReactedObjectives();
-		// If end goal has been reached
+
 		if (winningPlayer != null) {
 			System.out.println(winningPlayer + " wins, congratulations !!");
 		}
@@ -141,15 +125,39 @@ public class Game {
 			gameTurn(jackGame);
 		}
 	}
+	
+	public void switchPlayer() {
+		//Switches the player order
+		if (currentPlayer == player1) {
+			setCurrentPlayer(player2);
+		} else if (currentPlayer == player2) {
+			setCurrentPlayer(player1);
+		}
+	}
+
+	// Getters and Setters
+	@JsonIgnore
+	public Player getPlayer1() {
+		return player1;
+	}
 
 	@JsonIgnore
 	public Player getPlayer2() {
 		return player2;
 	}
 
+	public static void setCurrentPlayer(Player currentPlayer) {
+		Game.currentPlayer = currentPlayer;
+	}
+
 	@JsonIgnore
-	public Player getPlayer1() {
-		return player1;
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	@JsonIgnore
+	public static int getTurnCount() {
+		return turnCount;
 	}
 
 }
