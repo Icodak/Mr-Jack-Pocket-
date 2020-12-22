@@ -10,7 +10,7 @@ class TestGame {
 
 	@Test
 	void test() throws JsonProcessingException {
-		Game.launchGame();
+		System.out.println("ok");
 	}
 
 }

@@ -1,3 +1,4 @@
+  
 package graphics;
 import javax.swing.JLabel;
 
@@ -5,6 +6,8 @@ public class NewJLabel extends JLabel {
 	private static final long serialVersionUID = 1L;
 	int[] matrice_position;
 	String path;
+	String pathtwo;
+	double angle;
 	
 	
 	public int[] getMatrice_position() {
@@ -23,6 +26,18 @@ public class NewJLabel extends JLabel {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public String getPathtwo() {
+		return pathtwo;
+	}
+	public void setPathtwo(String pathtwo) {
+		this.pathtwo = pathtwo;
+	}
+	public double getAngle() {
+		return angle;
+	}
+	public void setAngle(double angle) {
+		this.angle = angle;
 	}
 	
 	

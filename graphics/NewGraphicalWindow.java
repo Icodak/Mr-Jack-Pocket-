@@ -1,6 +1,8 @@
 package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,7 +10,9 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.IOException;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,12 +22,12 @@ import javax.swing.border.MatteBorder;
 
 public class NewGraphicalWindow extends VariableWarehouse{
 	
-	public void initialize(NewGraphicalWindow  window) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
+	public void initialize(NewGraphicalWindow  window) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException, InterruptedException {
 		
 		//main window divided in 4 parts(up,left,center,right)
 		frame = new JFrame();
 		frame.setTitle("Mrjackpocket");
-		frame.setIconImage(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_LOGO.png").getImage());	
+		frame.setIconImage(new ImageIcon(System.getProperty("user.dir") + "\\images\\icons\\ICON_LOGO.png").getImage());	
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 		frame.setResizable(true);
@@ -48,7 +52,8 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		for(int i=0;i<8;i++) {
 			listegauche[i]=new NewJLabel();
 			listegauche[i].setMatrice_position_int(0, i);
-			listegauche[i].setIcon( imageSize(TimeToken[i],timeSize[0], timeSize[1],listegauche[i]));
+			imageInitialize(TimeToken[i],"",listegauche[i]);
+			listegauche[i].setIcon(reSize(new ImageIcon(listegauche[i].getPath()),allSize[0][0],allSize[0][1]));
 			left.add(listegauche[i]);
 		}
 		
@@ -70,12 +75,14 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			if(i==0) {
 			cardBack[i]=new NewJLabel();
 			cardBack[i].setMatrice_position_int(3,i);
-			cardBack[i].setIcon(imageSize(ActionToken[i],cartSize[0],cartSize[1],cardBack[i]));
+			imageInitialize(ActionToken[0],"",cardBack[i]);
+			cardBack[i].setIcon(reSize(new ImageIcon(cardBack[i].getPath()),allSize[3][0],allSize[3][1]));
 			actionToken.add(cardBack[i]);
 			}else {
 			listedroit[i-1]=new  NewJLabel();
 			listedroit[i-1].setMatrice_position_int(1,i-1);
-			listedroit[i-1].setIcon(imageSize(ActionToken[i],actionSize[0],actionSize[1],listedroit[i-1]));
+			imageInitialize(ActionToken[i],"",listedroit[i-1]);
+			listedroit[i-1].setIcon(reSize(new ImageIcon(listedroit[i-1].getPath()),allSize[1][0],allSize[1][1]));
 			 actionToken.add(listedroit [i-1]);
 			}
 		}
@@ -148,14 +155,6 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			indice++;
 		}
 		
-
-		for(int n=0;n<matrice[4].length;n++) {
-			matrice[4][n].setIcon(imageSize( Detective[0], inspectorSize[0], inspectorSize[1],matrice[4][n]));
-			matrice[5][n].setIcon(imageSize( Detective[0], inspectorSize[0], inspectorSize[1],matrice[5][n]));
-		}
-		for(int n=0;n<matrice[2].length;n++) {
-			matrice[2][n].setIcon(imageSize(  District[n], distrcitSize[0], distrcitSize[1],matrice[2][n]));
-		}
 	
 		
 		for(NewJLabel[] n:matrice) {
@@ -165,22 +164,75 @@ public class NewGraphicalWindow extends VariableWarehouse{
 				v.addMouseListener(new MouseListener());
 				}}}
 		frame.setVisible(true);
+		
+	for(int n=0;n<liste3.length;n++) {
+		imageInitialize(District[0],caracter[n],liste3[n]);
+		liste3[n].setIcon(reSize(PaintJlabel.imageIconsuperposer(reSize(new ImageIcon(liste3[n].getPath()),allSize[2][0],allSize[2][1]), reSize(new ImageIcon(liste3[n].getPathtwo()),allSize[6][0],allSize[6][1])),allSize[2][0],allSize[2][1]));	
+		liste3[n].setAngle(0);
+	}
+	for(int n=0;n<listemilieuThree.length;n++) {
+		imageInitialize(Detective[0],"",listemilieuThree[n]);
+		imageInitialize(Detective[0],"",listemilieuTwo[n]);
+		listemilieuThree[n].setIcon(reSize(new ImageIcon(listemilieuThree[n].getPath()),allSize[4][0],allSize[4][1]));	
+		listemilieuTwo[n].setIcon(reSize(new ImageIcon(listemilieuTwo[n].getPath()),allSize[4][0],allSize[4][1]));	
+	}
+	Thread.sleep(10000);
+	rotateImage(liste3[0],1.57);
+	changeImage(liste3[0],liste3[2]);
 	}	
+	
+	
+	
+	
 	
 
 	
 	
 	
 	
-	private ImageIcon  imageSize(String path,int xSize, int ySize,NewJLabel label) {			
-		ImageIcon icon = new ImageIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources"+path).getImage().getScaledInstance(xSize, ySize, Image.SCALE_DEFAULT));
-		label.setPath(path);
-		return icon;
+	private void  imageInitialize(String path,String pathtwo, NewJLabel label) {			
+		label.setPath(System.getProperty("user.dir")+path);
+		label.setPathtwo(System.getProperty("user.dir")+pathtwo);
 	}	
-	public void changeIcon(String path,NewJLabel label) {
-		int[] type = label.getMatrice_position();
-		label.setIcon(imageSize(path, allSize[type[0]][0], allSize[type[0]][1],label));	
+
+	private void  changePath(String path,String pathtwo, NewJLabel label) {			
+		label.setPath(path);
+		label.setPathtwo(pathtwo);
+	}	
+	
+	
+	
+	private ImageIcon reSize(ImageIcon image,int xSize,int ySize) {
+		ImageIcon icon = new ImageIcon(image.getImage().getScaledInstance(xSize, ySize, Image.SCALE_DEFAULT));
+		return icon;
 	}
+	
+	private void changeSizeItems( NewJLabel label) {
+		if(label.getMatrice_position()[0]==2) {
+		label.setIcon(reSize(PaintJlabel.imageIconsuperposer(reSize(new ImageIcon(label.getPath()),allSizeCopy[2][0],allSizeCopy[2][1]), reSize(new ImageIcon(label.getPathtwo()),allSizeCopy[6][0],allSizeCopy[6][1])),allSize[2][0],allSize[2][1]));	
+		}
+		else {	
+		label.setIcon(reSize(new ImageIcon(label.getPath()),allSize[label.getMatrice_position()[0]][0],allSize[label.getMatrice_position()[0]][1]));
+		}}
+	private void  rotateImage(NewJLabel label,double angle) {
+		label.setIcon(reSize(PaintJlabel.imageIconsuperposer(RotateImage.rotateImage(reSize(new ImageIcon(label.getPath()),allSizeCopy[2][0],allSizeCopy[2][1]),angle),reSize(new ImageIcon(label.getPathtwo()),allSizeCopy[6][0],allSizeCopy[6][1])),allSize[2][0],allSize[2][1]));
+		label.setAngle(angle);
+	}
+	private void changeImage(NewJLabel label,NewJLabel labeltwo) {
+	String pathlabel=label.getPath();
+	String pathtwolabel=label.getPathtwo();
+	double anglelabel=label.getAngle();
+			
+	changePath(labeltwo.getPath(),labeltwo.getPathtwo(), label);
+	changePath(pathlabel,pathtwolabel, labeltwo);
+	
+	rotateImage(label, labeltwo.getAngle());
+	rotateImage(labeltwo, anglelabel);
+	}
+	
+	
+	
+	
 	public void changeSize(int[] size){
 		if(size[0]<1600 || size[1]<1050) {
 		int indice=0;
@@ -196,7 +248,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			for(NewJLabel v:n) {
 				if(v==null) {				
 				}else {		
-					changeIcon(v.getPath(),v);
+					changeSizeItems(v);
 				}}
 		}
 	}else {
@@ -210,17 +262,39 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			for(NewJLabel v:n) {
 				if(v==null) {				
 				}else {		
-					changeIcon(v.getPath(),v);
+					changeSizeItems(v);
 				}}
 		}
 	}
 	
 	}
-	public void updateCell(String path,int[] coord) {
-		changeIcon(path,matrice[coord[0]][coord[1]]);
+	
+	
+	public void MainWindow() {
+		JFrame frametwo = new JFrame();
+		frametwo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frametwo.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		frametwo.setTitle("MrjackpocketMain");
+		frametwo.setIconImage(new ImageIcon(System.getProperty("user.dir") + "\\images\\icons\\ICON_LOGO.png").getImage());	
+		frametwo.setVisible(true);
+		
+		JButton btnNewButton = new JButton("vs ia");
+		btnNewButton.setSize(500, 500);
+		frametwo.getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New game");
+		btnNewButton.setSize(500, 500);
+		frametwo.getContentPane().add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("load game");
+		btnNewButton.setSize(500, 500);
+		frametwo.getContentPane().add(btnNewButton_2);
 	}
-}
-
-    
+	
+	
+	
+	
+	
+} 
 
 
