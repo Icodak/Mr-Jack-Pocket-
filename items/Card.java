@@ -1,16 +1,10 @@
 package items;
+
 public class Card {
 	private AlibiName character;
 	private int hourglass;
 
-	public Card(AlibiName character, int hourglass) {
-		this.character = character;
-		this.hourglass = hourglass;
-	}
-
-	public Card() {
-	}
-
+	// Getters and Setters
 	public AlibiName getCharacter() {
 		return character;
 	}
@@ -27,6 +21,7 @@ public class Card {
 		this.hourglass = hourglass;
 	}
 
+	// Console toString
 	public String toString() {
 		return character.name();
 	}

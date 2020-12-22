@@ -9,124 +9,125 @@ import board.detective.DetectiveToken;
 import board.district.District;
 import board.district.Orientation;
 import items.AlibiName;
+import program.JackPocketGame;
 
 public class Board {
 
 	Cell[][] cellBoard;
 
+	//Constructor
 	public Board(Cell[][] cellBoard) {
 		this.cellBoard = cellBoard;
 	}
 
-	public Cell[][] getBoard() {
-		return cellBoard;
-	}
-
-	public void setBoard(Cell[][] cellBoard) {
-		this.cellBoard = cellBoard;
-	}
-
-	public Cell getCell(List<Integer> coord) {
-		return cellBoard[coord.get(1)][coord.get(0)];
-	}
-
-	public void setCell(Cell cell, List<Integer> coord) {
-		cellBoard[coord.get(1)][coord.get(0)] = cell;
-	}
-
-	// Swaps two district cells at the given coordinates
 	public void swapCells(List<Integer> coord1, List<Integer> coord2) {
+		// Swaps two district cells at the given coordinates
 		Cell cellTemp = getCell(coord1);
 		setCell(getCell(coord2), coord1);
 		setCell(cellTemp, coord2);
-		;
 	}
 
-	// Rotates the district cell to a new orientation at the given coordinates
 	public void rotate(Orientation orientation, List<Integer> coords) {
+		// Rotates the district cell to a new orientation at the given coordinates
 		Cell cell = getCell(coords);
-		if (cell instanceof District) {
+		if ((cell instanceof District)) {
+			JackPocketGame.setRotatedDistrict(getCell(coords));
 			((District) getCell(coords)).setOrientation(orientation);
 		}
-
+		System.out.println("Cannot rotate already rotated cell in same turn.");
 	}
 
-	// Returns an array of alibinames of onboard characters from the detective view
-	// while no wall is faced a detective can see every character on its row &
-	// column
-	public ArrayList<AlibiName> visibleCharacters() {
+	public List<AlibiName> visibleCharacters() {
+		// Returns an array of alibinames of onboard characters from the detective view
+		// while no wall is faced a detective can see every character on its row &
+		// columns
 		ArrayList<AlibiName> characterList = new ArrayList<>();
 		boolean wallNext;
-		int xsize = cellBoard[0].length;
-		int ysize = cellBoard.length;
 
 		// Check for detectives
-		for (int y = 0; y < ysize; y++) {
-			for (int x = 0; x < xsize; x++) {
-				List<Integer> coords = new ArrayList<>();
-				coords = Arrays.asList(x, y);
-				if (cellBoard[x][y] instanceof DetectiveToken) {
+		for (int h = 0; h < cellBoard.length; h++) {
+			for (int l = 0; l < cellBoard[0].length; l++) {
+				List<Integer> coords = Arrays.asList(h, l);
+				if ((cellBoard[h][l] instanceof DetectiveToken)
+						&& (!((DetectiveToken) cellBoard[h][l]).getDetectiveList().isEmpty())) {
 
 					// Foreach detective, do an analysis
-					if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().size() > 0) {
-
-						// Horizontal analysis
-						// left to right
-						if (coords.get(0) == 0) {
-							wallNext = ((District) getCell(Arrays.asList(y, 1))).getWalls()[2];
-							for (int i = 1; i < xsize - 1; i++) {
-								if (!wallNext) {
-									characterList.add(((District) getCell(Arrays.asList(y, i))).getCharacter());
-									if (getCell(Arrays.asList(i + 1, y)) instanceof District) {
-										wallNext = (((District) getCell(Arrays.asList(y, i))).getWalls()[0]
-												|| ((District) getCell(Arrays.asList(y, i + 1))).getWalls()[2]);
-									}
+					// Horizontal analysis
+					// left to right
+					if (coords.get(1) == 0) {
+						wallNext = ((District) getCell(Arrays.asList(h, 1))).getWalls()[2];
+						for (int i = 1; i < cellBoard[h].length - 1; i++) {
+							if (!wallNext) {
+								if (((District) getCell(Arrays.asList(h, i))).isRecto()) {
+									characterList.add(((District) getCell(Arrays.asList(h, i))).getCharacter());
 								}
+							} else {
+								break;
+							}
+							if (getCell(Arrays.asList(h, i + 1)) instanceof District) {
+								wallNext = (((District) getCell(Arrays.asList(h, i))).getWalls()[0]
+										|| ((District) getCell(Arrays.asList(h, i + 1))).getWalls()[2]);
 							}
 						}
+					}
 
-						// right tp left
-						if (coords.get(0) == xsize - 1) {
-							wallNext = ((District) getCell(Arrays.asList(y, xsize - 2))).getWalls()[0];
-							for (int i = 1; i < xsize - 1; i++) {
-								if (!wallNext) {
+					// right to left
+					if (coords.get(1) == cellBoard[h].length - 1) {
+						wallNext = ((District) getCell(Arrays.asList(h, cellBoard[h].length - 2))).getWalls()[0];
+						for (int i = 1; i < cellBoard[h].length - 1; i++) {
+							if (!wallNext) {
+								if (((District) getCell(Arrays.asList(h, cellBoard[h].length - i - 1))).isRecto()) {
 									characterList
-											.add(((District) getCell(Arrays.asList(y, xsize - i - 1))).getCharacter());
-									if (getCell(Arrays.asList(y, xsize - i - 2)) instanceof District) {
-										wallNext = (((District) getCell(Arrays.asList(y, xsize - i - 1))).getWalls()[2]
-												|| ((District) getCell(Arrays.asList(y, xsize - i - 2))).getWalls()[0]);
-									}
+											.add(((District) getCell(Arrays.asList(h, cellBoard[h].length - i - 1)))
+													.getCharacter());
 								}
+							} else {
+								break;
+							}
+							if (getCell(Arrays.asList(h, cellBoard[h].length - i - 2)) instanceof District) {
+								wallNext = (((District) getCell(Arrays.asList(h, cellBoard[h].length - i - 1)))
+										.getWalls()[2]
+										|| ((District) getCell(Arrays.asList(h, cellBoard[h].length - i - 2)))
+												.getWalls()[0]);
 							}
 						}
+					}
 
-						// Vertical analysis
-						// top bottom
-						if (coords.get(1) == 0) {
-							wallNext = ((District) getCell(Arrays.asList(1, x))).getWalls()[1];
-							for (int i = 1; i < ysize - 1; i++) {
-								if (!wallNext) {
-									characterList.add(((District) getCell(Arrays.asList(i, x))).getCharacter());
-									if (getCell(Arrays.asList(i + 1, x)) instanceof District) {
-										wallNext = (((District) getCell(Arrays.asList(i, x))).getWalls()[3]
-												|| ((District) getCell(Arrays.asList(i + 1, x))).getWalls()[1]);
-									}
+					// up to down
+					if (coords.get(0) == 0) {
+						wallNext = ((District) getCell(Arrays.asList(1, l))).getWalls()[1];
+						for (int i = 1; i < cellBoard.length - 1; i++) {
+							if (!wallNext) {
+								if (((District) getCell(Arrays.asList(i, l))).isRecto()) {
+									characterList.add(((District) getCell(Arrays.asList(i, l))).getCharacter());
 								}
+							} else {
+								break;
+							}
+							if (getCell(Arrays.asList(i + 1, l)) instanceof District) {
+								wallNext = (((District) getCell(Arrays.asList(i, l))).getWalls()[3]
+										|| ((District) getCell(Arrays.asList(i + 1, l))).getWalls()[1]);
 							}
 						}
+					}
 
-						// bottom top
-						if (coords.get(1) == ysize - 1) {
-							wallNext = ((District) getCell(Arrays.asList(ysize - 2, x))).getWalls()[3];
-							for (int i = 1; i < ysize - 1; i++) {
-								if (!wallNext) {
-									characterList
-											.add(((District) getCell(Arrays.asList(ysize - i - 1, x))).getCharacter());
-									if (getCell(Arrays.asList(ysize - i - 2, x)) instanceof District) {
-										wallNext = (((District) getCell(Arrays.asList(ysize - i - 1, x))).getWalls()[1]
-												|| ((District) getCell(Arrays.asList(ysize - i - 2, x))).getWalls()[3]);
-									}
+					// down to up
+					if (coords.get(0) == cellBoard.length - 1) {
+						wallNext = ((District) getCell(Arrays.asList(cellBoard.length - 2, l))).getWalls()[3];
+						for (int i = 1; i < cellBoard.length - 1; i++) {
+							if (!wallNext) {
+								if (((District) getCell(Arrays.asList(cellBoard.length - i - 1, l))).isRecto()) {
+									characterList.add(((District) getCell(Arrays.asList(cellBoard.length - i - 1, l)))
+											.getCharacter());
 								}
+							} else {
+								break;
+							}
+							if (getCell(Arrays.asList(cellBoard.length - i - 2, l)) instanceof District) {
+								wallNext = (((District) getCell(Arrays.asList(cellBoard.length - i - 1, l)))
+										.getWalls()[1]
+										|| ((District) getCell(Arrays.asList(cellBoard.length - i - 2, l)))
+												.getWalls()[3]);
 							}
 						}
 					}
@@ -136,43 +137,88 @@ public class Board {
 		return characterList;
 	}
 
-	// Moves a given detective of a number of cells
+	public int flipDistrict(boolean isJackVisible, List<AlibiName> visibleList) {
+		// Flips Districts depending on the visibility of Jack:
+		// If Jack is visible, flip the non visible districts
+		// Else flip the visible Districts
+		int districtsLeft = 0;
+		boolean isVisibleDistrict = false;
+		for (int h = 1; h < cellBoard.length - 1; h++) {
+			for (int l = 1; l < cellBoard[h].length - 1; l++) {
+				for (AlibiName visibleAlibi : visibleList) {
+					if (visibleAlibi == ((District) cellBoard[h][l]).getCharacter()) {
+
+						isVisibleDistrict = true;
+					}
+				}
+				if (isJackVisible && !isVisibleDistrict) {
+					((District) cellBoard[h][l]).setRecto(false);
+				}
+				if (!isJackVisible && isVisibleDistrict) {
+					((District) cellBoard[h][l]).setRecto(false);
+				}
+				isVisibleDistrict = false;
+				if (((District) cellBoard[h][l]).isRecto()) {
+					districtsLeft++;
+				}
+			}
+		}
+		return districtsLeft;
+	}
+
+	public void flipDistrict(AlibiName alibiName) {
+		for (int h = 1; h < cellBoard.length - 1; h++) {
+			for (int l = 1; l < cellBoard[h].length - 1; l++) {
+				if (alibiName == ((District) cellBoard[h][l]).getCharacter()) {
+					((District) cellBoard[h][l]).setRecto(false);
+				}
+			}
+		}
+	}
+
 	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
-		List<Integer> coords = new ArrayList<>();
+		// Moves a given detective of a number of cells
 		boolean found = false;
 		for (int move = 0; move < cellCount; move++) {
 			found = false;
-			for (int y = 0; y < cellBoard.length; y++) {
-				for (int x = 0; x < cellBoard[y].length; x++) {
-					coords = Arrays.asList(x, y);
-					if (cellBoard[x][y] instanceof DetectiveToken && found == false) {
+			for (int h = 0; h < cellBoard.length; h++) {
+				for (int l = 0; l < cellBoard[h].length; l++) {
+					List<Integer> coords = Arrays.asList(h, l);
+					if ((cellBoard[h][l] instanceof DetectiveToken && !found)
+							&& (((DetectiveToken) cellBoard[h][l]).getDetectiveList().contains(detectiveName))) {
 						// removes token from current position
-						if (((DetectiveToken) cellBoard[x][y]).getDetectiveList().contains(detectiveName)) {
-							found = true;
-							((DetectiveToken) cellBoard[x][y]).removeDetective(detectiveName);
-							// finds new detectiveToken position
-							coords = slideAround(coords, Arrays.asList(cellBoard[y].length - 1, cellBoard.length - 1));
-							((DetectiveToken) cellBoard[coords.get(0)][coords.get(1)]).addDetective(detectiveName);
-						}
+						found = true;
+						((DetectiveToken) cellBoard[h][l]).removeDetective(detectiveName);
+						// finds new detectiveToken position
+						coords = slideAround(coords, Arrays.asList(cellBoard.length - 1, cellBoard[h].length - 1));
+						((DetectiveToken) getCell(coords)).addDetective(detectiveName);
 					}
 				}
 			}
 		}
 	}
 
-	// Method used in moveDetectiveToken to determine how to move the detective
-	// depending on its current position
 	public static List<Integer> slideAround(List<Integer> coords, List<Integer> maxCoord) {
-		if (coords.get(1) == 0 && coords.get(0) > 0) {
-			coords.set(0, coords.get(0) - 1);
-		} else if (coords.get(0) == 0 && coords.get(1) < maxCoord.get(1)) {
-			coords.set(1, coords.get(1) + 1);
-		} else if (coords.get(1) == maxCoord.get(1) && coords.get(0) < maxCoord.get(0)) {
-			coords.set(0, coords.get(0) + 1);
-		} else if (coords.get(0) == maxCoord.get(0) && coords.get(1) > 0) {
-			coords.set(1, coords.get(1) - 1);
+		// Method used in moveDetectiveToken to determine how to move the detective
+		// depending on its current position
+		// left to right
+		if (coords.get(0).equals(maxCoord.get(0)) && coords.get(1) < maxCoord.get(1)) {
+			coords = Arrays.asList(coords.get(0), coords.get(1) + 1);
+		}
+		// right to left
+		else if (coords.get(0) == 0 && coords.get(1) > 0) {
+			coords = Arrays.asList(coords.get(0), coords.get(1) - 1);
+		}
+		// up to down
+		else if (coords.get(1) == 0 && coords.get(0) < maxCoord.get(0)) {
+			coords = Arrays.asList(coords.get(0) + 1, coords.get(1));
+		}
+		// down to up
+		else if (coords.get(1).equals(maxCoord.get(1)) && coords.get(0) > 0) {
+			coords = Arrays.asList(coords.get(0) - 1, coords.get(1));
 		}
 
+		// if corner do it again
 		if ((Math.floorMod(coords.get(0), maxCoord.get(0)) == 0)
 				&& (Math.floorMod(coords.get(1), maxCoord.get(1)) == 0)) {
 			coords = slideAround(coords, maxCoord);
@@ -180,15 +226,33 @@ public class Board {
 		return coords;
 	}
 
+	// Getters and Setters
+	public Cell[][] getBoard() {
+		return cellBoard;
+	}
+
+	public void setBoard(Cell[][] cellBoard) {
+		this.cellBoard = cellBoard;
+	}
+
+	public Cell getCell(List<Integer> coord) {
+		return cellBoard[coord.get(0)][coord.get(1)];
+	}
+
+	public void setCell(Cell cell, List<Integer> coord) {
+		cellBoard[coord.get(0)][coord.get(1)] = cell;
+	}
+
+	// Console toString
 	public String toString() {
-		String sBoard = "";
+		StringBuilder sBoard = new StringBuilder();
 		for (int y = 0; y < cellBoard.length; y++) {
 			for (int x = 0; x < cellBoard[y].length; x++) {
-				sBoard += cellBoard[x][y].toString() + ",";
+				sBoard.append(cellBoard[y][x].toString() + ",");
 			}
-			sBoard += "\n";
+			sBoard.append("\n");
 		}
-		return sBoard;
+		return sBoard.toString();
 
 	}
 

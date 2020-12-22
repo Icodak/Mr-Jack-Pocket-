@@ -8,7 +8,16 @@ public class District extends Cell {
 	private Orientation orientation = Orientation.EAST;
 	private boolean[] walls;
 	private DistrictType districtType = DistrictType.T_SHAPE;
+	private DistrictType districtBType = DistrictType.T_SHAPE;
 	private boolean isRecto = true;
+
+	public DistrictType getDistrictBType() {
+		return districtBType;
+	}
+
+	public void setDistrictBType(DistrictType districtBType) {
+		this.districtBType = districtBType;
+	}
 
 	public Orientation getOrientation() {
 		return orientation;
@@ -18,11 +27,8 @@ public class District extends Cell {
 		this.walls = walls;
 	}
 
-	public District() {
-	}
-
 	public boolean[] getWalls() {
-		//gets walls depending on the orientation dans type of the district
+		// Gets walls depending on the orientation type of the district
 		walls = districtType.getCellWalls();
 
 		switch (this.orientation) {
@@ -35,7 +41,7 @@ public class District extends Cell {
 		case SOUTH:
 			return new boolean[] { walls[1], walls[2], walls[3], walls[0] };
 		}
-		return null;
+		return new boolean[0];
 
 	}
 
@@ -67,9 +73,15 @@ public class District extends Cell {
 		this.character = character;
 	}
 
+	// Console toString
 	public String toString() {
-
-		String cellString = character.toString().substring(0,6) + "." + orientation.toString().substring(0,1);
+		String cellString;
+		if (isRecto) {
+			cellString = character.toString().substring(0, 6);
+		} else {
+			cellString = "000000";
+		}
+		cellString += "." + orientation.toString().substring(0, 1);
 		return cellString;
 
 	}

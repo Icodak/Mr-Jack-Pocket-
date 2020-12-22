@@ -1,15 +1,10 @@
 package items;
 
 public class TimeToken {
-	private boolean isFlipped;
-	private int hourGlass;
+	private boolean isFlipped = false;
+	private final int hourGlass = 1;
 
-	public TimeToken(boolean isFlipped, int hourGlass) {
-		super();
-		this.isFlipped = isFlipped;
-		this.hourGlass = hourGlass;
-	}
-
+	// Getters and Setters
 	public boolean isFlipped() {
 		return isFlipped;
 	}
@@ -21,9 +16,4 @@ public class TimeToken {
 	public int getHourGlass() {
 		return hourGlass;
 	}
-
-	public void setHourGlass(int hourGlass) {
-		this.hourGlass = hourGlass;
-	}
-
 }

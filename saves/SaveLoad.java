@@ -12,30 +12,25 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import program.JackPocketGame;
 
 public class SaveLoad {
+	private static String jackFileLocation;
 
-	// Save Load methods to create and modify a game
-
-	private static String Jack_file_location;
-
-	public static String getJack_file_location() {
-		return Jack_file_location;
+	// Constructor
+	private SaveLoad() {
+		throw new IllegalStateException("Utility class");
 	}
 
-	public static void setJack_file_location(String jack_file_location) {
-		Jack_file_location = jack_file_location;
-	}
-
-	// Save using serialisation methods
 	@SuppressWarnings("deprecation")
-	public static void Save(JackPocketGame jackPocketGame, String jack_file_location) throws JsonProcessingException {
+	public static void save(JackPocketGame jackPocketGame, String jackFileLocation) throws JsonProcessingException {
+		// Save using serialisation methods
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
+
 		try {
 
 			String jsonDataString = mapper.writeValueAsString(jackPocketGame);
-			setJack_file_location(jack_file_location);
+			setjackFileLocation(jackFileLocation);
 			try {
-				JackWriteToFile(jsonDataString);
+				jackWriteToFile(jsonDataString);
 			} catch (IncorrectFileNameException e) {
 				e.printStackTrace();
 			}
@@ -45,10 +40,10 @@ public class SaveLoad {
 
 	}
 
-	// Load using custom deserialisation methods
 	@SuppressWarnings("deprecation")
-	public static JackPocketGame Load(String jack_file_location) {
-		setJack_file_location(jack_file_location);
+	public static JackPocketGame load(String jackFileLocation) {
+		// Load using custom deserialisation methods
+		setjackFileLocation(jackFileLocation);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enableDefaultTyping();
 
@@ -56,68 +51,77 @@ public class SaveLoad {
 		module.addDeserializer(JackPocketGame.class, new ItemDeserializer());
 		mapper.registerModule(module);
 
-		File jackFile = JackReadFromFile();
+		File jackFile = jackReadFromFile();
 
 		try {
 			JackPocketGame jackGame = mapper.readValue(jackFile, JackPocketGame.class);
-			log("File successfully loaded at : " + jack_file_location);
+			log("File successfully loaded at : " + jackFileLocation);
 			return jackGame;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
-	// Write to file
-	public static void JackWriteToFile(String myData) throws IncorrectFileNameException {
-		File JackFile = new File(Jack_file_location);
+	public static void jackWriteToFile(String myData) throws IncorrectFileNameException {
+		// Write to file
+		File jackFile = new File(jackFileLocation);
 		// try to build new file
-		if (!JackFile.exists()) {
+		if (!jackFile.exists()) {
 			try {
-				File directory = new File(JackFile.getParent());
+				File directory = new File(jackFile.getParent());
 				if (!directory.exists()) {
 					directory.mkdirs();
 				}
-				JackFile.createNewFile();
+				if (jackFile.createNewFile()) {
+					log("New file created");
+				}
 			} catch (IOException e) {
 				log("Excepton Occured: " + e.toString());
-
 			}
 		} else {
-			throw new IncorrectFileNameException("File already exists at : " + Jack_file_location);
-
+			throw new IncorrectFileNameException("File already exists at : " + jackFileLocation);
 		}
-
 		// try to write to file
 		try {
-			FileWriter JackWriter;
-			JackWriter = new FileWriter(JackFile.getAbsoluteFile(), true);
-			BufferedWriter bufferWriter = new BufferedWriter(JackWriter);
+			FileWriter jackWriter;
+			jackWriter = new FileWriter(jackFile.getAbsoluteFile(), true);
+			BufferedWriter bufferWriter = new BufferedWriter(jackWriter);
 			bufferWriter.write(myData);
 			bufferWriter.close();
 
-			log("Data saved at file location: " + Jack_file_location);
+			log("Data saved at file location: " + jackFileLocation);
 		} catch (IOException e) {
 			log("Could not save data : " + e.toString());
 		}
 	}
 
-	// Read From File
-	public static File JackReadFromFile() {
-		File JackFile = new File(Jack_file_location);
-		if (!JackFile.exists())
+	public static File jackReadFromFile() {
+		// Read From File
+		File jackFile = new File(jackFileLocation);
+		if (!jackFile.exists())
 			log("File doesn't exist");
 
 		try {
-			return JackFile;
+			return jackFile;
 		} catch (Exception e) {
 			log("error load cache from file " + e.toString());
 		}
-		log("\nData loaded successfully from file " + Jack_file_location);
+		log("\nData loaded successfully from file " + jackFileLocation);
 		return null;
 	}
 
+
+	// Getters and Setters
+	public static String getjackFileLocation() {
+		return jackFileLocation;
+	}
+
+	public static void setjackFileLocation(String jackFileLoc) {
+		jackFileLocation = jackFileLoc;
+	}
+	
+	//Console out log
 	private static void log(String string) {
 		System.out.println(string);
 	}
