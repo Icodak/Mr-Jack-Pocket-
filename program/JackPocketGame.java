@@ -10,6 +10,7 @@ import board.Board;
 import board.Cell;
 import board.detective.DetectiveName;
 import board.district.Orientation;
+import graphics.NewGraphicalWindow;
 import items.ActionToken;
 import items.Actions;
 import items.AlibiName;
@@ -28,11 +29,14 @@ public class JackPocketGame extends Game {
 	private static Cell rotatedDistrict = null;
 	private boolean beginWithWalls = true;
 
-	public void playAction(ActionToken actionToken) {
+
+	public void playAction(ActionToken actionToken,NewGraphicalWindow window,JackPocketGame jackGame) throws InterruptedException {
 		// Action methods
 		// Get the current action of the token
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
+		
+		
 		if (actionToken.isRecto()) {
 			actionToBePlayed = actionToken.getAction1();
 			actionDetective = actionToken.getAction1Detective();
@@ -41,81 +45,61 @@ public class JackPocketGame extends Game {
 			actionDetective = actionToken.getAction2Detective();
 		}
 		actionToken.setHasBeenPlayed(true);
-
+		
 		// Methods
 		switch (actionToBePlayed) {
 		case MOVE_DETECTIVE:
-			System.out.println("Number of steps to move");
-			moveDetectiveToken(actionDetective, Math.min(Math.max(1, listener.getInputInt()), 2));
+			window.MOVE_DETECTIVE=true;
+			window.detectiveToMove=actionDetective;
 			break;
 
 		case MOVE_JOKER:
-			int moveCount = 1;
-			if (getCurrentPlayer().isJack()) {
-				System.out.println("Number of steps to move");
-				moveCount = Math.min(Math.max(0, listener.getInputInt()), 1);
-			}
-			System.out.println("Detective to move");
-			DetectiveName detectiveName = listener.getInputDetective();
-			moveDetectiveToken(detectiveName, moveCount);
-			System.out.println("Moved " + detectiveName);
+			window.moveJoker=true;
 			break;
 
 		case DRAW_CARD:
-			drawCard(this.getCurrentPlayer());
+			drawCard(this.getCurrentPlayer(),window,jackGame);	
 			break;
 
 		case ROTATE_DISTRICT:
-			System.out.println("District to rotate");
-			List<Integer> coords = listener.getInputCoord();
-			System.out.println("New orientation");
-			Orientation orientation = listener.getInputOrientation();
-			rotate(orientation, coords);
+			window.ROTATE_DISTRICT=true;
 			break;
 
 		case SWAP_DISTRICT:
-			System.out.println("First district");
-			List<Integer> coord1 = listener.getInputCoord();
-			System.out.println("Second district");
-			List<Integer> coord2 = listener.getInputCoord();
-			swap(coord1, coord2);
+			window.SWAP_DISTRICT=true;
 			break;
 
 		}
 		actionToken.setRecto(!actionToken.isRecto());
 	}
 
-	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
-		board.moveDetectiveToken(detectiveName, cellCount);
+	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount,NewGraphicalWindow window,JackPocketGame jackGame) {
+		board.moveDetectiveToken( detectiveName,  cellCount, window, jackGame);
 	}
 
-	public void drawCard(Player player) {
+	public void drawCard(Player player,NewGraphicalWindow window,JackPocketGame jackGame) throws InterruptedException {
 		//Adds a card from the jackGame cardDeck to the player's cardDack
 		if (!cardDeck.isEmpty()) {
 			player.addAlibiCard(cardDeck.get(0));
 			// Flip if detective
-			if (player == getPlayer1()) {
-				board.flipDistrict(cardDeck.get(0).getCharacter());
-			} else if (player == getPlayer2()) {
+			if (player.getName() == getPlayer1().getName()) {
+				board.flipDistrict(cardDeck.get(0).getCharacter(),window,jackGame);
+				window.showCard(cardDeck.get(0).getCharacter().toString(),window,jackGame);
+				
+			} else if (player.getName() == getPlayer2().getName()) {
 				player.setHourglass(player.getHourglass() + cardDeck.get(0).getHourglass());
+				
 			}
 			cardDeck.remove(0);
 		}
 
 	}
 
-	public void rotate(Orientation orientation, List<Integer> coords) {
+	public void rotate(Orientation orientation, List<Integer> coords,NewGraphicalWindow window ) {
 		//Rotates the cell
 		if ((board.getCell(coords) != JackPocketGame.getRotatedDistrict())) {
-			board.rotate(orientation, coords);
-		} else {
-			System.out.println("Cannot rotate already rotated cell in same turn");
-			System.out.println("District to rotate");
-			coords = listener.getInputCoord();
-			System.out.println("New orientation");
-			orientation = listener.getInputOrientation();
-			rotate(orientation, coords);
-		}
+			board.rotate(orientation,coords, window);				
+		} 
 	}
 
 	public void swap(List<Integer> coord1, List<Integer> coord2) {
@@ -123,33 +107,29 @@ public class JackPocketGame extends Game {
 		board.swapCells(coord1, coord2);
 	}
 
-	public void displayJack() {
-		listener.showJack();
-		System.out.println(jackName.toString());
-		listener.hideJack();
+	public void displayJack(NewGraphicalWindow  window) throws InterruptedException {	
 	}
 
-	public ActionToken actionGetFromList() {
+	public ActionToken actionGetFromList(NewGraphicalWindow window,String actionUsed,int actionPosition,JackPocketGame jackGame) {
 		// Picks an action from the remaining list
-		System.out.println(getCurrentPlayer().getName() + " it's your time to pick an action");
 		System.out.println(actionTokenList);
-
-		Actions actionName = listener.getAction();
-		for (ActionToken actionToken : actionTokenList) {
+		window.information.setText(getCurrentPlayer().getName() + " it's your time to pick an action");
+		Actions actionName = listener.getAction(actionUsed);
+		ActionToken actionToken =jackGame.actionTokenList.get(actionPosition);
 			if ((!actionToken.hasBeenPlayed())
 					&& ((actionToken.isRecto() && (actionToken.getAction1().toString().equals(actionName.toString())))
 							|| (!actionToken.isRecto()
 									&& (actionToken.getAction2().toString().equals(actionName.toString()))))) {
 				return actionToken;
+				
 			} else {
-				System.out.println("Invalid action name");
-				actionGetFromList();
+				window.information.setText("this action have been already played");
 			}
-		}
+		
 		return null;
 	}
 
-	public Player hasReactedObjectives() {
+	public Player hasReactedObjectives(NewGraphicalWindow window,JackPocketGame jackGame) {
 		// Returns the player if any has reached an objective, else returns null
 		List<AlibiName> visibleList = getBoard().visibleCharacters();
 		boolean isJackVisible = false;
@@ -160,7 +140,7 @@ public class JackPocketGame extends Game {
 			}
 		}
 
-		int districtsLeft = getBoard().flipDistrict(isJackVisible, visibleList); // Flips districts & returns the number
+		int districtsLeft = getBoard().flipDistrict(isJackVisible, visibleList,window,jackGame); // Flips districts & returns the number
 																					// of unflipped districts
 		if (!isJackVisible) { // If jack is invisible
 			getPlayer2().setHourglass(getPlayer2().getHourglass() + 1);
@@ -173,7 +153,7 @@ public class JackPocketGame extends Game {
 			winner = getPlayer2();
 		}
 
-		if ((districtsLeft == 1) && isJackVisible) { // if 1 district left & jack visible
+		if ((districtsLeft == 1) && getPlayer2().getHourglass()<6) { // if 1 district left
 			System.out.println("WIN BY 1 DISTRICT LEFT");
 			winner = getPlayer1();
 		}
@@ -210,6 +190,9 @@ public class JackPocketGame extends Game {
 	public List<ActionToken> getActionTokenList() {
 		return actionTokenList;
 	}
+	
+	
+	
 
 	public void setActionTokenList(List<ActionToken> actionTokenList) {
 		this.actionTokenList = actionTokenList;

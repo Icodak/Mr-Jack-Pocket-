@@ -23,6 +23,25 @@ public class DetectiveToken extends Cell {
 	}
 
 	// Getters and Setters
+	public String[] getDetectiveListToString() {
+		if(detectiveList.size()==3) {
+		String[] DetectiveName= {detectiveList.get(0).toString(),detectiveList.get(1).toString(),detectiveList.get(2).toString()};
+		return DetectiveName;
+	}else if(detectiveList.size()==2) {
+		String[] DetectiveName= {detectiveList.get(0).toString(),detectiveList.get(1).toString(),""};
+		return DetectiveName;
+	}else if(detectiveList.size()==1) {
+		String[] DetectiveName= {"",detectiveList.get(0).toString(),""};
+		return DetectiveName;
+	}else {
+		String[] DetectiveName= {"","",""};
+		return DetectiveName;
+	}
+	
+	
+	}
+	
+	
 	public List<DetectiveName> getDetectiveList() {
 		return detectiveList;
 	}

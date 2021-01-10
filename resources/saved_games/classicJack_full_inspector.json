@@ -156,34 +156,38 @@
             "hourglass": 1
         }
     ],
-	"actionTokenList": [{
-            "action1": "MOVE_DETECTIVE",
-            "action2": "DRAW_CARD",
-            "hasBeenPlayed": false,
-            "action1Detective": "SHERLOCK",
-            "action2Detective": null,
-            "recto": true
-        }, {
-            "action1": "MOVE_DETECTIVE",
-            "action2": "MOVE_DETECTIVE",
-            "hasBeenPlayed": false,
-            "action1Detective": "WATSON",
-            "action2Detective": "TOBBY",
-            "recto": true
-        }, {
-            "action1": "SWAP_DISTRICT",
-            "action2": "ROTATE_DISTRICT",
-            "hasBeenPlayed": false,
-            "action1Detective": null,
-            "action2Detective": null,
-            "recto": true
-        }, {
-            "action1": "MOVE_JOKER",
-            "action2": "ROTATE_DISTRICT",
-            "hasBeenPlayed": false,
-            "action1Detective": null,
-            "action2Detective": null,
-            "recto": true
-        }
-    ]
+  "actionTokenList": [
+    {
+      "action1": "MOVE_DETECTIVE",
+      "action2": "MOVE_DETECTIVE",
+      "hasBeenPlayed": false,
+      "action1Detective": "SHERLOCK",
+      "action2Detective": "WATSON",
+      "recto": true
+    },
+    {
+      "action1": "MOVE_DETECTIVE",
+      "action2": "MOVE_DETECTIVE",
+      "hasBeenPlayed": false,
+      "action1Detective": "WATSON",
+      "action2Detective": "SHERLOCK",
+      "recto": true
+    },
+    {
+      "action1": "MOVE_DETECTIVE",
+      "action2": "MOVE_DETECTIVE",
+      "hasBeenPlayed": false,
+      "action1Detective": "WATSON",
+      "action2Detective": "TOBBY",
+      "recto": true
+    },
+    {
+      "action1": "MOVE_DETECTIVE",
+      "action2": "MOVE_DETECTIVE",
+      "hasBeenPlayed": false,
+      "action1Detective": "SHERLOCK",
+      "action2Detective": "TOBBY",
+      "recto": true
+    }
+  ]
 }

@@ -3,11 +3,11 @@ package board;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import board.detective.DetectiveName;
 import board.detective.DetectiveToken;
 import board.district.District;
 import board.district.Orientation;
+import graphics.NewGraphicalWindow;
 import items.AlibiName;
 import program.JackPocketGame;
 
@@ -27,14 +27,13 @@ public class Board {
 		setCell(cellTemp, coord2);
 	}
 
-	public void rotate(Orientation orientation, List<Integer> coords) {
+	public void rotate(Orientation orientation, List<Integer> coords,NewGraphicalWindow window ) {
 		// Rotates the district cell to a new orientation at the given coordinates
 		Cell cell = getCell(coords);
-		if ((cell instanceof District)) {
+		if ((cell instanceof District  )) {
 			JackPocketGame.setRotatedDistrict(getCell(coords));
 			((District) getCell(coords)).setOrientation(orientation);
 		}
-		System.out.println("Cannot rotate already rotated cell in same turn.");
 	}
 
 	public List<AlibiName> visibleCharacters() {
@@ -137,7 +136,7 @@ public class Board {
 		return characterList;
 	}
 
-	public int flipDistrict(boolean isJackVisible, List<AlibiName> visibleList) {
+	public int flipDistrict(boolean isJackVisible, List<AlibiName> visibleList,NewGraphicalWindow window,JackPocketGame jackGame) {
 		// Flips Districts depending on the visibility of Jack:
 		// If Jack is visible, flip the non visible districts
 		// Else flip the visible Districts
@@ -163,22 +162,28 @@ public class Board {
 				}
 			}
 		}
+		window.updateDistrict(jackGame);
 		return districtsLeft;
 	}
 
-	public void flipDistrict(AlibiName alibiName) {
+	public void flipDistrict(AlibiName alibiName,NewGraphicalWindow window,JackPocketGame jackGame) {
 		for (int h = 1; h < cellBoard.length - 1; h++) {
 			for (int l = 1; l < cellBoard[h].length - 1; l++) {
 				if (alibiName == ((District) cellBoard[h][l]).getCharacter()) {
 					((District) cellBoard[h][l]).setRecto(false);
+					window.updateDistrict(jackGame);
+					
 				}
 			}
 		}
 	}
 
-	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount) {
+	public void moveDetectiveToken(DetectiveName detectiveName, int cellCount,NewGraphicalWindow window,JackPocketGame jackGame) {
 		// Moves a given detective of a number of cells
 		boolean found = false;
+		if(cellCount==0) {
+			window.updateInspector(jackGame);
+		}else {
 		for (int move = 0; move < cellCount; move++) {
 			found = false;
 			for (int h = 0; h < cellBoard.length; h++) {
@@ -192,11 +197,44 @@ public class Board {
 						// finds new detectiveToken position
 						coords = slideAround(coords, Arrays.asList(cellBoard.length - 1, cellBoard[h].length - 1));
 						((DetectiveToken) getCell(coords)).addDetective(detectiveName);
+						window.updateInspector(jackGame);
 					}
 				}
 			}
 		}
+		
+		}
+		window.changeTurn(window,  jackGame);
 	}
+
+	
+	public List<Integer> moveDetectiveTokenTwo(DetectiveName detectiveName, int cellCount) {
+		// Moves a given detective of a number of cells
+			for (int h = 0; h < cellBoard.length; h++) {
+				for (int l = 0; l < cellBoard[h].length; l++) {
+					List<Integer> coords = Arrays.asList(h, l);
+					if ((cellBoard[h][l] instanceof DetectiveToken)
+							&& (((DetectiveToken) cellBoard[h][l]).getDetectiveList().contains(detectiveName))) {
+						for (int move = 0; move < cellCount; move++) {
+						coords = slideAround(coords, Arrays.asList(cellBoard.length - 1, cellBoard[h].length - 1));
+						}
+						return coords;
+				
+					}
+			}}
+			return null;}
+	
+	public List<Integer> findDetective(DetectiveName detectiveName){
+		for (int h = 0; h < cellBoard.length; h++) {
+			for (int l = 0; l < cellBoard[h].length; l++) {
+				List<Integer> coords = Arrays.asList(h, l);
+				if ((cellBoard[h][l] instanceof DetectiveToken)
+						&& (((DetectiveToken) cellBoard[h][l]).getDetectiveList().contains(detectiveName))) {
+					return coords;
+				}
+	}}
+		return null;}
+	
 
 	public static List<Integer> slideAround(List<Integer> coords, List<Integer> maxCoord) {
 		// Method used in moveDetectiveToken to determine how to move the detective
@@ -238,6 +276,11 @@ public class Board {
 	public Cell getCell(List<Integer> coord) {
 		return cellBoard[coord.get(0)][coord.get(1)];
 	}
+	
+	public Cell getCellInt(int x,int y) {
+		return cellBoard[x][y];
+	}
+	
 
 	public void setCell(Cell cell, List<Integer> coord) {
 		cellBoard[coord.get(0)][coord.get(1)] = cell;

@@ -35,9 +35,9 @@ public class InputListener {
 		}
 	}
 
-	public Actions getAction() {
-		System.out.println("Input an action name:");
-		String stringAction = sc.next();
+	public Actions getAction(String actionName) {
+		//System.out.println("Input an action name:");
+		String stringAction = actionName;
 		boolean isValidInput = false;
 		for (Actions c : Actions.values()) {
 			if (c.name().equalsIgnoreCase(stringAction)) {

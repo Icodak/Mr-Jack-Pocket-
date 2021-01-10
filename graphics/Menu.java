@@ -10,6 +10,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import program.JackPocketGame;
+
 public class Menu  {
 	private JmenuItemsSize[] items;
 	private int[] currentResolution=new int[2];
@@ -24,7 +28,7 @@ public class Menu  {
 	}
 
 
-	public void createMenu(JFrame frame,String[] resolution,int[][] resolutionTable,NewGraphicalWindow window)
+	public void createMenu(JFrame frame,String[] resolution,int[][] resolutionTable,NewGraphicalWindow window,JackPocketGame jackGame)
 	{		
 		JMenuBar toolBar = new JMenuBar();
 		JMenu setting = new JMenu( "settings" );	
@@ -32,10 +36,10 @@ public class Menu  {
 		JMenuItem saveGame= new JMenuItem ("save my game");
 		setting.add(others);
 		others.add(saveGame);
-		others.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\icons\\ICON_SAVE_AS.png"));
+		others.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_SAVE_AS.png"));
 		JMenu resolutionSize = new JMenu( "window size" );	
 		JFileChooser fc = new JFileChooser ();
-		resolutionSize.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\images\\icons\\ICON_SIZE.png"));
+		resolutionSize.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_SIZE.png"));
 		for(int n =0; n<resolution.length;n++) {
 		items[n]= new JmenuItemsSize();
 		items[n].setText(resolution[n]);
@@ -58,7 +62,12 @@ public class Menu  {
 	    saveGame.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		SaveFile save = new SaveFile();
-	    		save.savingFile(frame,fc);
+	    		try {
+					save.savingFile(frame,fc,jackGame);
+				} catch (JsonProcessingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	    		
 	    		}
 

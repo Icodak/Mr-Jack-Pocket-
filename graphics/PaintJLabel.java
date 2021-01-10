@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class PaintJlabel  extends JPanel{
+public class PaintJLabel  extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,10 +21,22 @@ public class PaintJlabel  extends JPanel{
 		BufferedImage image = new BufferedImage(w, h,  BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2 = image.createGraphics();
 		g2.drawImage(image1, 0, 0, null);
-		g2.drawImage(image2, 75, 75, null);
+		g2.drawImage(image2, 77, 76, null);
 		g2.dispose();
 		
 		ImageIcon newImg = new ImageIcon(image);
 		return newImg;
 }
+   static ImageIcon ImageGrey(ImageIcon icon) {
+	   Image image1 = icon.getImage(); 
+	   int w=icon.getIconWidth();
+	   int h=icon.getIconHeight();
+	   BufferedImage image = new BufferedImage(w, h,  BufferedImage.TYPE_BYTE_GRAY);
+	   Graphics2D g2 = image.createGraphics();
+	   g2.drawImage(image1, 0, 0, null);
+	   g2.dispose();
+	   ImageIcon newImg = new ImageIcon(image);
+	   return newImg;
+   }
+	
 }
