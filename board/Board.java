@@ -27,7 +27,7 @@ public class Board {
 		setCell(cellTemp, coord2);
 	}
 
-	public void rotate(Orientation orientation, List<Integer> coords,NewGraphicalWindow window ) {
+	public void rotate(Orientation orientation, List<Integer> coords ) {
 		// Rotates the district cell to a new orientation at the given coordinates
 		Cell cell = getCell(coords);
 		if ((cell instanceof District  )) {

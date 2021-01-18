@@ -32,6 +32,7 @@ public class VariableWarehouse {
 	public boolean SWAP_DISTRICT=false;
 	public boolean ROTATE_DISTRICT=false;
 	public boolean moveJoker=false;
+	public boolean actionPlaying=false;;
 	public int compteur_District=0;
 	public int[][] swapPosition = new int[2][2]; 
 	public int[] currentRotable;
@@ -40,6 +41,7 @@ public class VariableWarehouse {
 	public DetectiveName   detectiveToMove;
 	public int[] coordOne= new int [2];
 	public int[] coordTwo= new int [2];
+	public double currentOrientation;
 	
 	public NewJLabel[][] matrice=	{listegauche,listedroit,liste3,cardBack,listemilieuTwo,listemilieuThree,};
 	public int[][] allSize= {timeSize,actionSize,distrcitSize,cartSize,inspectorSize,inspectorSize,caracterSize};

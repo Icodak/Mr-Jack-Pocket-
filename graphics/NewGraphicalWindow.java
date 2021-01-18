@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,10 +36,11 @@ import items.AlibiName;
 import players.Player;
 import program.Game;
 import program.JackPocketGame;
+import saves.SaveLoad;
 
 public class NewGraphicalWindow extends VariableWarehouse{
 	
-	
+	// THE WINDOW GAME
 	public void initialize(NewGraphicalWindow  window,JackPocketGame jackgame) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException, InterruptedException {
 		
 		//main window divided in 4 parts(up,left,center,right)
@@ -85,9 +88,11 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		valider=bouton;
 	    bouton.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
+		    		
 		    		window.end=false;
 		    		bouton.setVisible(false);
 		    		changeTurn( window,jackgame);
+		    		window.actionPlaying=false;
 		         }
 		    });
 		information.add(bouton);
@@ -182,14 +187,13 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			indice++;
 		}
 		
-	
-		
+	//ADD MouseListener to whole NewJLabel 
 		for(NewJLabel[] n:matrice) {
 			for(NewJLabel v:n) {
 				if(v==null) {
 				}else {		
 				v.addMouseListener(new MouseListener());
-				v.setJackgame(jackgame);
+				v.setJackGame(jackgame);
 				v.setWindow(window);
 				}}}
 	frame.setVisible(true);
@@ -213,12 +217,11 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	}
 	
 
-	
-	
-	
-	
+
+	// SHOW A CARD 
 	public void showCard(String cardName,NewGraphicalWindow window,JackPocketGame jackGame) throws InterruptedException{
 		cardBack[0].setIcon(reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\ALIBI_"+cardName+".png"),allSize[3][0],allSize[3][1]));
+		window.actionPlaying=false;
 		window.changeTurn( window,jackGame);
 		//hideCard();
 	}
@@ -226,6 +229,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		cardBack[0].setIcon(reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\ALIBI_"+"CARD"+".png"),allSize[3][0],allSize[3][1]));
 	}
 
+	//Initialise the BOARD ( District,ActionToken,Inspector)
 	private void  iniatialiseBoard(JackPocketGame jackgame) {
 		updateDistrict(jackgame);
 		updateInspector(jackgame);
@@ -300,6 +304,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	
 
 	public double orientationToRadian(Orientation orientation) {
+
 		if(orientation.toString().equals("EAST")){
 			double angle=1.57;
 			return angle;
@@ -349,6 +354,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	private void changeSizeItems( NewJLabel label) {
 		if(label.getMatrice_position()[0]==2) {
 		label.setIcon(reSize(PaintJLabel.imageIconsuperposer(reSize(new ImageIcon(label.getPath()),allSizeCopy[2][0],allSizeCopy[2][1]), reSize(new ImageIcon(label.getPathtwo()),allSizeCopy[6][0],allSizeCopy[6][1])),allSize[2][0],allSize[2][1]));	
+		 rotateImage(label,label.getAngle());
 		}
 		else {	
 		label.setIcon(reSize(new ImageIcon(label.getPath()),allSize[label.getMatrice_position()[0]][0],allSize[label.getMatrice_position()[0]][1]));
@@ -401,7 +407,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	}
 	
 	
-	public void changeSize(int[] size){
+	public void changeSize(int[] size, JackPocketGame jackGame){
 		if(size[0]<1600 || size[1]<1050) {
 		int indice=0;
 		float newX=1600/((float)size[1]);
@@ -432,6 +438,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 				if(v==null) {				
 				}else {		
 					changeSizeItems(v);
+					
 
 				}}
 		}
@@ -440,12 +447,13 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	}
 	
 	
-	public void MainWindow(NewGraphicalWindow  window) {
+	public void MainWindow(NewGraphicalWindow  window) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		JFrame frametwo = new JFrame();
 		frametwo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frametwo.getContentPane().setLayout(null);
 		frametwo.setTitle("MrjackpocketMain");
 		frametwo.setBounds(660, 240, 600, 600);
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		frametwo.setIconImage(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_LOGO.png").getImage());	
 		frametwo.setVisible(true);
 		frametwo.setResizable(false);
@@ -467,39 +475,41 @@ public class NewGraphicalWindow extends VariableWarehouse{
 				NewGraphicalWindow window = new NewGraphicalWindow();
 				frametwo.dispose();
 				try {
-					Game.launchGame("\\resources\\saved_games\\classicJack.json",window);
-				} catch (JsonProcessingException e1) {
+					Game.launchGame(System.getProperty("user.dir") +"\\resources\\saved_games\\classicJack.json",window);
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException | IOException | InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (UnsupportedLookAndFeelException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				}
+				
 			}
 		});
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewGraphicalWindow window = new NewGraphicalWindow();
+				frametwo.dispose();
+				JFileChooser choosingFile = new JFileChooser ();
+				int val= choosingFile.showOpenDialog(frametwo);
+				if (val == JFileChooser.APPROVE_OPTION) {
+		             File loadingGame = choosingFile.getSelectedFile();
+		             try {
+						Game.launchGame(loadingGame.getAbsolutePath(),window);
+					} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+							| UnsupportedLookAndFeelException | IOException | InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				 }}
+				
+			}
+		);
 		
-		
-	}
 	
 	
 	
 	
 	
 } 
+	}
 
 

@@ -34,7 +34,7 @@ public class Game {
 	public static void launchGame(String path,NewGraphicalWindow window) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException, InterruptedException {
 
 		// Load classic game board and card set
-		String localFile = System.getProperty("user.dir") + path; //"\\resources\\saved_games\\classicJack.json"
+		String localFile = path; //"\\resources\\saved_games\\classicJack.json"
 		JackPocketGame jackGame = SaveLoad.load(localFile);
 		player1 = new Player(false, "Detective");
 		player2 = new Player(true, "Jack");
@@ -66,9 +66,9 @@ public class Game {
 			((District) jackGame.getBoard().getCell(Arrays.asList(1, 1))).setDistrictType(DistrictType.T_SHAPE);
 			((District) jackGame.getBoard().getCell(Arrays.asList(1, 3))).setDistrictType(DistrictType.T_SHAPE);
 			((District) jackGame.getBoard().getCell(Arrays.asList(3, 2))).setDistrictType(DistrictType.T_SHAPE);
-			jackGame.getBoard().rotate(Orientation.EAST, Arrays.asList(1, 1),window);
-			jackGame.getBoard().rotate(Orientation.WEST, Arrays.asList(1, 3),window );
-			jackGame.getBoard().rotate(Orientation.NORTH, Arrays.asList(3, 2),window );
+			jackGame.getBoard().rotate(Orientation.EAST, Arrays.asList(1, 1));
+			jackGame.getBoard().rotate(Orientation.WEST, Arrays.asList(1, 3));
+			jackGame.getBoard().rotate(Orientation.NORTH, Arrays.asList(3, 2));
 
 		}
 
@@ -97,9 +97,14 @@ public class Game {
 
 	public static void gameTurn(JackPocketGame jackGame,NewGraphicalWindow window) {
 		// Handles game turns, either repeats or displays who won
-
+		
+		
+		if(turnCount==0 ) {
+			turnCount++;
+		}else {
 		turnCount++; // New turn
 		window.listegauche[turnCount-2].setVisible(false);
+		}
 		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Make the actiontokens reusables
 			actionToken.setHasBeenPlayed(false);
 		}
@@ -112,6 +117,7 @@ public class Game {
 			}
 		}
 		window.randomizeAction(jackGame);
+		
 	}
 	
 	

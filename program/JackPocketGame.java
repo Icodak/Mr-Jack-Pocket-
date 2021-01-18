@@ -47,6 +47,7 @@ public class JackPocketGame extends Game {
 		actionToken.setHasBeenPlayed(true);
 		
 		// Methods
+		window.actionPlaying=true;
 		switch (actionToBePlayed) {
 		case MOVE_DETECTIVE:
 			window.MOVE_DETECTIVE=true;
@@ -82,12 +83,14 @@ public class JackPocketGame extends Game {
 		if (!cardDeck.isEmpty()) {
 			player.addAlibiCard(cardDeck.get(0));
 			// Flip if detective
-			if (player.getName() == getPlayer1().getName()) {
+			if (player.getName().toString().equals( getPlayer1().getName().toString())) {
+				
 				board.flipDistrict(cardDeck.get(0).getCharacter(),window,jackGame);
 				window.showCard(cardDeck.get(0).getCharacter().toString(),window,jackGame);
 				
-			} else if (player.getName() == getPlayer2().getName()) {
+			} else if (player.getName().toString().equals(getPlayer2().getName().toString())) {
 				player.setHourglass(player.getHourglass() + cardDeck.get(0).getHourglass());
+				window.actionPlaying=false;
 				
 			}
 			cardDeck.remove(0);
@@ -96,10 +99,7 @@ public class JackPocketGame extends Game {
 	}
 
 	public void rotate(Orientation orientation, List<Integer> coords,NewGraphicalWindow window ) {
-		//Rotates the cell
-		if ((board.getCell(coords) != JackPocketGame.getRotatedDistrict())) {
-			board.rotate(orientation,coords, window);				
-		} 
+			board.rotate(orientation,coords);						
 	}
 
 	public void swap(List<Integer> coord1, List<Integer> coord2) {

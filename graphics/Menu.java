@@ -55,7 +55,7 @@ public class Menu  {
 	    		JmenuItemsSize event =(JmenuItemsSize)e.getSource();
 	    		 currentResolution[0]=event.getResolution()[0];
 	    		 currentResolution[1]=event.getResolution()[1]; 
-	    		 window.changeSize(currentResolution);
+	    		 window.changeSize(currentResolution,jackGame);
 	    		 frame.setSize(currentResolution[0],currentResolution[1]);
 	         }
 	    });}
