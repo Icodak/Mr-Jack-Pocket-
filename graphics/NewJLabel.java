@@ -17,10 +17,10 @@ import program.JackPocketGame;
 
 public class NewJLabel extends JLabel {
 	private static final long serialVersionUID = 1L;
-	int[] matrice_position;
-	String path;
-	String pathtwo;
-	double angle;
+	private int[] matrice_position;
+	private String path;
+	private String pathtwo;
+	private double angle;
 	private JackPocketGame jackgame;
 	private NewGraphicalWindow window;
 	private int clicked=0;
@@ -66,7 +66,7 @@ public class NewJLabel extends JLabel {
 		String name=jackgame.getJackName().toString();
 		String currentName=jackgame.getCurrentPlayer().getName().toString();
 		
-		if(jackgame.getTurnCount()==0 && currentName=="Jack" && clicked==0) {
+		if(jackgame.getTurnCount()==0 && currentName.equals("Jack") && clicked==0) {
 		window.cardBack[0].setIcon(window.reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\"+"ALIBI_"+name+".png"), window.cartSize[0], window.cartSize[1]));
 		clicked=1;
 		window.information.setText("appuyez sur la pile de carte pour masquer votre carte Mr.Jack");
@@ -106,7 +106,7 @@ public class NewJLabel extends JLabel {
 		}
 		
  
-		if(label.getMatrice_position()[0]==2 && window.SWAP_DISTRICT) {
+		if(label.getMatrice_position()[0]==2 && window.swapDistrict) {
 			int x=label.getMatrice_position()[0];
 			int y=label.getMatrice_position()[1];	
 			if(window.swapPosition[0][0]==x && window.swapPosition[0][1]==y) {
@@ -130,7 +130,7 @@ public class NewJLabel extends JLabel {
 			}
 			if(window.compteur_District==2) {
 				window.changeImage(window.matrice[window.swapPosition[0][0]][window.swapPosition[0][1]],window.matrice[window.swapPosition[1][0]][window.swapPosition[1][1]]);
-				window.SWAP_DISTRICT=false;
+				window.swapDistrict=false;
 				window.compteur_District=0;
 				jackgame.swap(window.transformCoordToList(window.swapPosition[0]),window.transformCoordToList(window.swapPosition[1]));
 				window.changeTurn(window,jackgame);
@@ -139,10 +139,10 @@ public class NewJLabel extends JLabel {
 			}
 		}
 		
-		if(label.getMatrice_position()[0]==2 && window.ROTATE_DISTRICT) {
+		if(label.getMatrice_position()[0]==2 && window.rotateDistrict) {
 			window.valider.setVisible(true);
 			window.currentRotable = label.getMatrice_position();
-			window.ROTATE_DISTRICT=false;
+			window.rotateDistrict=false;
 			window.currentOrientation=label.getAngle();		
 			window.end=true;
 		}
@@ -159,12 +159,12 @@ public class NewJLabel extends JLabel {
 		}
 		
 		
-		if(window.MOVE_DETECTIVE) {
+		if(window.moveDetective) {
 			window.coordOne[0]=jackgame.getBoard().moveDetectiveTokenTwo(window.detectiveToMove, 1).get(0);
 			window.coordOne[1]=jackgame.getBoard().moveDetectiveTokenTwo(window.detectiveToMove, 1).get(1);
 			window.coordTwo[0]=jackgame.getBoard().moveDetectiveTokenTwo(window.detectiveToMove, 2).get(0);
 			window.coordTwo[1]=jackgame.getBoard().moveDetectiveTokenTwo(window.detectiveToMove, 2).get(1);
-			window.MOVE_DETECTIVE=false;		
+			window.moveDetective=false;		
 			transformCoord(window.coordOne,1);
 			transformCoord(window.coordTwo,2);
 		}

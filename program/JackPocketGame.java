@@ -50,7 +50,7 @@ public class JackPocketGame extends Game {
 		window.actionPlaying=true;
 		switch (actionToBePlayed) {
 		case MOVE_DETECTIVE:
-			window.MOVE_DETECTIVE=true;
+			window.moveDetective=true;
 			window.detectiveToMove=actionDetective;
 			break;
 
@@ -63,11 +63,11 @@ public class JackPocketGame extends Game {
 			break;
 
 		case ROTATE_DISTRICT:
-			window.ROTATE_DISTRICT=true;
+			window.rotateDistrict=true;
 			break;
 
 		case SWAP_DISTRICT:
-			window.SWAP_DISTRICT=true;
+			window.swapDistrict=true;
 			break;
 
 		}

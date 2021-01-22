@@ -27,8 +27,9 @@ public class PaintJLabel  extends JPanel{
 		ImageIcon newImg = new ImageIcon(image);
 		return newImg;
 }
+	
 	static ImageIcon imageIconsuperposerTwo(ImageIcon icon, ImageIcon icon1){
-			
+		
 		Image image1 = icon.getImage(); 
 		Image image2 = icon1.getImage(); 	
 		int w = 250;

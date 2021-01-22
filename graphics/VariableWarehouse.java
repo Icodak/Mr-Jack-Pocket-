@@ -28,9 +28,9 @@ public class VariableWarehouse {
 	public int[] coordLayoutTwo= {0,1,2,18,19,20};
 	public int[] coordLayoutThree= {3,8,13,7,12,17};
 	public JLabel information=new JLabel();
-	public boolean MOVE_DETECTIVE=false;
-	public boolean SWAP_DISTRICT=false;
-	public boolean ROTATE_DISTRICT=false;
+	public boolean moveDetective=false;
+	public boolean swapDistrict=false;
+	public boolean rotateDistrict=false;
 	public boolean moveJoker=false;
 	public boolean actionPlaying=false;;
 	public int compteur_District=0;

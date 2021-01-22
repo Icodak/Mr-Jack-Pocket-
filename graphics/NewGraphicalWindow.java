@@ -360,7 +360,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		label.setIcon(reSize(new ImageIcon(label.getPath()),allSize[label.getMatrice_position()[0]][0],allSize[label.getMatrice_position()[0]][1]));
 		}}
 	
-	public void  rotateImage(NewJLabel label,double angle) {
+	public void rotateImage(NewJLabel label,double angle) {
 		label.setIcon(reSize(PaintJLabel.imageIconsuperposer(RotateImage.rotateImage(reSize(new ImageIcon(label.getPath()),allSizeCopy[2][0],allSizeCopy[2][1]),angle),reSize(new ImageIcon(label.getPathtwo()),allSizeCopy[6][0],allSizeCopy[6][1])),allSize[2][0],allSize[2][1]));
 		label.setAngle(angle);
 	}
@@ -385,7 +385,9 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			}	
 		}
 		if(indice==1) {
+				System.out.println(jackgame.getCurrentPlayer().toString()+"after change");
 			jackgame.switchPlayer();
+			System.out.println(jackgame.getCurrentPlayer().toString()+"with change");
 			window.information.setText(jackgame.getCurrentPlayer().toString()+"   it's your time to pick a action");
 		}else if(indice==3) {
 			jackgame.switchPlayer();
@@ -400,7 +402,9 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			}
 			// Else continue the game
 			else {
+				jackgame.switchPlayer();
 				jackgame.gameTurn(jackgame,window);
+				information.setText(jackgame.getCurrentPlayer().toString()+"  it's your time to pick a action");
 			}
 		}
 		
