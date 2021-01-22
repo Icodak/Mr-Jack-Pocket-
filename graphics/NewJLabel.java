@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import board.detective.DetectiveName;
 import board.detective.DetectiveToken;
+import board.district.District;
 import board.district.Orientation;
 import items.ActionToken;
 import players.Player;
@@ -71,7 +72,7 @@ public class NewJLabel extends JLabel {
 		clicked=1;
 		window.information.setText("appuyez sur la pile de carte pour masquer votre carte Mr.Jack");
 		}
-		else if(jackgame.getTurnCount()==0 && currentName =="Jack"&&clicked==1) {
+		else if(jackgame.getTurnCount()==0 && currentName.equals("Jack") &&clicked==1) {
 			window.cardBack[0].setIcon(window.reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\"+"ALIBI_"+"CARD"+".png"), window.cartSize[0], window.cartSize[1]));
 			jackgame.setCurrentPlayer(new Player(false, "Detective"));
 			window.information.setText(jackgame.getCurrentPlayer().toString()+"  it's your time to pick a action");
@@ -89,6 +90,7 @@ public class NewJLabel extends JLabel {
 		String greyImage=new StringBuilder(label.getPath()).reverse().toString();
 		greyImage="DESU_"+greyImage.substring(4, greyImage.length());
 		greyImage=new StringBuilder(greyImage).reverse().toString();
+		label.setPath(greyImage+".png");
 		label.setIcon(window.reSize(new ImageIcon(greyImage+".png") ,window.allSize[1][0],window.allSize[1][1]));	
 			}else {
 		
@@ -99,6 +101,7 @@ public class NewJLabel extends JLabel {
 		String greyImage=new StringBuilder(label.getPath()).reverse().toString();
 		greyImage="DESU_"+greyImage.substring(4, greyImage.length());
 		greyImage=new StringBuilder(greyImage).reverse().toString();
+		label.setPath(greyImage+".png");
 		label.setIcon(window.reSize(new ImageIcon(greyImage+".png") ,window.allSize[1][0],window.allSize[1][1]));
 			}
 			System.out.println(jackgame);
@@ -142,12 +145,18 @@ public class NewJLabel extends JLabel {
 			}
 		}
 		
-		if(label.getMatrice_position()[0]==2 && window.rotateDistrict) {
+		if(label.getMatrice_position()[0]==2 && window.rotateDistrict ) {
+			if(((District)jackgame.getBoard().getCell(window.transformCoordToList(label.getMatrice_position()))).isRotate()==false) {
 			window.valider.setVisible(true);
 			window.currentRotable = label.getMatrice_position();
 			window.rotateDistrict=false;
 			window.currentOrientation=label.getAngle();		
 			window.end=true;
+			((District)jackgame.getBoard().getCell(window.transformCoordToList(label.getMatrice_position()))).setRotate(true);
+			}
+			else {
+				window.information.setText("this District have been already rotated");
+			}
 		}
 		
 		
@@ -198,12 +207,6 @@ public class NewJLabel extends JLabel {
 
 
 	public void transformCoord(int[] coord,int cellCount) {
-		for (NewJLabel i:this.window.matrice[4]) {
-			System.out.println(i.getPath().toString());
-		}
-		
-				
-		
 		if(coord[0]==4) {
 			for(int x=0;x<3;x++) {
 				if(window.listemilieuTwo[9+(coord[1]-1)*3+x].getPath().equals(System.getProperty("user.dir")+"\\resources\\images\\tokens\\DETECTIVE_.png")) {

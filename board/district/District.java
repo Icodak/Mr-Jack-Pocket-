@@ -10,6 +10,15 @@ public class District extends Cell {
 	private DistrictType districtType = DistrictType.T_SHAPE;
 	private DistrictType districtBType = DistrictType.T_SHAPE;
 	private boolean isRecto = true;
+	private boolean isRotate= false;
+
+	public boolean isRotate() {
+		return isRotate;
+	}
+
+	public void setRotate(boolean isRotate) {
+		this.isRotate = isRotate;
+	}
 
 	public DistrictType getDistrictBType() {
 		return districtBType;

@@ -87,8 +87,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		bouton.setVisible(false);
 		valider=bouton;
 	    bouton.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		
+		    	public void actionPerformed(ActionEvent e) {	
 		    		window.end=false;
 		    		bouton.setVisible(false);
 		    		changeTurn( window,jackgame);

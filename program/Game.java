@@ -9,6 +9,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import board.Cell;
 import board.district.District;
 import board.district.DistrictType;
 import board.district.Orientation;
@@ -109,6 +110,13 @@ public class Game {
 			actionToken.setHasBeenPlayed(false);
 		}
 		JackPocketGame.setRotatedDistrict(null); // Enable rotation
+		for(Cell[] i:jackGame.getBoard().getBoard()) {
+			for(Cell x:i) {
+				if(x instanceof District) {
+				((District)x).setRotate(false);
+				}
+			}
+		}
 		
 		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Flip actiontokens (even turn) or randomize
 			// them (odd turn)
