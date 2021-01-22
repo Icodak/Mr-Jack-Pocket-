@@ -21,7 +21,7 @@ public class PaintJLabel  extends JPanel{
 		BufferedImage image = new BufferedImage(w, h,  BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2 = image.createGraphics();
 		g2.drawImage(image1, 0, 0, null);
-		g2.drawImage(image2, 77, 76, null);
+		g2.drawImage(image2, 77, 77, null);
 		g2.dispose();
 		
 		ImageIcon newImg = new ImageIcon(image);

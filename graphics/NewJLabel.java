@@ -118,7 +118,6 @@ public class NewJLabel extends JLabel {
 						window.reSize(new  ImageIcon(label.getPathtwo()),window.allSizeCopy[6][0],
 								window.allSizeCopy[6][1])),window.allSize[2][0],window.allSize[2][0]));
 			}else {	
-			
 			window.swapPosition[window.compteur_District][0]=x;
 			window.swapPosition[window.compteur_District][1]=y;	
 			label.setIcon(window.reSize(PaintJLabel.imageIconsuperposerTwo(PaintJLabel.imageIconsuperposer(RotateImage.rotateImage(window.reSize(new ImageIcon(label.getPath()),
@@ -135,6 +134,10 @@ public class NewJLabel extends JLabel {
 				jackgame.swap(window.transformCoordToList(window.swapPosition[0]),window.transformCoordToList(window.swapPosition[1]));
 				window.changeTurn(window,jackgame);
 				window.actionPlaying=false;
+				window.swapPosition[0][0]=100;
+				window.swapPosition[0][1]=100;
+				window.swapPosition[1][0]=100;
+				window.swapPosition[1][1]=100;
 				
 			}
 		}
@@ -170,7 +173,7 @@ public class NewJLabel extends JLabel {
 		}
 		
 		if(window.moveJoker && (label.getMatrice_position()[0]==5||label.getMatrice_position()[0]==4)) {
-			String reverseImage=new StringBuilder(label.getPath().substring(76,label.getPath().length())).reverse().toString();
+			String reverseImage=new StringBuilder(label.getPath().substring(System.getProperty("user.dir").length() + 35,label.getPath().length())).reverse().toString();
 			reverseImage=new StringBuilder(reverseImage.substring(4,reverseImage.length())).reverse().toString();
 			window.detectiveToMove= DetectiveName.valueOf(reverseImage);
 			window.moveJoker=false;
@@ -195,6 +198,12 @@ public class NewJLabel extends JLabel {
 
 
 	public void transformCoord(int[] coord,int cellCount) {
+		for (NewJLabel i:this.window.matrice[4]) {
+			System.out.println(i.getPath().toString());
+		}
+		
+				
+		
 		if(coord[0]==4) {
 			for(int x=0;x<3;x++) {
 				if(window.listemilieuTwo[9+(coord[1]-1)*3+x].getPath().equals(System.getProperty("user.dir")+"\\resources\\images\\tokens\\DETECTIVE_.png")) {

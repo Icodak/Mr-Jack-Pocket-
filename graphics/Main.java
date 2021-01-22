@@ -10,5 +10,4 @@ public class Main {
 		NewGraphicalWindow window = new NewGraphicalWindow();
 		window.MainWindow(window);
 	}
-
 }
