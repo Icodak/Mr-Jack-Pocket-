@@ -1,7 +1,7 @@
 package program;
 
 public class Main {
-   //program
+   //programytiti
 	public static void main(String[] args) {
 
 		
