@@ -1,6 +1,7 @@
 package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -54,7 +55,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		
 		//Menu bar
 		Menu menu =new Menu(new JmenuItemsSize[resolution.length]);
-		menu.createMenu(frame,resolution,resolutionTable,window,jackgame);
+		menu.createMenu( frame, sizeTextString, sizeTextTable, resolution, resolutionTable,window, jackgame);
 		
 		//UP
 		JPanel up= new JPanel();
@@ -82,7 +83,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		frame.getContentPane().add(right, BorderLayout.EAST);
 		right.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel information = new JPanel();
+		JPanel informationList = new JPanel();
 		JButton bouton = new JButton("valider");
 		bouton.setVisible(false);
 		valider=bouton;
@@ -94,8 +95,8 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		    		window.actionPlaying=false;
 		         }
 		    });
-		information.add(bouton);
-		right.add(information);
+		informationList.add(bouton);
+		right.add(informationList);
 		
 		
 		

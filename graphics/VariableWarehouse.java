@@ -1,5 +1,7 @@
   
 package graphics;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,12 +46,15 @@ public class VariableWarehouse {
 	public int[] coordTwo= new int [2];
 	public double currentOrientation;
 	public double initialRotation;
+	public int TextSize=25;
 	
 	public NewJLabel[][] matrice=	{listegauche,listedroit,liste3,cardBack,listemilieuTwo,listemilieuThree,};
 	public int[][] allSize= {timeSize,actionSize,distrcitSize,cartSize,inspectorSize,inspectorSize,caracterSize};
 	public int[][] allSizeCopy= {{110,110},{120,120},{250,250},{145,180},{80,80},{80,80},{100,100}};
 	public String[] resolution= {"1920*1080","1680*1050","1600*1024","1280*720","1024*758","800*600"};
 	public int[][] resolutionTable={{1900,1080},{1680,1050},{1600,1024},{1280,720},{1024,758},{800,600}};
+	public String[] sizeTextString= {"10","15","20","25"};
+	public int[] sizeTextTable={10,15,20,25};
 	
 	//images path
 	public String[] ActionToken = {"\\resources\\images\\alibicards\\ALIBI_CARD.png","\\resources\\images\\tokens\\TOKEN_SWAP.png","\\resources\\images\\tokens\\TOKEN_ROTATE.png","\\resources\\images\\tokens\\TOKEN_TOBBY.png","\\resources\\images\\tokens\\TOKEN_WATSON.png","\\resources\\images\\tokens\\TOKEN_SHERLOCK.png","\\resources\\images\\tokens\\TOKEN_CARD.png","\\resources\\images\\tokens\\TOKEN_JOKER.png","\\resources\\images\\tokens\\TOKEN_ROTATION.png"};

@@ -1,5 +1,6 @@
 package program;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -92,7 +93,7 @@ public class Game {
 		//Prompt to show jack
 		jackGame.displayJack(window);
 		window.information.setText("press the card stack to reveal your card Mr. Jack");
-		
+		window.information.setFont(new Font("Arial",Font.BOLD,window.TextSize));
 		
 	}
 
