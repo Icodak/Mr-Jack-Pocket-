@@ -220,10 +220,9 @@ public class NewGraphicalWindow extends VariableWarehouse{
 	// SHOW A CARD 
 	public void showCard(String cardName,NewGraphicalWindow window,JackPocketGame jackGame) throws InterruptedException{
 		cardBack[0].setIcon(reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\ALIBI_"+cardName+".png"),allSize[3][0],allSize[3][1]));
-		window.actionPlaying=false;
-		window.changeTurn( window,jackGame);
-		//hideCard();
+		information.setText(jackGame.getCurrentPlayer().toString()+" hide this card to continue");
 	}
+	
 	public void hideCard() throws InterruptedException {
 		cardBack[0].setIcon(reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\ALIBI_"+"CARD"+".png"),allSize[3][0],allSize[3][1]));
 	}
@@ -288,18 +287,38 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		int indicetwo=0;		
 		for(ActionToken list: jackgame.getActionTokenList() ) {
 			
-			if(list.toString().equals("MOVE_DETECTIVE")) {
+			
+			if(list.toString().equals("MOVE_DETECTIVE")&&list.getAction1Detective()!=null&&list.getAction2Detective()!=null) {
 				if(list.isRecto()) {
 					  imageInitialize("\\resources\\images\\tokens\\"+list.getAction1Detective().toString()+".png","", listedroit[indicetwo]);				
 				}else {
 					  imageInitialize("\\resources\\images\\tokens\\"+list.getAction2Detective().toString()+".png","", listedroit[indicetwo]);	 
 				}	  
-			}else {
-			   imageInitialize("\\resources\\images\\tokens\\"+list.toString()+".png","", listedroit[indicetwo]);	
-			}			
+			}else if(list.toString().equals("MOVE_DETECTIVE")&&(list.getAction1Detective()==null||list.getAction2Detective()==null)){
+				imageInitialize("\\resources\\images\\tokens\\"+list.getAction1Detective().toString()+".png","", listedroit[indicetwo]);
+			}	
+			else {
+				
+			        imageInitialize("\\resources\\images\\tokens\\"+list.toString()+".png","", listedroit[indicetwo]);		
+			}
 			listedroit[indicetwo].setIcon(reSize(new ImageIcon(listedroit[indicetwo].getPath()),actionSize[0],actionSize[1]));
 			indicetwo++;
-		}}
+			
+			
+			
+		}
+		
+		for(ActionToken list: jackgame.getActionTokenList() ) {
+		System.out.println(list.toString());
+		System.out.println(list.isRecto());
+		}
+		
+		for(NewJLabel i:listedroit) {
+			System.out.println(i.getPath().toString());
+			System.out.println("");
+		}
+	
+	}
 	
 
 	public double orientationToRadian(Orientation orientation) {
@@ -384,15 +403,14 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			}	
 		}
 		if(indice==1) {
-				System.out.println(jackgame.getCurrentPlayer().toString()+"after change");
 			jackgame.switchPlayer();
-			System.out.println(jackgame.getCurrentPlayer().toString()+"with change");
 			window.information.setText(jackgame.getCurrentPlayer().toString()+"   it's your time to pick a action");
 		}else if(indice==3) {
 			jackgame.switchPlayer();
 			window.information.setText(jackgame.getCurrentPlayer().toString()+"  it's your time to pick a action");
 			
 		}else if(indice==4) {
+			
 			
 			Player winningPlayer = jackgame.hasReactedObjectives(window,jackgame);
 
@@ -401,9 +419,11 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			}
 			// Else continue the game
 			else {
+				
 				jackgame.switchPlayer();
 				jackgame.gameTurn(jackgame,window);
 				information.setText(jackgame.getCurrentPlayer().toString()+"  it's your time to pick a action");
+				
 			}
 		}
 		

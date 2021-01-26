@@ -91,7 +91,7 @@ public class Game {
 		
 		//Prompt to show jack
 		jackGame.displayJack(window);
-		window.information.setText("appuyez sur la pile de carte pour dévoilez votre carte Mr.Jack");
+		window.information.setText("press the card stack to reveal your card Mr. Jack");
 		
 		
 	}
@@ -99,13 +99,7 @@ public class Game {
 	public static void gameTurn(JackPocketGame jackGame,NewGraphicalWindow window) {
 		// Handles game turns, either repeats or displays who won
 		
-		
-		if(turnCount==0 ) {
-			turnCount++;
-		}else {
-		turnCount++; // New turn
-		window.listegauche[turnCount-2].setVisible(false);
-		}
+		window.listegauche[turnCount-1].setVisible(false);
 		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Make the actiontokens reusables
 			actionToken.setHasBeenPlayed(false);
 		}
@@ -120,17 +114,17 @@ public class Game {
 		
 		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Flip actiontokens (even turn) or randomize
 			// them (odd turn)
-			if (Math.floorMod(turnCount, 2) != 0) { // even
+			if (Math.floorMod(turnCount, 2) == 0) { // even
 				actionToken.setRecto(ThreadLocalRandom.current().nextBoolean());
 			}
 		}
 		window.randomizeAction(jackGame);
-		
+		turnCount++; // New turn
 	}
 	
 	
 	public static void gameTurnInitialize(JackPocketGame jackGame,NewGraphicalWindow window) {
-		turnCount++; // New turn
+
 		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Make the actiontokens reusables
 			actionToken.setHasBeenPlayed(false);
 		}
@@ -138,11 +132,12 @@ public class Game {
 		
 		for (ActionToken actionToken : jackGame.getActionTokenList()) { // Flip actiontokens (even turn) or randomize
 			// them (odd turn)
-			if (Math.floorMod(1, 2) != 0) { // even
+			if (Math.floorMod(turnCount, 2) == 0) { // even
 				actionToken.setRecto(ThreadLocalRandom.current().nextBoolean());
 			}
 		}
 		window.randomizeAction(jackGame);
+		turnCount++; // New turn
 	}
 	
 	public void switchPlayer() {

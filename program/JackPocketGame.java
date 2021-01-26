@@ -3,6 +3,8 @@ package program;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -11,6 +13,7 @@ import board.Cell;
 import board.detective.DetectiveName;
 import board.district.Orientation;
 import graphics.NewGraphicalWindow;
+import graphics.NewJLabel;
 import items.ActionToken;
 import items.Actions;
 import items.AlibiName;
@@ -24,7 +27,7 @@ public class JackPocketGame extends Game {
 	InputListener listener = new InputListener();
 	private Board board;
 	private List<Card> cardDeck;
-	private List<ActionToken> actionTokenList = new ArrayList<>();
+	public List<ActionToken> actionTokenList = new ArrayList<>();
 	private AlibiName jackName;
 	private static Cell rotatedDistrict = null;
 	private boolean beginWithWalls = true;
@@ -35,7 +38,7 @@ public class JackPocketGame extends Game {
 		// Get the current action of the token
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
-		
+		System.out.println(actionToken.toString());
 		
 		if (actionToken.isRecto()) {
 			actionToBePlayed = actionToken.getAction1();
@@ -59,7 +62,8 @@ public class JackPocketGame extends Game {
 			break;
 
 		case DRAW_CARD:
-			drawCard(this.getCurrentPlayer(),window,jackGame);	
+			window.drawCard=true;
+			drawCard(this.getCurrentPlayer(),window,jackGame);
 			break;
 
 		case ROTATE_DISTRICT:
@@ -90,7 +94,7 @@ public class JackPocketGame extends Game {
 				
 			} else if (player.getName().toString().equals(getPlayer2().getName().toString())) {
 				player.setHourglass(player.getHourglass() + cardDeck.get(0).getHourglass());
-				window.actionPlaying=false;
+				window.showCard(cardDeck.get(0).getCharacter().toString(),window,jackGame);
 				
 			}
 			cardDeck.remove(0);

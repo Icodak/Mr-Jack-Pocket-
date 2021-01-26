@@ -2,6 +2,8 @@ package graphics;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -33,8 +35,13 @@ public class Menu  {
 		JMenuBar toolBar = new JMenuBar();
 		JMenu setting = new JMenu( "settings" );	
 		JMenu others = new JMenu( "save game" );
+		JMenu rules = new JMenu( "Game rules" );
 		JMenuItem saveGame= new JMenuItem ("save my game");
+		JMenuItem gameRules= new JMenuItem ("Game rules");
 		setting.add(others);
+		setting.add(rules);
+		rules.add(gameRules);
+		rules.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_ABOUT.png"));
 		others.add(saveGame);
 		others.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_SAVE_AS.png"));
 		JMenu resolutionSize = new JMenu( "window size" );	
@@ -48,8 +55,10 @@ public class Menu  {
 		}
 		setting.add(resolutionSize);
 	    toolBar.add(setting);
-	    frame.setJMenuBar(toolBar); 
+	    frame.setJMenuBar(toolBar);
+	    
 	    for(JmenuItemsSize n:items) {
+	    	
 	    n.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		JmenuItemsSize event =(JmenuItemsSize)e.getSource();
@@ -59,6 +68,7 @@ public class Menu  {
 	    		 frame.setSize(currentResolution[0],currentResolution[1]);
 	         }
 	    });}
+	    
 	    saveGame.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		SaveFile save = new SaveFile();
@@ -68,10 +78,23 @@ public class Menu  {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-	    		
 	    		}
-
-	    });    
+	    });
+	    
+	    gameRules.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		try {
+					java.awt.Desktop.getDesktop().open(new File(System.getProperty("user.dir")+"\\rulesJackGame\\"+"rules.pdf"));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}    		
+	    	}
+	    	});
+	    	
+	    
+	    
+	    
 	    }
 	}
 

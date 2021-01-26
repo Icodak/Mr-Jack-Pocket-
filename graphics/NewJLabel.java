@@ -70,41 +70,44 @@ public class NewJLabel extends JLabel {
 		if(jackgame.getTurnCount()==0 && currentName.equals("Jack") && clicked==0) {
 		window.cardBack[0].setIcon(window.reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\"+"ALIBI_"+name+".png"), window.cartSize[0], window.cartSize[1]));
 		clicked=1;
-		window.information.setText("appuyez sur la pile de carte pour masquer votre carte Mr.Jack");
+		window.information.setText("tap the card stack to hide your card Mr.Jack");
 		}
 		else if(jackgame.getTurnCount()==0 && currentName.equals("Jack") &&clicked==1) {
 			window.cardBack[0].setIcon(window.reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\"+"ALIBI_"+"CARD"+".png"), window.cartSize[0], window.cartSize[1]));
 			jackgame.setCurrentPlayer(new Player(false, "Detective"));
 			window.information.setText(jackgame.getCurrentPlayer().toString()+"  it's your time to pick a action");
-			Game.gameTurn(jackgame,window);
+			Game.gameTurnInitialize(jackgame,window);
 			}}	
 
 		
 		if(label.getMatrice_position()[0]==1 && jackgame.getTurnCount()>0 && window.actionPlaying==false) {
 		if(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).hasBeenPlayed()==false) {	
-			if(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).isRecto() ) {
-				
+			System.out.println("l'action joué est ");
+			System.out.println(label.getPath().toString());
+			System.out.println(jackgame.actionTokenList);
+			
+		String greyImage=new StringBuilder(label.getPath()).reverse().toString();
+		greyImage="DESU_"+greyImage.substring(4, greyImage.length());
+		greyImage=new StringBuilder(greyImage).reverse().toString();
+	  	label.setPath(greyImage+".png");
+	  	label.setIcon(window.reSize(new ImageIcon(greyImage+".png") ,window.allSize[1][0],window.allSize[1][1]));
+					
+		if(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).isRecto() ) {
+		
+		System.out.println("action joué");		
+		System.out.println(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction1().toString());	
+		
 		
 		jackgame.playAction(jackgame.actionGetFromList(window,jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction1().toString(),label.getMatrice_position()[1],jackgame),window,jackgame);
-		
-		String greyImage=new StringBuilder(label.getPath()).reverse().toString();
-		greyImage="DESU_"+greyImage.substring(4, greyImage.length());
-		greyImage=new StringBuilder(greyImage).reverse().toString();
-		label.setPath(greyImage+".png");
-		label.setIcon(window.reSize(new ImageIcon(greyImage+".png") ,window.allSize[1][0],window.allSize[1][1]));	
-			}else {
-		
-		
+			}else {	
+				
+				System.out.println("action joué");		
+				System.out.println(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction2().toString());		
+				
 		jackgame.playAction(jackgame.actionGetFromList(window,jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction2().toString(),label.getMatrice_position()[1],jackgame),window,jackgame);
-
-		
-		String greyImage=new StringBuilder(label.getPath()).reverse().toString();
-		greyImage="DESU_"+greyImage.substring(4, greyImage.length());
-		greyImage=new StringBuilder(greyImage).reverse().toString();
-		label.setPath(greyImage+".png");
-		label.setIcon(window.reSize(new ImageIcon(greyImage+".png") ,window.allSize[1][0],window.allSize[1][1]));
 			}
-			System.out.println(jackgame);
+			//System.out.println(jackgame);
+						
 		}
 		}
 		
@@ -152,6 +155,7 @@ public class NewJLabel extends JLabel {
 			window.rotateDistrict=false;
 			window.currentOrientation=label.getAngle();		
 			window.end=true;
+			window.initialRotation=label.getAngle();
 			((District)jackgame.getBoard().getCell(window.transformCoordToList(label.getMatrice_position()))).setRotate(true);
 			}
 			else {
@@ -160,8 +164,12 @@ public class NewJLabel extends JLabel {
 		}
 		
 		
-		if(label.getMatrice_position()==(window.currentRotable)&&window.end) {
+		if(label.getMatrice_position()==window.currentRotable&&window.end) {
+
 			window.rotateImage(label,(label.getAngle()%6.28+1.57));
+			if(window.initialRotation==label.getAngle()) {
+				window.rotateImage(label,(label.getAngle()%6.28+1.57));
+			}
 			jackgame.rotate(window.RadianToOrientation(label.getAngle()), window.transformCoordToList(window.currentRotable),window );		
 		}
 				
@@ -169,6 +177,14 @@ public class NewJLabel extends JLabel {
 			jackgame.moveDetectiveToken(window.detectiveToMove,label.getCellcountToMove(),window,jackgame);
 			window.actionPlaying=false;
 		}
+		
+		if(label.getMatrice_position()[0]==3&& window.drawCard) {
+			window.drawCard=false;
+			window.actionPlaying=false;
+			window.hideCard();
+			window.changeTurn( window,jackgame);
+		}
+		
 		
 		
 		if(window.moveDetective) {
@@ -204,6 +220,7 @@ public class NewJLabel extends JLabel {
 			
 			}}
 	}
+
 
 
 	public void transformCoord(int[] coord,int cellCount) {
