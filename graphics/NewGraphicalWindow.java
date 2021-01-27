@@ -467,22 +467,18 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		frametwo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frametwo.getContentPane().setLayout(null);
 		frametwo.setTitle("MrjackpocketMain");
-		frametwo.setBounds(660, 240, 600, 600);
+		frametwo.setBounds(660, 240, 600, 300);
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		frametwo.setIconImage(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_LOGO.png").getImage());	
 		frametwo.setVisible(true);
 		frametwo.setResizable(false);
-		
-		JButton btnNewButton = new JButton("vs ia");
-		btnNewButton.setBounds(50, 50, 200, 150);
-		frametwo.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("New game");
 		btnNewButton_1.setBounds(350, 50, 200, 150);
 		frametwo.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("load game");
-		btnNewButton_2.setBounds(200, 250, 200, 150);
+		btnNewButton_2.setBounds(50, 50, 200, 150);
 		frametwo.getContentPane().add(btnNewButton_2);
 		
 		btnNewButton_1.addActionListener(new ActionListener() {

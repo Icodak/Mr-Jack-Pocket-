@@ -186,11 +186,17 @@ public class JackPocketGame extends Game {
 			winner=null;
 		}
 		
-
+		if(getTurnCount() == 8&&getPlayer2().getHourglass()< 6&&districtsLeft != 1) {
+			winner = getPlayer2();
+		}
+		
 		if ((getTurnCount() == 8) && (districtsLeft == 1) && !isJackVisible) { // Turn 8 special win conditions
 			System.out.println("WIN BY TURN 8");
 			winner = getPlayer2();
 		}
+		
+
+		
 		}
 		
 	}

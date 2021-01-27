@@ -58,6 +58,7 @@ public class Menu  {
 		setting.add(sizeText);
 		
 		rules.add(gameRules);
+		sizeText.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\TEXT_SIZE.png"));
 		rules.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_ABOUT.png"));
 		others.add(saveGame);
 		others.setIcon(new ImageIcon(System.getProperty("user.dir") + "\\resources\\images\\icons\\ICON_SAVE_AS.png"));
