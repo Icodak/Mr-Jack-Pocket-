@@ -223,7 +223,7 @@ public class NewGraphicalWindow extends VariableWarehouse{
 		cardBack[0].setIcon(reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\ALIBI_"+cardName+".png"),allSize[3][0],allSize[3][1]));
 		information.setText(jackGame.getCurrentPlayer().toString()+" hide this card to continue");
 	}
-	
+	//HIDE CARD 
 	public void hideCard() throws InterruptedException {
 		cardBack[0].setIcon(reSize(new ImageIcon(System.getProperty("user.dir")+"\\resources\\images\\alibicards\\ALIBI_"+"CARD"+".png"),allSize[3][0],allSize[3][1]));
 	}
@@ -250,9 +250,9 @@ public class NewGraphicalWindow extends VariableWarehouse{
 				}
 			}else {
 				if(((District) jackgame.getBoard().getCellInt(x, y)).isRecto()) {
-			imageInitialize(District[1],"\\resources\\images\\caracter\\"+newName+".png",liste3[indice]);
+			imageInitialize("\\resources\\images\\districts\\"+((District) jackgame.getBoard().getCellInt(x, y)).getDistrictType().toString()+".png","\\resources\\images\\caracter\\"+newName+".png",liste3[indice]);
 				}else {
-			imageInitialize(District[1],"",liste3[indice]);		
+			imageInitialize("\\resources\\images\\districts\\"+((District) jackgame.getBoard().getCellInt(x, y)).getDistrictType().toString()+".png","",liste3[indice]);		
 				}
 			}		
 			rotateImage(liste3[indice],orientationToRadian( orientation));		
