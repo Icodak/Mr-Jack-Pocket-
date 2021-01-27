@@ -309,15 +309,6 @@ public class NewGraphicalWindow extends VariableWarehouse{
 			
 		}
 		
-		for(ActionToken list: jackgame.getActionTokenList() ) {
-		System.out.println(list.toString());
-		System.out.println(list.isRecto());
-		}
-		
-		for(NewJLabel i:listedroit) {
-			System.out.println(i.getPath().toString());
-			System.out.println("");
-		}
 	
 	}
 	

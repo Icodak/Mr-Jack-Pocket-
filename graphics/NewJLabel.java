@@ -83,9 +83,7 @@ public class NewJLabel extends JLabel {
 		
 		if(label.getMatrice_position()[0]==1 && jackgame.getTurnCount()>0 && window.actionPlaying==false) {
 		if(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).hasBeenPlayed()==false) {	
-			System.out.println("l'action joué est ");
-			System.out.println(label.getPath().toString());
-			System.out.println(jackgame.actionTokenList);
+
 			
 		String greyImage=new StringBuilder(label.getPath()).reverse().toString();
 		greyImage="DESU_"+greyImage.substring(4, greyImage.length());
@@ -94,20 +92,14 @@ public class NewJLabel extends JLabel {
 	  	label.setIcon(window.reSize(new ImageIcon(greyImage+".png") ,window.allSize[1][0],window.allSize[1][1]));
 					
 		if(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).isRecto() ) {
-		
-		System.out.println("action joué");		
-		System.out.println(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction1().toString());	
-		
-		
+	
 		jackgame.playAction(jackgame.actionGetFromList(window,jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction1().toString(),label.getMatrice_position()[1],jackgame),window,jackgame);
 			}else {	
 				
-				System.out.println("action joué");		
-				System.out.println(jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction2().toString());		
-				
+			
 		jackgame.playAction(jackgame.actionGetFromList(window,jackgame.getActionTokenList().get(label.getMatrice_position()[1]).getAction2().toString(),label.getMatrice_position()[1],jackgame),window,jackgame);
 			}
-			//System.out.println(jackgame);
+			System.out.println(jackgame);
 						
 		}
 		}

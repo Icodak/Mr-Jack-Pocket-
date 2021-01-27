@@ -26,6 +26,7 @@ import saves.ItemDeserializer;
 public class JackPocketGame extends Game {
 	InputListener listener = new InputListener();
 	private Board board;
+	boolean chase=false;
 	private List<Card> cardDeck;
 	public List<ActionToken> actionTokenList = new ArrayList<>();
 	private AlibiName jackName;
@@ -38,7 +39,6 @@ public class JackPocketGame extends Game {
 		// Get the current action of the token
 		Actions actionToBePlayed;
 		DetectiveName actionDetective;
-		System.out.println(actionToken.toString());
 		
 		if (actionToken.isRecto()) {
 			actionToBePlayed = actionToken.getAction1();
@@ -149,9 +149,21 @@ public class JackPocketGame extends Game {
 		if (!isJackVisible) { // If jack is invisible
 			getPlayer2().setHourglass(getPlayer2().getHourglass() + 1);
 		}
+		
 
 		System.out.println("Jack has " + getPlayer2().getHourglass() + " hourglasses"); // if Jack has 6 or more
-																						// hourglasses
+			// hourglasses
+		
+		if(this.chase==true) {
+			if(isJackVisible) {
+				winner = getPlayer1();
+			}else {
+				if ((getTurnCount() >= 8)) { 
+					System.out.println("WIN BY TURN 8");
+					winner = getPlayer2();
+				}
+			}	
+		}else {
 		if (getPlayer2().getHourglass() >= 6) {
 			System.out.println("WIN BY 6+ HOURGLASS");
 			winner = getPlayer2();
@@ -161,11 +173,27 @@ public class JackPocketGame extends Game {
 			System.out.println("WIN BY 1 DISTRICT LEFT");
 			winner = getPlayer1();
 		}
+		
+		if(getPlayer2().getHourglass() >= 6 && districtsLeft == 1 ) {
+			if(isJackVisible) {
+				winner = getPlayer1();
+			}else {
+				winner = getPlayer2();
+			}
+		if(getPlayer2().getHourglass() >= 6 && districtsLeft == 1 &&getTurnCount()<8 ) {
+			this.chase=true;
+			window.information.setText("pursuit");
+			winner=null;
+		}
+		
 
 		if ((getTurnCount() == 8) && (districtsLeft == 1) && !isJackVisible) { // Turn 8 special win conditions
 			System.out.println("WIN BY TURN 8");
 			winner = getPlayer2();
 		}
+		}
+		
+	}
 		return winner;
 	}
 
