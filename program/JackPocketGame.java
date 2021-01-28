@@ -3,8 +3,6 @@ package program;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -13,7 +11,6 @@ import board.Cell;
 import board.detective.DetectiveName;
 import board.district.Orientation;
 import graphics.NewGraphicalWindow;
-import graphics.NewJLabel;
 import items.ActionToken;
 import items.Actions;
 import items.AlibiName;

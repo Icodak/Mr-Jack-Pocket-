@@ -2,7 +2,6 @@ package graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,9 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,8 +24,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.MatteBorder;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import board.detective.DetectiveToken;
 import board.district.District;
 import board.district.Orientation;
@@ -38,7 +32,6 @@ import items.AlibiName;
 import players.Player;
 import program.Game;
 import program.JackPocketGame;
-import saves.SaveLoad;
 
 public class NewGraphicalWindow extends VariableWarehouse {
 

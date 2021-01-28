@@ -1,19 +1,11 @@
 
 package graphics;
 
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import board.detective.DetectiveName;
-import board.detective.DetectiveToken;
 import board.district.District;
-import board.district.Orientation;
-import items.ActionToken;
 import players.Player;
 import program.Game;
 import program.JackPocketGame;
@@ -80,7 +72,7 @@ public class NewJLabel extends JLabel {
 			String name = jackgame.getJackName().toString();
 			String currentName = jackgame.getCurrentPlayer().getName().toString();
 
-			if (jackgame.getTurnCount() == 0 && currentName.equals("Jack") && clicked == 0) {
+			if (Game.getTurnCount() == 0 && currentName.equals("Jack") && clicked == 0) {
 				window.cardBack[0]
 						.setIcon(
 								window.reSize(
@@ -89,14 +81,14 @@ public class NewJLabel extends JLabel {
 										window.cartSize[0], window.cartSize[1]));
 				clicked = 1;
 				window.information.setText("tap the card stack to hide your card Mr.Jack");
-			} else if (jackgame.getTurnCount() == 0 && currentName.equals("Jack") && clicked == 1) {
+			} else if (Game.getTurnCount() == 0 && currentName.equals("Jack") && clicked == 1) {
 				window.cardBack[0]
 						.setIcon(
 								window.reSize(
 										new ImageIcon(System.getProperty("user.dir")
 												+ "\\resources\\images\\alibicards\\" + "ALIBI_" + "CARD" + ".png"),
 										window.cartSize[0], window.cartSize[1]));
-				jackgame.setCurrentPlayer(new Player(false, "Detective"));
+				Game.setCurrentPlayer(new Player(false, "Detective"));
 				window.information
 						.setText(jackgame.getCurrentPlayer().toString() + "  it's your time to pick a action");
 				Game.gameTurnInitialize(jackgame, window);
@@ -104,7 +96,7 @@ public class NewJLabel extends JLabel {
 		}
 		
 		// called if we click on a action token
-		if (label.getMatrice_position()[0] == 1 && jackgame.getTurnCount() > 0 && window.actionPlaying == false) {
+		if (label.getMatrice_position()[0] == 1 && Game.getTurnCount() > 0 && window.actionPlaying == false) {
 			if (jackgame.getActionTokenList().get(label.getMatrice_position()[1]).hasBeenPlayed() == false) {
 
 				String greyImage = new StringBuilder(label.getPath()).reverse().toString();
