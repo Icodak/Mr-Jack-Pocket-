@@ -9,7 +9,13 @@ import javax.swing.JPanel;
 
 import board.detective.DetectiveName;
 
+
+
+
 public class VariableWarehouse {
+	
+	
+	//storage for values
 	public JFrame frame;
 	public NewJLabel[] liste3=new NewJLabel[9];
 	public JPanel[] liste2=new JPanel[6];

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 public class RotateImage {
-	
+	//rotate a image
 	static ImageIcon rotateImage(ImageIcon icon,double d) {	
 		
 		Image image1 = icon.getImage();
