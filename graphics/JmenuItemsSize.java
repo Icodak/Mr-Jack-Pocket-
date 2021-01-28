@@ -9,8 +9,7 @@ public class JmenuItemsSize extends JMenuItem {
 	private static final long serialVersionUID = 1L;
 	
 	
-	
-	
+
 	
 	public int getStringTextSize() {
 		return StringTextSize;
