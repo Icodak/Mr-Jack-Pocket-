@@ -4,13 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import graphics.NewGraphicalWindow;
 import program.Game;
 
 class TestGame {
 
 	@Test
 	void test() throws JsonProcessingException {
-		Game.launchGame();
+		NewGraphicalWindow window = new NewGraphicalWindow();
+		window.MainWindow();
 	}
 
 }

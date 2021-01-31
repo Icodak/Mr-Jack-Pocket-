@@ -1,0 +1,193 @@
+{
+    "board": {
+        "board": [[{
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                  "detectiveList": ["SHERLOCK"]
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }
+            ], [{
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "District",
+                    "character": "INSPECTOR_LESTRADE",
+                    "orientation": "SOUTH",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "District",
+                    "character": "JEREMY_BERT",
+                    "orientation": "SOUTH",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "District",
+                    "character": "JOHN_PIZER",
+                    "orientation": "EAST",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }
+            ], [{
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "District",
+                    "character": "JOHN_SMITH",
+                    "orientation": "EAST",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "District",
+                    "character": "JOSEPH_LANE",
+                    "orientation": "NORTH",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "District",
+                    "character": "MADAME",
+                    "orientation": "SOUTH",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": ["TOBBY"]
+                }
+            ], [{
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "District",
+                    "character": "MISS_STENTHY",
+                    "orientation": "SOUTH",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "District",
+                    "character": "SERGENT_GOODLEY",
+                    "orientation": "SOUTH",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "District",
+                    "character": "WILLIAM_GULL",
+                    "orientation": "EAST",
+                    "walls": [false, false, true, false],
+                    "districtType": "T_SHAPE",
+					"districtBType": "T_SHAPE",
+                    "recto": true
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }
+            ], [{
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": ["WATSON"]
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }, {
+                    "type": "DetectiveToken",
+                    "detectiveList": []
+                }
+            ]]
+    },
+    "cardDeck": [{
+            "character": "WILLIAM_GULL",
+            "hourglass": 1
+        }, {
+            "character": "JOHN_SMITH",
+            "hourglass": 1
+        }, {
+            "character": "JOSEPH_LANE",
+            "hourglass": 1
+        }, {
+            "character": "SERGENT_GOODLEY",
+            "hourglass": 0
+        }, {
+            "character": "JOHN_PIZER",
+            "hourglass": 1
+        }, {
+            "character": "JEREMY_BERT",
+            "hourglass": 1
+        }, {
+            "character": "INSPECTOR_LESTRADE",
+            "hourglass": 0
+        }, {
+            "character": "MADAME",
+            "hourglass": 2
+        }, {
+            "character": "MISS_STENTHY",
+            "hourglass": 1
+        }
+    ],
+  "actionTokenList": [
+    {
+      "action1": "ROTATE_DISTRICT",
+      "action2": "ROTATE_DISTRICT",
+      "hasBeenPlayed": false,
+      "action1Detective": "SHERLOCK",
+      "action2Detective": null,
+      "recto": true
+    },
+    {
+      "action1": "ROTATE_DISTRICT",
+      "action2": "ROTATE_DISTRICT",
+      "hasBeenPlayed": false,
+      "action1Detective": "WATSON",
+      "action2Detective": "TOBBY",
+      "recto": true
+    },
+    {
+      "action1": "ROTATE_DISTRICT",
+      "action2": "ROTATE_DISTRICT",
+      "hasBeenPlayed": false,
+      "action1Detective": null,
+      "action2Detective": null,
+      "recto": true
+    },
+    {
+      "action1": "ROTATE_DISTRICT",
+      "action2": "ROTATE_DISTRICT",
+      "hasBeenPlayed": false,
+      "action1Detective": null,
+      "action2Detective": null,
+      "recto": true
+    }
+  ]
+}

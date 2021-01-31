@@ -5,20 +5,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-
 import board.detective.DetectiveName;
 import board.district.Orientation;
 import items.Actions;
 
 public class InputListener {
-
+	// Temporary class to get info from console
 	static Scanner sc = new Scanner(System.in);
-	
+
 	public void close() {
+		// Close the scanner
 		sc.close();
 	}
 
-	
 	public DetectiveName getInputDetective() {
 		System.out.println("Input a detective name:");
 		String stringDetective = sc.next();
@@ -29,18 +28,16 @@ public class InputListener {
 			}
 		}
 		if (isValidInput) {
-			System.out.println("ok!");
 			return DetectiveName.valueOf((stringDetective.toUpperCase()));
 		} else {
 			System.out.println("invalid name defaulted to SHERLOCK");
 			return DetectiveName.SHERLOCK;
 		}
 	}
-	
-	
-	public Actions getAction() {
-		System.out.println("Input an action name:");
-		String stringAction = sc.next();
+
+	public Actions getAction(String actionName) {
+		//System.out.println("Input an action name:");
+		String stringAction = actionName;
 		boolean isValidInput = false;
 		for (Actions c : Actions.values()) {
 			if (c.name().equalsIgnoreCase(stringAction)) {
@@ -48,16 +45,13 @@ public class InputListener {
 			}
 		}
 		if (isValidInput) {
-			System.out.println("ok!");
 			return Actions.valueOf((stringAction.toUpperCase()));
 		} else {
 			System.out.println("invalid name type again");
 			return null;
 		}
-
 	}
-	
-	
+
 	public void showJack() {
 		System.out.println("Enter anything to reveal jack");
 		try {
@@ -66,8 +60,7 @@ public class InputListener {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public void hideJack() {
 		System.out.println("Enter anything to hide jack");
 		try {
@@ -77,7 +70,6 @@ public class InputListener {
 		}
 		System.out.println("\n\n\n\n\n\n\n\n\n");
 	}
-	
 
 	public Orientation getInputOrientation() {
 		System.out.println("Input an orientation:");
@@ -89,15 +81,12 @@ public class InputListener {
 			}
 		}
 		if (isValidInput) {
-			System.out.println("ok!");
 			return Orientation.valueOf((stringOrientation.toUpperCase()));
 		} else {
 			System.out.println("invalid name defaulted to EAST");
 			return Orientation.EAST;
 		}
-
 	}
-
 
 	public int getInputInt() {
 		System.out.println("input an integer :");
@@ -109,7 +98,6 @@ public class InputListener {
 		return -1;
 	}
 
-	
 	public List<Integer> getInputCoord() {
 		System.out.println("Input coordinates");
 		System.out.print("For X value ");

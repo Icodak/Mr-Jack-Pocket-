@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="graphics.PaintJLabel" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/PaintJLabel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="296" y="-2311"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="graphics.MouseListener" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/MouseListener.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="598" y="-2298"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="graphics.NewJLabel" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/NewJLabel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="716" y="-1661"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="graphics.NewGraphicalWindow" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/NewGraphicalWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="355" y="-1655"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="graphics.JmenuItemsSize" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/JmenuItemsSize.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="236" y="-2018"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="graphics.RotateImage" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/RotateImage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="873" y="-2288"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="graphics.SaveFile" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/SaveFile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1184" y="-2311"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="graphics.Main" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="926" y="-2106"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="graphics.Menu" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/Menu.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="600" y="-2095"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="graphics.VariableWarehouse" project="jackpocket_github" 
+    file="/jackpocket_github/graphics/VariableWarehouse.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1107" y="-1774"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="11">    
+    <bendpoint x="905" y="-1823"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="12" name="cardBack">        
+        <position height="18" width="56" x="879" y="-1846"/>      
+      </attribute>      
+      <multiplicity id="13" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="14">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="15" name="matrice">        
+        <position height="18" width="45" x="898" y="-1712"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <bendpoint x="933" y="-1592"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="18" name="liste3">        
+        <position height="18" width="35" x="908" y="-1628"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <bendpoint x="933" y="-1644"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="21" name="listedroit">        
+        <position height="18" width="50" x="881" y="-1797"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <bendpoint x="941" y="-1543"/>    
+    <bendpoint x="892" y="-1537"/>    
+    <bendpoint x="858" y="-1534"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="24" name="listemilieuTwo">        
+        <position height="18" width="76" x="862" y="-1576"/>      
+      </attribute>      
+      <multiplicity id="25" minimum="0" maximum="2147483647">        
+        <position height="16" width="21" x="831" y="-1543"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="26">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="27" name="items">        
+        <position height="18" width="33" x="324" y="-2066"/>      
+      </attribute>      
+      <multiplicity id="28" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <bendpoint x="934" y="-1683"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="30" name="listegauche">        
+        <position height="18" width="65" x="878" y="-1672"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="32">    
+    <bendpoint x="363" y="-1309"/>    
+    <bendpoint x="1100" y="-1312"/>    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <association id="33">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="34" name="itemsTwo">        
+        <position height="18" width="54" x="321" y="-1997"/>      
+      </attribute>      
+      <multiplicity id="35" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <bendpoint x="908" y="-1762"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="37" name="listemilieuThree">        
+        <position height="18" width="83" x="884" y="-1750"/>      
+      </attribute>      
+      <multiplicity id="38" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="40" name="window"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
