@@ -231,7 +231,7 @@ public class NewJLabel extends JLabel {
 			transformCoord(window.coordTwo, 2);
 		}
 		
-		// called if we click on a moveDetective action
+		// called if we click on a joker action
 		if (window.moveJoker && (label.getMatrice_position()[0] == 5 || label.getMatrice_position()[0] == 4)) {
 			String reverseImage = new StringBuilder(
 					label.getPath().substring(System.getProperty("user.dir").length() + 35, label.getPath().length()))
